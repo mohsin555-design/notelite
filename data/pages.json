@@ -1,0 +1,589 @@
+{
+  "pages": [
+    {
+      "id": "page-7e873a73-8e5b-41d2-969d-4d59db4bbfed",
+      "title": "Untitled",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {
+          "viewBackgroundColor": "#ffffff",
+          "scrollX": 0,
+          "scrollY": 0,
+          "zoom": {
+            "value": 1
+          }
+        },
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    },
+    {
+      "id": "page-2e147e69-4b86-4f39-8a9a-4bda00da0ff1",
+      "title": "Untitled",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "orderedList",
+            "attrs": {
+              "start": 1,
+              "type": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "safsdf"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "sdfasdf"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [
+          {
+            "id": "XwWTgBf-S8ge1-jkODnE0",
+            "type": "rectangle",
+            "x": 37.97265625,
+            "y": 108.83984375,
+            "width": 565.7695312500001,
+            "height": 455.86328125,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a0",
+            "roundness": {
+              "type": 3
+            },
+            "seed": 1815810713,
+            "version": 295,
+            "versionNonce": 1825030201,
+            "isDeleted": false,
+            "boundElements": [],
+            "updated": 1777118468436,
+            "link": null,
+            "locked": false
+          },
+          {
+            "id": "J_NLl1yz92BE_818TS-gO",
+            "type": "freedraw",
+            "x": 328.29296875,
+            "y": 187.328125,
+            "width": 129.9140625,
+            "height": 112.2578125,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a1",
+            "roundness": null,
+            "seed": 715420183,
+            "version": 26,
+            "versionNonce": 818863287,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777118945060,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                -22.921875,
+                9.9375
+              ],
+              [
+                -49.203125,
+                26.17578125
+              ],
+              [
+                -60.6875,
+                41.69921875
+              ],
+              [
+                -65.54296875,
+                59.5078125
+              ],
+              [
+                -65.54296875,
+                75.31640625
+              ],
+              [
+                -56.61328125,
+                93.56640625
+              ],
+              [
+                -32.5390625,
+                105.62890625
+              ],
+              [
+                -15.73046875,
+                110.4453125
+              ],
+              [
+                14.9921875,
+                110.4453125
+              ],
+              [
+                56.296875,
+                92.0078125
+              ],
+              [
+                63.671875,
+                82.41015625
+              ],
+              [
+                64.37109375,
+                72.60546875
+              ],
+              [
+                62.26953125,
+                61.796875
+              ],
+              [
+                54.359375,
+                47.5625
+              ],
+              [
+                41.1640625,
+                31.875
+              ],
+              [
+                27.0234375,
+                16.03515625
+              ],
+              [
+                11.63671875,
+                6.31640625
+              ],
+              [
+                -1.17578125,
+                0.29296875
+              ],
+              [
+                -10.98046875,
+                -1.8125
+              ],
+              [
+                -14.5,
+                -1.8125
+              ],
+              [
+                -15.1171875,
+                -1.40625
+              ],
+              [
+                -15.41796875,
+                -0.51171875
+              ],
+              [
+                -15.41796875,
+                0.09765625
+              ],
+              [
+                -15.41796875,
+                0.09765625
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              -15.41796875,
+              0.09765625
+            ]
+          },
+          {
+            "id": "AvQ3Vqd930_nxi7nITe-t",
+            "type": "freedraw",
+            "x": 479.73046875,
+            "y": 232.91796875,
+            "width": 42.82421875,
+            "height": 63.7890625,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a2",
+            "roundness": null,
+            "seed": 1164148505,
+            "version": 60,
+            "versionNonce": 1616756087,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777118952531,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                0.89453125,
+                0.59765625
+              ],
+              [
+                4.8515625,
+                7.6953125
+              ],
+              [
+                8.19921875,
+                16.4921875
+              ],
+              [
+                10.15234375,
+                21.5859375
+              ],
+              [
+                10.65234375,
+                22.68359375
+              ],
+              [
+                10.85546875,
+                22.88671875
+              ],
+              [
+                11.26171875,
+                22.4765625
+              ],
+              [
+                11.66796875,
+                22.06640625
+              ],
+              [
+                14.95703125,
+                13.63671875
+              ],
+              [
+                18.64453125,
+                6.83203125
+              ],
+              [
+                25.09375,
+                -2.578125
+              ],
+              [
+                31.109375,
+                -15.390625
+              ],
+              [
+                36.48046875,
+                -29.203125
+              ],
+              [
+                40.5859375,
+                -37.2734375
+              ],
+              [
+                42.52734375,
+                -40.00390625
+              ],
+              [
+                42.82421875,
+                -40.90234375
+              ],
+              [
+                42.82421875,
+                -40.90234375
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              42.82421875,
+              -40.90234375
+            ]
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff",
+          "scrollX": 0,
+          "scrollY": 0,
+          "zoom": {
+            "value": 1
+          }
+        },
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    },
+    {
+      "id": "folder-10407b36-19bf-4600-929f-61750633e376",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    },
+    {
+      "id": "folder-c9d74e04-20f2-47b3-bab1-3df497b6dd22",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    },
+    {
+      "id": "welcome",
+      "title": "Welcome to Notelite",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "orderedList",
+            "attrs": {
+              "start": 1,
+              "type": null
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "A block editor with TipTap"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Use headings, bullet lists, numbered lists, folders, and the canvas tab.asdfsdf"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    },
+    {
+      "id": "projects",
+      "title": "Projects",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": []
+    }
+  ],
+  "databases": [
+    {
+      "id": "tasks-db",
+      "title": "Tasks",
+      "parentId": null,
+      "defaultViewId": "tasks-table",
+      "properties": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "title"
+        },
+        {
+          "id": "status",
+          "name": "Status",
+          "type": "status",
+          "options": [
+            "Not started",
+            "In progress",
+            "Done"
+          ]
+        },
+        {
+          "id": "tags",
+          "name": "Tags",
+          "type": "tags",
+          "options": [
+            "UX",
+            "Editor",
+            "PWA"
+          ]
+        },
+        {
+          "id": "due",
+          "name": "Due",
+          "type": "date"
+        },
+        {
+          "id": "done",
+          "name": "Done",
+          "type": "checkbox"
+        },
+        {
+          "id": "effort",
+          "name": "Effort",
+          "type": "number"
+        }
+      ],
+      "rows": [
+        {
+          "id": "row-design",
+          "pageId": "task-design",
+          "properties": {
+            "title": "Design database UI",
+            "status": "In progress",
+            "tags": [
+              "UX",
+              "Editor"
+            ],
+            "due": "2026-04-30",
+            "done": false,
+            "effort": 5
+          }
+        },
+        {
+          "id": "row-pwa",
+          "pageId": "task-pwa",
+          "properties": {
+            "title": "Ship installable PWA",
+            "status": "Done",
+            "tags": [
+              "PWA"
+            ],
+            "due": "2026-04-26",
+            "done": true,
+            "effort": 2
+          }
+        }
+      ],
+      "views": [
+        {
+          "id": "tasks-table",
+          "name": "Table",
+          "type": "table",
+          "sort": {
+            "propertyId": "due",
+            "direction": "asc"
+          }
+        },
+        {
+          "id": "tasks-list",
+          "name": "List",
+          "type": "list"
+        },
+        {
+          "id": "tasks-board",
+          "name": "Board",
+          "type": "board",
+          "groupBy": "status"
+        },
+        {
+          "id": "tasks-calendar",
+          "name": "Calendar",
+          "type": "calendar",
+          "groupBy": "due"
+        },
+        {
+          "id": "tasks-gallery",
+          "name": "Gallery",
+          "type": "gallery"
+        }
+      ]
+    }
+  ]
+}

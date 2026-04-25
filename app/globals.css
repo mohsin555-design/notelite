@@ -7,8 +7,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -49,6 +49,9 @@
 }
 
 :root {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -121,10 +124,115 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    font-family: var(--font-sans);
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
   }
-  html {
-    @apply font-sans;
+  button,
+  input,
+  textarea,
+  select,
+  [contenteditable="true"] {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .notelite-prose {
+    @apply text-[15px] leading-7 text-foreground;
+  }
+
+  .notelite-prose p {
+    @apply my-1 min-h-7;
+  }
+
+  .notelite-prose h1 {
+    @apply mb-3 mt-6 text-3xl font-bold tracking-tight;
+  }
+
+  .notelite-prose h2 {
+    @apply mb-2 mt-5 text-2xl font-semibold tracking-tight;
+  }
+
+  .notelite-prose h3 {
+    @apply mb-2 mt-4 text-xl font-semibold tracking-tight;
+  }
+
+  .notelite-prose ul,
+  .notelite-prose ol {
+    @apply my-2 pl-6;
+  }
+
+  .notelite-prose ul {
+    @apply list-disc;
+  }
+
+  .notelite-prose ol {
+    @apply list-decimal;
+  }
+
+  .notelite-prose li {
+    @apply my-1;
+  }
+
+  .notelite-prose blockquote {
+    @apply my-4 border-l-4 pl-4 text-muted-foreground;
+  }
+
+  .notelite-prose pre {
+    @apply my-4 overflow-x-auto rounded-lg bg-muted p-4 font-mono text-sm;
+  }
+
+  .notelite-prose code {
+    @apply rounded bg-muted px-1 py-0.5 font-mono text-sm;
+  }
+
+  .notelite-prose pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .notelite-prose hr {
+    @apply my-6 border-border;
+  }
+
+  .notelite-prose img {
+    @apply my-4 max-w-full rounded-lg border;
+  }
+
+  .notelite-prose ul[data-type="taskList"] {
+    @apply list-none pl-0;
+  }
+
+  .notelite-prose li[data-type="taskItem"] {
+    @apply flex gap-2;
+  }
+
+  .notelite-prose li[data-type="taskItem"] > label {
+    @apply mt-1;
+  }
+
+  .notelite-prose table {
+    @apply my-4 w-full border-collapse overflow-hidden rounded-lg text-sm;
+  }
+
+  .notelite-prose th,
+  .notelite-prose td {
+    @apply min-w-24 border px-3 py-2 align-top;
+  }
+
+  .notelite-prose th {
+    @apply bg-muted font-semibold;
+  }
+
+  .notelite-prose .ProseMirror-selectednode {
+    @apply outline outline-2 outline-ring;
+  }
+
+  .notelite-prose p.is-editor-empty:first-child::before {
+    @apply pointer-events-none float-left h-0 text-muted-foreground;
+    content: "Start typing...";
   }
 }

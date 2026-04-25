@@ -2,12 +2,27 @@
   "name": "notelite",
   "version": "0.1.0",
   "private": true,
- "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start"
-},
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@excalidraw/excalidraw": "^0.18.1",
+    "@tiptap/extension-image": "^3.22.4",
+    "@tiptap/extension-link": "^3.22.4",
+    "@tiptap/extension-table": "^3.22.4",
+    "@tiptap/extension-table-cell": "^3.22.4",
+    "@tiptap/extension-table-header": "^3.22.4",
+    "@tiptap/extension-table-row": "^3.22.4",
+    "@tiptap/extension-task-item": "^3.22.4",
+    "@tiptap/extension-task-list": "^3.22.4",
+    "@tiptap/react": "^3.22.4",
+    "@tiptap/starter-kit": "^3.22.4",
+    "better-sqlite3": "^12.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.11.0",

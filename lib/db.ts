@@ -1,8 +1,14 @@
-import mysql from "mysql2/promise";
+import Database from "better-sqlite3";
 
-export const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "notelite_clone",
-});
+const db = new Database("notes.db");
+
+// Create table if not exists
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS notes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    content TEXT
+  )
+`).run();
+
+export default db;
