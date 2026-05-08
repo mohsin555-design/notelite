@@ -20,6 +20,7 @@ import type {
   DatabaseView,
   DatabaseViewType,
   Page,
+  Workspace,
   WorkspaceData,
 } from "@/lib/notion-types";
 
@@ -167,8 +168,13 @@ const initialDatabases: Database[] = [
 type NotionStore = {
   pages: Page[];
   databases: Database[];
+  workspaces: Workspace[];
+  activeWorkspace: Workspace | null;
+  activeWorkspaceId: string;
   isLoaded: boolean;
   saveStatus: "idle" | "saving" | "saved" | "error";
+  createWorkspace: (name?: string) => Workspace;
+  switchWorkspace: (workspaceId: string) => void;
   createPage: (parentId?: string | null, title?: string) => Page;
   createFolder: (parentId?: string | null) => Page;
   createDatabase: (parentId?: string | null, title?: string) => Database;
@@ -277,14 +283,64 @@ function createDefaultDatabase(parentId: string | null = null, title = "New Data
   };
 }
 
-function normalizeWorkspace(data: WorkspaceData): WorkspaceData {
-  const pages = (data.pages?.length ? data.pages : initialPages).map((page) => ({
+function createWorkspaceInitials(name: string) {
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+
+  return initials || "WS";
+}
+
+function createStarterPages(workspaceName: string): Page[] {
+  return [
+    {
+      ...createUntitledPage(createId("page"), null, "Welcome"),
+      content: {
+        type: "doc",
+        content: [
+          {
+            type: "heading",
+            attrs: { level: 2 },
+            content: [{ type: "text", text: workspaceName }],
+          },
+          {
+            type: "paragraph",
+            content: [{ type: "text", text: "Start writing, add pages, or create folders from the sidebar." }],
+          },
+        ],
+      },
+    },
+  ];
+}
+
+function createWorkspaceRecord(
+  name = "New workspace",
+  pages: Page[] = createStarterPages(name),
+  databases: Database[] = [],
+  id = createId("workspace"),
+): Workspace {
+  return {
+    id,
+    name,
+    initials: createWorkspaceInitials(name),
+    pages,
+    databases,
+  };
+}
+
+function normalizePages(pages: Page[]): Page[] {
+  return pages.map((page) => ({
     ...page,
     inlineDatabaseIds: page.inlineDatabaseIds ?? [],
     folderColor: page.type === "folder" ? page.folderColor ?? "amber" : page.folderColor,
     isFavorite: page.isFavorite ?? false,
   }));
+}
 
+function normalizeDatabases(databases: Database[], pages: Page[]): Database[] {
   const inlineDatabaseParents = new Map<string, string>();
   for (const page of pages) {
     for (const databaseId of page.inlineDatabaseIds ?? []) {
@@ -292,20 +348,70 @@ function normalizeWorkspace(data: WorkspaceData): WorkspaceData {
     }
   }
 
+  return databases.map((database) => ({
+    ...database,
+    parentId: database.parentId ?? inlineDatabaseParents.get(database.id) ?? null,
+  }));
+}
+
+function normalizeWorkspaceRecord(workspace: Workspace): Workspace {
+  const pages = normalizePages(workspace.pages?.length ? workspace.pages : createStarterPages(workspace.name));
   return {
+    ...workspace,
+    name: workspace.name?.trim() || "Untitled workspace",
+    initials: workspace.initials || createWorkspaceInitials(workspace.name),
     pages,
-    databases: (data.databases?.length ? data.databases : initialDatabases).map((database) => ({
-      ...database,
-      parentId: database.parentId ?? inlineDatabaseParents.get(database.id) ?? null,
-    })),
+    databases: normalizeDatabases(workspace.databases ?? [], pages),
+  };
+}
+
+function syncActiveWorkspace(
+  workspaces: Workspace[],
+  activeWorkspaceId: string,
+  pages: Page[],
+  databases: Database[],
+) {
+  return workspaces.map((workspace) =>
+    workspace.id === activeWorkspaceId
+      ? { ...workspace, pages, databases }
+      : workspace,
+  );
+}
+
+function normalizeWorkspace(data: WorkspaceData): WorkspaceData {
+  const legacyPages = normalizePages(data.pages?.length ? data.pages : initialPages);
+  const legacyDatabases = normalizeDatabases(
+    data.databases?.length ? data.databases : initialDatabases,
+    legacyPages,
+  );
+  const workspaces = data.workspaces?.length
+    ? data.workspaces.map(normalizeWorkspaceRecord)
+    : [createWorkspaceRecord("My workspace", legacyPages, legacyDatabases, "workspace-main")];
+  const activeWorkspaceId = workspaces.some((workspace) => workspace.id === data.activeWorkspaceId)
+    ? data.activeWorkspaceId!
+    : workspaces[0].id;
+  const activeWorkspace = workspaces.find((workspace) => workspace.id === activeWorkspaceId) ?? workspaces[0];
+
+  return {
+    pages: activeWorkspace.pages,
+    databases: activeWorkspace.databases,
+    workspaces,
+    activeWorkspaceId,
   };
 }
 
 export function NotionStoreProvider({ children }: { children: ReactNode }) {
+  const defaultWorkspace = createWorkspaceRecord("My workspace", initialPages, initialDatabases, "workspace-main");
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([defaultWorkspace]);
+  const [activeWorkspaceId, setActiveWorkspaceId] = useState(defaultWorkspace.id);
   const [pages, setPages] = useState<Page[]>(initialPages);
   const [databases, setDatabases] = useState<Database[]>(initialDatabases);
   const [isLoaded, setIsLoaded] = useState(false);
   const [saveStatus, setSaveStatus] = useState<NotionStore["saveStatus"]>("idle");
+  const activeWorkspace = useMemo(
+    () => workspaces.find((workspace) => workspace.id === activeWorkspaceId) ?? null,
+    [activeWorkspaceId, workspaces],
+  );
 
   useEffect(() => {
     let isActive = true;
@@ -319,6 +425,8 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
 
         const data = normalizeWorkspace((await response.json()) as WorkspaceData);
         if (isActive) {
+          setWorkspaces(data.workspaces ?? []);
+          setActiveWorkspaceId(data.activeWorkspaceId ?? data.workspaces?.[0]?.id ?? defaultWorkspace.id);
           setPages(data.pages);
           setDatabases(data.databases);
         }
@@ -346,12 +454,18 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     const controller = new AbortController();
     const timeout = window.setTimeout(async () => {
       setSaveStatus("saving");
+      const syncedWorkspaces = syncActiveWorkspace(workspaces, activeWorkspaceId, pages, databases);
 
       try {
         const response = await fetch("/api/pages", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ pages, databases }),
+          body: JSON.stringify({
+            pages,
+            databases,
+            workspaces: syncedWorkspaces,
+            activeWorkspaceId,
+          }),
           signal: controller.signal,
         });
 
@@ -371,7 +485,36 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
       controller.abort();
       window.clearTimeout(timeout);
     };
-  }, [databases, isLoaded, pages]);
+  }, [activeWorkspaceId, databases, isLoaded, pages, workspaces]);
+
+  const createWorkspace = useCallback((name = "New workspace") => {
+    const workspace = createWorkspaceRecord(name.trim() || "New workspace");
+    setWorkspaces((currentWorkspaces) => [
+      ...syncActiveWorkspace(currentWorkspaces, activeWorkspaceId, pages, databases),
+      workspace,
+    ]);
+    setActiveWorkspaceId(workspace.id);
+    setPages(workspace.pages);
+    setDatabases(workspace.databases);
+    return workspace;
+  }, [activeWorkspaceId, databases, pages]);
+
+  const switchWorkspace = useCallback((workspaceId: string) => {
+    if (workspaceId === activeWorkspaceId) {
+      return;
+    }
+
+    const syncedWorkspaces = syncActiveWorkspace(workspaces, activeWorkspaceId, pages, databases);
+    const workspace = syncedWorkspaces.find((candidate) => candidate.id === workspaceId);
+    if (!workspace) {
+      return;
+    }
+
+    setWorkspaces(syncedWorkspaces);
+    setActiveWorkspaceId(workspace.id);
+    setPages(workspace.pages);
+    setDatabases(workspace.databases);
+  }, [activeWorkspaceId, databases, pages, workspaces]);
 
   const createPage = useCallback((parentId: string | null = null, title?: string) => {
     const page = createUntitledPage(createId("page"), parentId, title);
@@ -917,8 +1060,13 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     () => ({
       pages,
       databases,
+      workspaces,
+      activeWorkspace,
+      activeWorkspaceId,
       isLoaded,
       saveStatus,
+      createWorkspace,
+      switchWorkspace,
       createPage,
       createFolder,
       createDatabase,
@@ -951,8 +1099,13 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     [
       pages,
       databases,
+      workspaces,
+      activeWorkspace,
+      activeWorkspaceId,
       isLoaded,
       saveStatus,
+      createWorkspace,
+      switchWorkspace,
       createPage,
       createFolder,
       createDatabase,

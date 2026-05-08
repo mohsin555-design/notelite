@@ -88,7 +88,17 @@ export type Database = {
   defaultViewId: string;
 };
 
+export type Workspace = {
+  id: string;
+  name: string;
+  initials: string;
+  pages: Page[];
+  databases: Database[];
+};
+
 export type WorkspaceData = {
   pages: Page[];
   databases: Database[];
+  workspaces?: Workspace[];
+  activeWorkspaceId?: string;
 };

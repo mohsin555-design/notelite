@@ -11,7 +11,12 @@ export async function GET() {
 export async function PUT(request: Request) {
   const workspace = (await request.json()) as WorkspaceData;
 
-  if (!Array.isArray(workspace.pages) || !Array.isArray(workspace.databases)) {
+  const hasLegacyWorkspace =
+    Array.isArray(workspace.pages) && Array.isArray(workspace.databases);
+  const hasWorkspaceList =
+    workspace.workspaces === undefined || Array.isArray(workspace.workspaces);
+
+  if (!hasLegacyWorkspace || !hasWorkspaceList) {
     return Response.json({ error: "Invalid workspace payload" }, { status: 400 });
   }
 

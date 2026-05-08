@@ -2,27 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type MouseEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import {
-  ChevronDown,
-  Grid2X2,
-  LayoutList,
-  MoreHorizontal,
-  Plus,
-  Search,
-  Table2,
-} from "lucide-react";
+import { type MouseEvent, type ReactNode, useEffect, useMemo, useState } from "react";
+import { ChevronDown, Grid2X2, LayoutList, MoreHorizontal, Search, Table2 } from "lucide-react";
 
 import { CanvasIcon, FolderFillIcon, PageIcon } from "@/components/NoteliteIcons";
+import { NewItemMenu } from "@/components/NewItemMenu";
 import { Button } from "@/components/ui/button";
 import { WorkspaceItemContextMenu } from "@/components/FolderContextMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
-import { useClickOutside } from "@/lib/use-click-outside";
 import { cn } from "@/lib/utils";
 
 type LibraryFilter = "all" | "folder" | "pages" | "canvas";
+type LibrarySection = "all" | "recent" | "favorites";
 type LibraryView = "grid" | "list" | "split";
 type ItemMenuState = {
   itemId: string;
@@ -63,51 +56,6 @@ function CountPill({ count }: { count: number }) {
     <span className="rounded-full bg-[#eef1f3] px-1.5 py-0.5 text-xs font-semibold text-[#66707a]">
       {count}
     </span>
-  );
-}
-
-function NewMenu({
-  onCreateFolder,
-  onCreatePage,
-  onCreateCanvas,
-}: {
-  onCreateFolder: () => void;
-  onCreatePage: () => void;
-  onCreateCanvas: () => void;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement | null>(null);
-
-  useClickOutside(menuRef, () => setIsOpen(false), isOpen);
-
-  return (
-    <div ref={menuRef} className="relative">
-      <Button
-        type="button"
-        className="h-8 rounded-md bg-[#1f1f1f] px-3 text-sm text-white hover:bg-black"
-        onClick={() => setIsOpen((open) => !open)}
-      >
-        <Plus className="size-4" />
-        New
-        <ChevronDown className="size-3.5" />
-      </Button>
-      {isOpen ? (
-        <div className="absolute right-0 top-10 z-40 w-36 rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-          <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={() => { onCreateFolder(); setIsOpen(false); }}>
-            <FolderFillIcon className="size-4 text-[#1a1a1a]" />
-            Folder
-          </button>
-          <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={() => { onCreatePage(); setIsOpen(false); }}>
-            <PageIcon className="size-4 text-[#1a1a1a]" />
-            Page
-          </button>
-          <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={() => { onCreateCanvas(); setIsOpen(false); }}>
-            <CanvasIcon className="size-4 text-[#1a1a1a]" />
-            Canvas
-          </button>
-        </div>
-      ) : null}
-    </div>
   );
 }
 
@@ -257,6 +205,7 @@ export function LibraryPage() {
   const router = useRouter();
   const { pages, createFolder, createPage } = useNotionStore();
   const [filter, setFilter] = useState<LibraryFilter>("all");
+  const [section, setSection] = useState<LibrarySection>("all");
   const [view, setView] = useState<LibraryView>("grid");
   const [query, setQuery] = useState("");
   const [itemMenu, setItemMenu] = useState<ItemMenuState>(null);
@@ -267,6 +216,24 @@ export function LibraryPage() {
     [pages],
   );
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(folders[0]?.id ?? null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const nextView = params.get("view");
+    const nextSection = params.get("section");
+
+    if (nextView === "grid" || nextView === "list" || nextView === "split") {
+      setView(nextView);
+    }
+
+    if (nextSection === "recent" || nextSection === "favorites") {
+      setSection(nextSection);
+      setFilter("all");
+      setView("list");
+    } else {
+      setSection("all");
+    }
+  }, []);
 
   useEffect(() => {
     if (!selectedFolderId || !folders.some((folder) => folder.id === selectedFolderId)) {
@@ -280,12 +247,31 @@ export function LibraryPage() {
   const visibleFolders = normalizedQuery ? folders.filter(matches) : folders;
   const visiblePages = normalizedQuery ? pageItems.filter(matches) : pageItems;
   const visibleCanvases = normalizedQuery ? canvasItems.filter(matches) : canvasItems;
+  const visibleRecentItems = (normalizedQuery ? pages.filter(matches) : pages);
+  const visibleFavoriteItems = (normalizedQuery ? pages.filter(matches) : pages).filter((page) => page.isFavorite);
   const selectedFolder = folders.find((folder) => folder.id === selectedFolderId) ?? folders[0];
   const selectedFolderPages = pages.filter((page) => selectedFolder && page.parentId === selectedFolder.id && page.type === "page");
 
   function createAndOpenPage(title: string) {
     const page = createPage(null, title);
     router.push(`/page/${page.id}`);
+  }
+
+  function renderItemRow(item: Page) {
+    if (item.type === "folder") {
+      return <FolderTile key={item.id} folder={item} pages={pages} view="row" onOpenMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })} />;
+    }
+
+    return (
+      <ItemCard
+        key={item.id}
+        item={item}
+        pages={pages}
+        kind={isCanvasPage(item) ? "canvas" : "page"}
+        view="row"
+        onOpenMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
+      />
+    );
   }
 
   function renderGrid() {
@@ -320,6 +306,14 @@ export function LibraryPage() {
   }
 
   function renderList() {
+    if (section === "recent") {
+      return <SectionList label="Recent" items={visibleRecentItems.map(renderItemRow)} />;
+    }
+
+    if (section === "favorites") {
+      return <SectionList label="Favorites" items={visibleFavoriteItems.map(renderItemRow)} />;
+    }
+
     return (
       <div className="space-y-6">
         {(filter === "all" || filter === "pages") ? <SectionList label="Pages" items={visiblePages.map((page) => <ItemCard key={page.id} item={page} pages={pages} kind="page" view="row" onOpenMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })} />)} /> : null}
@@ -383,7 +377,7 @@ export function LibraryPage() {
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in library" className="h-8 w-full rounded-lg border border-[#d0d0d0] bg-white pl-9 pr-3 text-sm outline-none focus:border-[#8e8e93]" />
             </div>
             <div className="flex justify-end gap-2">
-              <NewMenu onCreateFolder={() => createFolder()} onCreatePage={() => createAndOpenPage("New page")} onCreateCanvas={() => createAndOpenPage("New canvas")} />
+              <NewItemMenu onCreateFolder={() => createFolder()} onCreatePage={() => createAndOpenPage("New page")} onCreateCanvas={() => createAndOpenPage("New canvas")} />
               <div className="flex h-8 items-center rounded-md border border-[#d8d8d8] bg-white p-0.5">
                 {[
                   { value: "grid", icon: Grid2X2, label: "Grid" },
@@ -411,11 +405,15 @@ export function LibraryPage() {
                 { value: "pages", label: "Pages", count: pageItems.length },
                 { value: "canvas", label: "Canvas", count: canvasItems.length },
               ].map((tab) => (
-                <button key={tab.value} type="button" onClick={() => setFilter(tab.value as LibraryFilter)} className={cn("flex items-center gap-1.5 text-[#5f6770]", filter === tab.value && "font-semibold text-[#1f1f1f]")}>
+                <button key={tab.value} type="button" onClick={() => { setFilter(tab.value as LibraryFilter); setSection("all"); }} className={cn("flex items-center gap-1.5 text-[#5f6770]", section === "all" && filter === tab.value && "font-semibold text-[#1f1f1f]")}>
                   {tab.label}
                   <CountPill count={tab.count} />
                 </button>
               ))}
+              <button type="button" onClick={() => { setSection("favorites"); setView("list"); setFilter("all"); }} className={cn("flex items-center gap-1.5 text-[#5f6770]", section === "favorites" && "font-semibold text-[#1f1f1f]")}>
+                Favorites
+                <CountPill count={visibleFavoriteItems.length} />
+              </button>
             </nav>
             <button type="button" className="flex items-center gap-1 text-sm font-semibold text-[#1f1f1f]">
               Recent

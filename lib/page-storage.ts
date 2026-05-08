@@ -137,6 +137,8 @@ export async function readWorkspace(): Promise<WorkspaceData> {
   return {
     pages: workspace.pages ?? defaultWorkspace.pages,
     databases: workspace.databases ?? defaultWorkspace.databases,
+    workspaces: workspace.workspaces,
+    activeWorkspaceId: workspace.activeWorkspaceId,
   };
 }
 

@@ -6,6 +6,7 @@ import { Check, ChevronRight, Heart, MoreHorizontal, Plus, Rows2, Search } from 
 import { useRef, useState } from "react";
 
 import { CanvasIcon, FolderFillIcon, PageIcon } from "@/components/NoteliteIcons";
+import { NewItemMenu } from "@/components/NewItemMenu";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotionStore } from "@/lib/notion-store";
@@ -33,18 +34,15 @@ function SearchShortcut() {
 export function HomeDashboard() {
   const router = useRouter();
   const { pages, createPage, createFolder } = useNotionStore();
-  const [isNewOpen, setIsNewOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLayoutOpen, setIsLayoutOpen] = useState(false);
   const [pageLayout, setPageLayout] = useState<"container" | "full">("container");
-  const newMenuRef = useRef<HTMLDivElement | null>(null);
   const moreMenuRef = useRef<HTMLDivElement | null>(null);
 
   const pageItems = pages.filter((page) => page.type === "page");
   const favoriteItems = pages.filter((page) => page.isFavorite);
   const recentPages = pageItems.slice(0, 8);
 
-  useClickOutside(newMenuRef, () => setIsNewOpen(false), isNewOpen);
   useClickOutside(moreMenuRef, () => {
     setIsMoreOpen(false);
     setIsLayoutOpen(false);
@@ -52,18 +50,15 @@ export function HomeDashboard() {
 
   function handleNewPage() {
     const page = createPage(null, "New page");
-    setIsNewOpen(false);
     router.push(`/page/${page.id}`);
   }
 
   function handleNewFolder() {
     createFolder();
-    setIsNewOpen(false);
   }
 
   function handleNewCanvas() {
     const page = createPage(null, "New canvas");
-    setIsNewOpen(false);
     router.push(`/page/${page.id}`);
   }
 
@@ -75,32 +70,11 @@ export function HomeDashboard() {
     <ScrollArea className="h-full">
       <div className="relative flex min-h-screen items-center justify-center px-6 py-12">
         <div className="absolute right-4 top-4 flex items-center gap-2">
-          <div ref={newMenuRef} className="relative">
-            <Button
-              type="button"
-              className="h-8 rounded-md bg-[#1f1f1f] px-3 text-sm text-white hover:bg-black"
-              onClick={() => setIsNewOpen((isOpen) => !isOpen)}
-            >
-              <Plus className="size-4" />
-              New
-            </Button>
-            {isNewOpen ? (
-              <div className="absolute right-0 top-10 z-40 w-36 rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-                <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={handleNewFolder}>
-                  <FolderFillIcon className="size-4 text-[#1a1a1a]" />
-                  Folder
-                </button>
-                <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={handleNewPage}>
-                  <PageIcon className="size-4 text-[#1a1a1a]" />
-                  Page
-                </button>
-                <button type="button" className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]" onClick={handleNewCanvas}>
-                  <CanvasIcon className="size-4 text-[#1a1a1a]" />
-                  Canvas
-                </button>
-              </div>
-            ) : null}
-          </div>
+          <NewItemMenu
+            onCreateFolder={handleNewFolder}
+            onCreatePage={handleNewPage}
+            onCreateCanvas={handleNewCanvas}
+          />
 
           <div ref={moreMenuRef} className="relative">
             <Button
