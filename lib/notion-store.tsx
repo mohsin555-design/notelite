@@ -172,16 +172,27 @@ type NotionStore = {
   createPage: (parentId?: string | null, title?: string) => Page;
   createFolder: (parentId?: string | null) => Page;
   createDatabase: (parentId?: string | null, title?: string) => Database;
+  duplicatePage: (pageId: string) => Page | null;
+  duplicateFolder: (folderId: string) => Page | null;
+  deletePage: (pageId: string) => void;
   ensurePage: (id: string) => void;
   updatePageTitle: (pageId: string, title: string) => void;
+  updatePageFolderColor: (pageId: string, folderColor: string) => void;
+  togglePageFavorite: (pageId: string) => void;
   updatePageContent: (pageId: string, content: Page["content"]) => void;
   updatePageCanvas: (pageId: string, canvas: CanvasData) => void;
   addInlineDatabase: (pageId: string, databaseId?: string) => Database;
   removeInlineDatabase: (pageId: string, databaseId: string) => void;
   movePage: (pageId: string, parentId: string | null, targetId?: string) => void;
+  deleteDatabase: (databaseId: string) => void;
+  duplicateDatabase: (databaseId: string) => Database | null;
+  moveDatabase: (databaseId: string, parentId: string | null) => void;
   updateDatabaseTitle: (databaseId: string, title: string) => void;
   addDatabaseProperty: (databaseId: string, type: DatabasePropertyType) => void;
   updateDatabaseProperty: (databaseId: string, property: DatabaseProperty) => void;
+  deleteDatabaseProperty: (databaseId: string, propertyId: string) => void;
+  duplicateDatabaseProperty: (databaseId: string, propertyId: string) => void;
+  moveDatabaseProperty: (databaseId: string, propertyId: string, direction: "left" | "right") => void;
   addDatabaseRow: (databaseId: string) => { row: DatabaseRow; page: Page };
   updateDatabaseCell: (
     databaseId: string,
@@ -205,6 +216,13 @@ function createId(prefix: string) {
 
 function createEmptyCanvas(): CanvasData {
   return { elements: [], appState: {}, files: {} };
+}
+
+function getDefaultDatabaseValue(property: DatabaseProperty): DatabaseValue {
+  if (property.type === "checkbox") return false;
+  if (property.type === "number") return 0;
+  if (property.type === "multi_select" || property.type === "tags" || property.type === "relation") return [];
+  return "";
 }
 
 function createUntitledPage(
@@ -232,6 +250,7 @@ function createUntitledFolder(parentId: string | null = null): Page {
     content: { type: "doc", content: [] },
     canvas: createEmptyCanvas(),
     inlineDatabaseIds: [],
+    folderColor: "amber",
   };
 }
 
@@ -259,12 +278,26 @@ function createDefaultDatabase(parentId: string | null = null, title = "New Data
 }
 
 function normalizeWorkspace(data: WorkspaceData): WorkspaceData {
+  const pages = (data.pages?.length ? data.pages : initialPages).map((page) => ({
+    ...page,
+    inlineDatabaseIds: page.inlineDatabaseIds ?? [],
+    folderColor: page.type === "folder" ? page.folderColor ?? "amber" : page.folderColor,
+    isFavorite: page.isFavorite ?? false,
+  }));
+
+  const inlineDatabaseParents = new Map<string, string>();
+  for (const page of pages) {
+    for (const databaseId of page.inlineDatabaseIds ?? []) {
+      inlineDatabaseParents.set(databaseId, page.id);
+    }
+  }
+
   return {
-    pages: (data.pages?.length ? data.pages : initialPages).map((page) => ({
-      ...page,
-      inlineDatabaseIds: page.inlineDatabaseIds ?? [],
+    pages,
+    databases: (data.databases?.length ? data.databases : initialDatabases).map((database) => ({
+      ...database,
+      parentId: database.parentId ?? inlineDatabaseParents.get(database.id) ?? null,
     })),
-    databases: data.databases?.length ? data.databases : initialDatabases,
   };
 }
 
@@ -358,6 +391,76 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     return database;
   }, []);
 
+  const duplicatePage = useCallback((pageId: string) => {
+    const source = pages.find((page) => page.id === pageId);
+    if (!source) {
+      return null;
+    }
+
+    const page: Page = {
+      ...source,
+      id: createId(source.type === "folder" ? "folder" : "page"),
+      title: `${source.title || "Untitled"} Copy`,
+      content: JSON.parse(JSON.stringify(source.content)) as Page["content"],
+      canvas: JSON.parse(JSON.stringify(source.canvas)) as CanvasData,
+      inlineDatabaseIds: [...(source.inlineDatabaseIds ?? [])],
+    };
+
+    setPages((currentPages) => [page, ...currentPages]);
+    return page;
+  }, [pages]);
+
+  const duplicateFolder = useCallback((folderId: string) => {
+    const source = pages.find((page) => page.id === folderId && page.type === "folder");
+    if (!source) {
+      return null;
+    }
+
+    const idMap = new Map<string, string>();
+    const collectSubtree = (parentId: string): Page[] =>
+      pages
+        .filter((page) => page.parentId === parentId)
+        .flatMap((page) => [page, ...(page.type === "folder" ? collectSubtree(page.id) : [])]);
+
+    const subtree = [source, ...collectSubtree(source.id)];
+    for (const page of subtree) {
+      idMap.set(page.id, createId(page.type === "folder" ? "folder" : "page"));
+    }
+
+    const copiedPages = subtree.map((page) => ({
+      ...page,
+      id: idMap.get(page.id)!,
+      title: page.id === folderId ? `${page.title || "New Folder"} Copy` : page.title,
+      parentId:
+        page.id === folderId
+          ? page.parentId
+          : page.parentId
+            ? idMap.get(page.parentId) ?? page.parentId
+            : null,
+      content: JSON.parse(JSON.stringify(page.content)) as Page["content"],
+      canvas: JSON.parse(JSON.stringify(page.canvas)) as CanvasData,
+      inlineDatabaseIds: [...(page.inlineDatabaseIds ?? [])],
+      isFavorite: false,
+    }));
+
+    setPages((currentPages) => [...copiedPages, ...currentPages]);
+    return copiedPages[0];
+  }, [pages]);
+
+  const deletePage = useCallback((pageId: string) => {
+    setPages((currentPages) =>
+      currentPages
+        .filter((page) => page.id !== pageId)
+        .map((page) => (page.parentId === pageId ? { ...page, parentId: null } : page)),
+    );
+    setDatabases((currentDatabases) =>
+      currentDatabases.map((database) => ({
+        ...database,
+        rows: database.rows.filter((row) => row.pageId !== pageId),
+      })),
+    );
+  }, []);
+
   const ensurePage = useCallback((id: string) => {
     setPages((currentPages) => {
       if (currentPages.some((page) => page.id === id)) {
@@ -386,6 +489,22 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const updatePageFolderColor = useCallback((pageId: string, folderColor: string) => {
+    setPages((currentPages) =>
+      currentPages.map((page) =>
+        page.id === pageId ? { ...page, folderColor } : page,
+      ),
+    );
+  }, []);
+
+  const togglePageFavorite = useCallback((pageId: string) => {
+    setPages((currentPages) =>
+      currentPages.map((page) =>
+        page.id === pageId ? { ...page, isFavorite: !page.isFavorite } : page,
+      ),
+    );
+  }, []);
+
   const updatePageContent = useCallback((pageId: string, content: Page["content"]) => {
     setPages((currentPages) =>
       currentPages.map((page) =>
@@ -407,8 +526,14 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
       ? databases.find((candidate) => candidate.id === databaseId)
       : undefined;
     if (!database) {
-      database = createDefaultDatabase(null, "Inline Database");
+      database = createDefaultDatabase(pageId, "Inline Database");
       setDatabases((currentDatabases) => [database!, ...currentDatabases]);
+    } else {
+      setDatabases((currentDatabases) =>
+        currentDatabases.map((candidate) =>
+          candidate.id === database!.id ? { ...candidate, parentId: pageId } : candidate,
+        ),
+      );
     }
 
     setPages((currentPages) =>
@@ -490,6 +615,85 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const deleteDatabase = useCallback((databaseId: string) => {
+    setDatabases((currentDatabases) =>
+      currentDatabases.filter((database) => database.id !== databaseId),
+    );
+    setPages((currentPages) =>
+      currentPages.map((page) => ({
+        ...page,
+        inlineDatabaseIds: (page.inlineDatabaseIds ?? []).filter((id) => id !== databaseId),
+      })),
+    );
+  }, []);
+
+  const duplicateDatabase = useCallback((databaseId: string) => {
+    const source = databases.find((database) => database.id === databaseId);
+    if (!source) {
+      return null;
+    }
+
+    const propertyIdMap = new Map<string, string>();
+    const viewIdMap = new Map<string, string>();
+
+    const properties = source.properties.map((property) => {
+      const id = property.id === "title" ? "title" : createId("prop");
+      propertyIdMap.set(property.id, id);
+      return { ...property, id };
+    });
+
+    const views = source.views.map((view) => {
+      const id = createId("view");
+      viewIdMap.set(view.id, id);
+      return {
+        ...view,
+        id,
+        filter: view.filter
+          ? { ...view.filter, propertyId: propertyIdMap.get(view.filter.propertyId) ?? view.filter.propertyId }
+          : undefined,
+        sort: view.sort
+          ? { ...view.sort, propertyId: propertyIdMap.get(view.sort.propertyId) ?? view.sort.propertyId }
+          : undefined,
+        groupBy: view.groupBy ? propertyIdMap.get(view.groupBy) ?? view.groupBy : undefined,
+      };
+    });
+
+    const rows = source.rows.map((row) => {
+      const id = createId("row");
+      return {
+        ...row,
+        id,
+        properties: Object.fromEntries(
+          Object.entries(row.properties).map(([propertyId, value]) => [
+            propertyIdMap.get(propertyId) ?? propertyId,
+            value,
+          ]),
+        ),
+      };
+    });
+
+    const database: Database = {
+      ...source,
+      id: createId("db"),
+      title: `${source.title} Copy`,
+      properties,
+      rows,
+      views,
+      defaultViewId: viewIdMap.get(source.defaultViewId) ?? views[0]?.id ?? createId("view"),
+    };
+
+    setDatabases((currentDatabases) => [database, ...currentDatabases]);
+    return database;
+  }, [databases]);
+
+  const moveDatabase = useCallback((databaseId: string, parentId: string | null) => {
+    setDatabases((currentDatabases) =>
+      currentDatabases.map((database) =>
+        database.id === databaseId ? { ...database, parentId } : database,
+      ),
+    );
+  }, []);
+
   const addDatabaseProperty = useCallback((databaseId: string, type: DatabasePropertyType) => {
     const property: DatabaseProperty = {
       id: createId("prop"),
@@ -528,6 +732,94 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
             }
           : database,
       ),
+    );
+  }, []);
+
+  const deleteDatabaseProperty = useCallback((databaseId: string, propertyId: string) => {
+    if (propertyId === "title") {
+      return;
+    }
+
+    setDatabases((currentDatabases) =>
+      currentDatabases.map((database) => {
+        if (database.id !== databaseId) {
+          return database;
+        }
+
+        return {
+          ...database,
+          properties: database.properties.filter((property) => property.id !== propertyId),
+          rows: database.rows.map((row) => {
+            const { [propertyId]: _removed, ...properties } = row.properties;
+            return { ...row, properties };
+          }),
+          views: database.views.map((view) => ({
+            ...view,
+            filter: view.filter?.propertyId === propertyId ? undefined : view.filter,
+            sort: view.sort?.propertyId === propertyId ? undefined : view.sort,
+            groupBy: view.groupBy === propertyId ? undefined : view.groupBy,
+          })),
+        };
+      }),
+    );
+  }, []);
+
+  const duplicateDatabaseProperty = useCallback((databaseId: string, propertyId: string) => {
+    setDatabases((currentDatabases) =>
+      currentDatabases.map((database) => {
+        if (database.id !== databaseId) {
+          return database;
+        }
+
+        const property = database.properties.find((candidate) => candidate.id === propertyId);
+        if (!property || property.type === "title") {
+          return database;
+        }
+
+        const copiedProperty = {
+          ...property,
+          id: createId("prop"),
+          name: `${property.name} Copy`,
+        };
+
+        return {
+          ...database,
+          properties: [...database.properties, copiedProperty],
+          rows: database.rows.map((row) => ({
+            ...row,
+            properties: {
+              ...row.properties,
+              [copiedProperty.id]: row.properties[property.id] ?? getDefaultDatabaseValue(property),
+            },
+          })),
+        };
+      }),
+    );
+  }, []);
+
+  const moveDatabaseProperty = useCallback((
+    databaseId: string,
+    propertyId: string,
+    direction: "left" | "right",
+  ) => {
+    setDatabases((currentDatabases) =>
+      currentDatabases.map((database) => {
+        if (database.id !== databaseId) {
+          return database;
+        }
+
+        const fromIndex = database.properties.findIndex((property) => property.id === propertyId);
+        const toIndex = direction === "left" ? fromIndex - 1 : fromIndex + 1;
+
+        if (fromIndex <= 0 || toIndex < 0 || toIndex >= database.properties.length) {
+          return database;
+        }
+
+        const properties = [...database.properties];
+        const [property] = properties.splice(fromIndex, 1);
+        properties.splice(toIndex, 0, property);
+        return { ...database, properties };
+      }),
     );
   }, []);
 
@@ -630,16 +922,27 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
       createPage,
       createFolder,
       createDatabase,
+      duplicatePage,
+      duplicateFolder,
+      deletePage,
       ensurePage,
       updatePageTitle,
+      updatePageFolderColor,
+      togglePageFavorite,
       updatePageContent,
       updatePageCanvas,
       addInlineDatabase,
       removeInlineDatabase,
       movePage,
+      deleteDatabase,
+      duplicateDatabase,
+      moveDatabase,
       updateDatabaseTitle,
       addDatabaseProperty,
       updateDatabaseProperty,
+      deleteDatabaseProperty,
+      duplicateDatabaseProperty,
+      moveDatabaseProperty,
       addDatabaseRow,
       updateDatabaseCell,
       updateDatabaseView,
@@ -653,16 +956,27 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
       createPage,
       createFolder,
       createDatabase,
+      duplicatePage,
+      duplicateFolder,
+      deletePage,
       ensurePage,
       updatePageTitle,
+      updatePageFolderColor,
+      togglePageFavorite,
       updatePageContent,
       updatePageCanvas,
       addInlineDatabase,
       removeInlineDatabase,
       movePage,
+      deleteDatabase,
+      duplicateDatabase,
+      moveDatabase,
       updateDatabaseTitle,
       addDatabaseProperty,
       updateDatabaseProperty,
+      deleteDatabaseProperty,
+      duplicateDatabaseProperty,
+      moveDatabaseProperty,
       addDatabaseRow,
       updateDatabaseCell,
       updateDatabaseView,

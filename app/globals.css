@@ -49,6 +49,8 @@
 }
 
 :root {
+  --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
@@ -137,6 +139,19 @@
   select,
   [contenteditable="true"] {
     font: inherit;
+  }
+
+  a[href],
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  select {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
   }
 }
 
@@ -234,5 +249,139 @@
   .notelite-prose p.is-editor-empty:first-child::before {
     @apply pointer-events-none float-left h-0 text-muted-foreground;
     content: "Start typing...";
+  }
+
+  .notelite-folder-card {
+    position: relative;
+    display: block;
+    width: 181px;
+    height: 185px;
+    padding-left: 16px;
+    color: #1a1a1a;
+  }
+
+  .notelite-folder-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 32px;
+    height: 185px;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23F7F7F7' stroke='%23D9D9D9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+  }
+
+  .notelite-folder-card__container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 165px;
+    height: 185px;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 18px 12px;
+  }
+
+  .notelite-folder-card[data-folder-color="green"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23d5f8dd' stroke='%2313b65f'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="green"] .notelite-folder-card__container {
+    border-color: #13b65f;
+    background: #d5f8dd;
+  }
+
+  .notelite-folder-card[data-folder-color="red"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23ffd0d0' stroke='%23ff2626'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="red"] .notelite-folder-card__container {
+    border-color: #ff2626;
+    background: #ffd0d0;
+  }
+
+  .notelite-folder-card[data-folder-color="orange"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23ffe4cf' stroke='%23e57f35'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="orange"] .notelite-folder-card__container {
+    border-color: #e57f35;
+    background: #ffe4cf;
+  }
+
+  .notelite-folder-card__meta {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .notelite-folder-card__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #1a1a1a;
+  }
+
+  .notelite-folder-card__count {
+    font-size: 12px;
+    line-height: 16px;
+    color: #727272;
+  }
+
+  .notelite-folder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 181px);
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+
+  .notelite-folder-mini {
+    position: relative;
+    background: #f7f7f7;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    width: 18px;
+    height: 14px;
+  }
+
+  .notelite-folder-mini::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: -4px;
+    width: 8px;
+    height: 5px;
+    border: 1px solid #d9d9d9;
+    border-bottom: 0;
+    border-radius: 3px 3px 0 0;
+    background: #f7f7f7;
+  }
+
+  .notelite-folder-mini[data-folder-color="green"],
+  .notelite-folder-mini[data-folder-color="green"]::before {
+    background: #62b947;
+    border-color: #387d2c;
+  }
+
+  .notelite-folder-mini[data-folder-color="red"],
+  .notelite-folder-mini[data-folder-color="red"]::before {
+    background: #e95750;
+    border-color: #a73531;
+  }
+
+  .notelite-folder-mini[data-folder-color="orange"],
+  .notelite-folder-mini[data-folder-color="orange"]::before {
+    background: #e57f35;
+    border-color: #a65325;
   }
 }

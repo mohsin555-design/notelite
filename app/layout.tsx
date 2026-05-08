@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import { NotionStoreProvider } from "@/lib/notion-store";
 import { RegisterServiceWorker } from "@/components/RegisterServiceWorker";
 import "@excalidraw/excalidraw/index.css";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Notelite",
@@ -32,10 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <NotionStoreProvider>{children}</NotionStoreProvider>
         <RegisterServiceWorker />

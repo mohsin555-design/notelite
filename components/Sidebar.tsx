@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  BookOpen,
   ChevronDown,
   ChevronRight,
-  Database,
-  FileText,
-  Folder,
-  FolderPlus,
+  ChevronsLeft,
   GripVertical,
+  MoreHorizontal,
   Plus,
+  Search,
+  Trash2,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import {
@@ -28,7 +29,9 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+import { FolderLineIcon, PageIcon } from "@/components/NoteliteIcons";
 import { Button } from "@/components/ui/button";
+import { WorkspaceItemContextMenu, getFolderColorClasses } from "@/components/FolderContextMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Page } from "@/lib/notion-types";
 import { cn } from "@/lib/utils";
@@ -38,6 +41,11 @@ type VisibleItem = Page & {
   depth: number;
   childCount: number;
 };
+type ItemMenuState = {
+  itemId: string;
+  x: number;
+  y: number;
+} | null;
 
 function buildVisibleTree(
   pages: Page[],
@@ -68,12 +76,14 @@ function SortableTreeItem({
   isActive,
   isCollapsed,
   onToggleFolder,
+  onOpenItemMenu,
 }: {
   item: VisibleItem;
   href: string;
   isActive: boolean;
   isCollapsed: boolean;
   onToggleFolder: (folderId: string) => void;
+  onOpenItemMenu: (itemId: string, x: number, y: number) => void;
 }) {
   const {
     attributes,
@@ -87,6 +97,14 @@ function SortableTreeItem({
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  function openMenuFromButton(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    onOpenItemMenu(item.id, rect.left, rect.bottom + 6);
+  }
 
   return (
     <div
@@ -106,52 +124,81 @@ function SortableTreeItem({
 
       <div className="min-w-0 flex-1" style={{ paddingLeft: item.depth * 12 }}>
         {item.type === "folder" ? (
-          <button
-            type="button"
-            onClick={() => onToggleFolder(item.id)}
+          <div
+            onContextMenu={(event) => {
+              event.preventDefault();
+              onOpenItemMenu(item.id, event.clientX, event.clientY);
+            }}
             className={cn(
-              "flex h-8 w-full items-center gap-1.5 rounded-lg px-2 text-left text-sm font-medium text-sidebar-foreground hover:bg-muted",
+              "flex h-8 w-full items-center gap-1.5 rounded-lg px-2 text-sm font-medium text-sidebar-foreground hover:bg-muted",
               isActive && "bg-sidebar-accent text-sidebar-accent-foreground",
             )}
           >
-            {isCollapsed ? (
-              <ChevronRight className="size-3.5 text-muted-foreground" />
-            ) : (
-              <ChevronDown className="size-3.5 text-muted-foreground" />
-            )}
-            <Folder className="size-4 text-muted-foreground" />
-            <span className="truncate">{item.title.trim() || "New Folder"}</span>
-            <span className="ml-auto text-xs text-muted-foreground">
-              {item.childCount || ""}
-            </span>
-          </button>
+            <button
+              type="button"
+              onClick={() => onToggleFolder(item.id)}
+              className="flex min-w-0 flex-1 items-center gap-1.5 text-left"
+            >
+              {isCollapsed ? (
+                <ChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
+              ) : (
+                <ChevronDown className="size-3.5 shrink-0 text-muted-foreground" />
+              )}
+              <FolderLineIcon className={cn("size-4 shrink-0", getFolderColorClasses(item.folderColor).icon)} />
+              <span className="truncate">{item.title.trim() || "New Folder"}</span>
+              <span className="ml-auto text-xs text-muted-foreground">
+                {item.childCount || ""}
+              </span>
+            </button>
+            <button
+              type="button"
+              aria-label={`Open ${item.title || "folder"} actions`}
+              onClick={openMenuFromButton}
+              onContextMenu={openMenuFromButton}
+              className="flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-background group-focus-within:opacity-100 group-hover:opacity-100"
+            >
+              <MoreHorizontal className="size-3.5" />
+            </button>
+          </div>
         ) : (
-          <Button
-            asChild
-            variant="ghost"
+          <div
+            onContextMenu={(event) => {
+              event.preventDefault();
+              onOpenItemMenu(item.id, event.clientX, event.clientY);
+            }}
             className={cn(
-              "h-8 w-full justify-start px-2 text-sidebar-foreground",
+              "flex h-8 w-full items-center gap-1.5 rounded-lg px-2 text-sm text-sidebar-foreground hover:bg-muted",
               isActive && "bg-sidebar-accent text-sidebar-accent-foreground",
             )}
           >
-            <Link href={href}>
-              <FileText className="text-muted-foreground" />
+            <Link href={href} className="flex min-w-0 flex-1 items-center gap-1.5">
+              <PageIcon className="size-4 shrink-0 text-[#757575]" />
               <span className="truncate">{item.title.trim() || "Untitled"}</span>
             </Link>
-          </Button>
+            <button
+              type="button"
+              aria-label={`Open ${item.title || "page"} actions`}
+              onClick={openMenuFromButton}
+              onContextMenu={openMenuFromButton}
+              className="flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground opacity-0 transition-opacity hover:bg-background group-focus-within:opacity-100 group-hover:opacity-100"
+            >
+              <MoreHorizontal className="size-3.5" />
+            </button>
+          </div>
         )}
       </div>
     </div>
   );
 }
 
-export function Sidebar() {
+export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { pages, databases, createPage, createFolder, createDatabase, movePage } = useNotionStore();
+  const { pages, createPage, movePage } = useNotionStore();
   const [collapsedFolderIds, setCollapsedFolderIds] = useState<Set<string>>(
     () => new Set(),
   );
+  const [itemMenu, setItemMenu] = useState<ItemMenuState>(null);
   const visibleItems = useMemo(
     () => buildVisibleTree(pages, collapsedFolderIds),
     [collapsedFolderIds, pages],
@@ -165,15 +212,6 @@ export function Sidebar() {
   function handleCreatePage() {
     const page = createPage();
     router.push(`/page/${page.id}`);
-  }
-
-  function handleCreateFolder() {
-    createFolder();
-  }
-
-  function handleCreateDatabase() {
-    const database = createDatabase();
-    router.push(`/database/${database.id}`);
   }
 
   function handleToggleFolder(folderId: string) {
@@ -215,55 +253,49 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="flex h-full w-72 shrink-0 flex-col border-r bg-sidebar text-sidebar-foreground">
-      <div className="border-b px-4 py-3">
-        <div className="flex items-center justify-between gap-3">
-          <Link
-            href="/dashboard"
-            className="min-w-0 text-sm font-semibold tracking-tight"
-          >
-            Notelite
+    <aside className="flex h-full w-60 shrink-0 flex-col border-r border-[#d9d9d9] bg-[#f7f7f7] text-[#1a1a1a]">
+      <div className="flex h-12 items-center gap-2 border-b border-[#d9d9d9] px-3">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <Link href="/dashboard" className="flex min-w-0 items-center gap-2 rounded-lg py-2">
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#e6e6e6] text-[10px] font-medium text-black">
+              MW
+            </span>
+            <span className="truncate text-sm font-semibold">My workspace</span>
+            <ChevronDown className="size-4 shrink-0 text-[#727272]" />
           </Link>
-          <Button
-            type="button"
-            size="icon-sm"
-            variant="ghost"
-            aria-label="New page"
-            onClick={handleCreatePage}
-          >
-            <Plus />
-          </Button>
         </div>
+        <Button type="button" size="icon-sm" variant="ghost" aria-label="Collapse sidebar">
+          <ChevronsLeft className="size-4 text-[#727272]" />
+        </Button>
       </div>
 
-      <div className="px-3 py-3">
-        <div className="grid grid-cols-3 gap-2">
-          <Button type="button" className="justify-start" onClick={handleCreatePage}>
-            <Plus />
-            Page
-          </Button>
+      <div className="space-y-2.5 px-3 py-3">
+        <div className="relative">
           <Button
             type="button"
-            variant="secondary"
-            className="justify-start"
-            onClick={handleCreateFolder}
+            variant="ghost"
+            className="h-8 w-full justify-start rounded-lg border border-[#d9d9d9] bg-white px-2 text-xs font-normal text-[#8e8e93] hover:bg-white"
+            onClick={onOpenSearch}
           >
-            <FolderPlus />
-            Folder
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            className="justify-start"
-            onClick={handleCreateDatabase}
-          >
-            <Database />
-            DB
+            <Search className="size-4 text-[#727272]" />
+            <span className="min-w-0 flex-1 truncate text-left">Search anything...</span>
+            <span className="rounded border border-[#d9d9d9] bg-white px-1.5 py-0.5 text-[10px] font-semibold text-[#1a1a1a]">
+              ⌘ K
+            </span>
           </Button>
         </div>
+        <Button
+          type="button"
+          className="h-8 w-full justify-center rounded-md bg-black text-xs font-semibold text-white hover:bg-black/85"
+          onClick={handleCreatePage}
+        >
+          <Plus className="size-4" />
+          New
+        </Button>
       </div>
 
       <ScrollArea className="min-h-0 flex-1 px-2 pb-3">
+        <div className="mb-1 px-2 text-xs font-medium text-[#727272]">Recent</div>
         <DndContext
           id="notelite-sidebar-dnd"
           sensors={sensors}
@@ -288,6 +320,7 @@ export function Sidebar() {
                     isActive={isActive}
                     isCollapsed={isCollapsed}
                     onToggleFolder={handleToggleFolder}
+                    onOpenItemMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
                   />
                 );
               })}
@@ -296,34 +329,52 @@ export function Sidebar() {
         </DndContext>
       </ScrollArea>
 
-      <div className="border-t px-2 py-3">
-        <div className="mb-2 px-2 text-xs font-medium uppercase text-muted-foreground">
-          Databases
-        </div>
-        <nav className="space-y-1">
-          {databases.map((database) => {
-            const href = `/database/${database.id}`;
-            const isActive = pathname === href;
-
-            return (
-              <Button
-                key={database.id}
-                asChild
-                variant="ghost"
-                className={cn(
-                  "h-8 w-full justify-start px-2 text-sidebar-foreground",
-                  isActive && "bg-sidebar-accent text-sidebar-accent-foreground",
-                )}
-              >
-                <Link href={href}>
-                  <Database className="text-muted-foreground" />
-                  <span className="truncate">{database.title}</span>
-                </Link>
-              </Button>
-            );
-          })}
-        </nav>
+      <div className="space-y-0.5 px-2 pb-3">
+        <Link
+          href="/library"
+          className={cn(
+            "flex h-7 items-center gap-2 rounded-lg px-2 text-sm font-medium text-[#1a1a1a] hover:bg-[#f2f2f2]",
+            pathname === "/library" && "bg-[#e6e6e6]",
+          )}
+        >
+          <BookOpen className="size-4 text-[#727272]" />
+          <span className="truncate">Library</span>
+        </Link>
+        <button
+          type="button"
+          className="flex h-7 w-full items-center gap-2 rounded-lg px-2 text-left text-sm font-medium text-[#1a1a1a] hover:bg-[#f2f2f2]"
+        >
+          <Trash2 className="size-4 text-[#727272]" />
+          <span className="truncate">Trash</span>
+        </button>
       </div>
+
+      <div className="flex h-12 items-center border-t border-[#d9d9d9] px-3">
+        <div className="flex min-w-0 items-center gap-2">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#e6e6e6] text-[10px] font-medium text-black">
+            UN
+          </span>
+          <span className="truncate text-sm font-semibold">You</span>
+        </div>
+      </div>
+      {itemMenu ? (
+        (() => {
+          const item = pages.find((page) => page.id === itemMenu.itemId);
+          if (!item) {
+            return null;
+          }
+
+          return (
+            <WorkspaceItemContextMenu
+              item={item}
+              childCount={item.type === "folder" ? pages.filter((page) => page.parentId === item.id).length : 0}
+              x={itemMenu.x}
+              y={itemMenu.y}
+              onClose={() => setItemMenu(null)}
+            />
+          );
+        })()
+      ) : null}
     </aside>
   );
 }

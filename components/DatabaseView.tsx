@@ -1,10 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { CalendarDays, GalleryHorizontal, Kanban, List, Plus, Table2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useMemo, useRef, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  Copy,
+  ExternalLink,
+  GalleryHorizontal,
+  Kanban,
+  List,
+  MoreHorizontal,
+  Plus,
+  Table2,
+  Trash2,
+  X,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { Input } from "@/components/ui/input";
 import type {
   Database,
@@ -17,6 +33,7 @@ import type {
 } from "@/lib/notion-types";
 import { cn } from "@/lib/utils";
 import { useNotionStore } from "@/lib/notion-store";
+import { useClickOutside } from "@/lib/use-click-outside";
 
 const propertyTypes: DatabasePropertyType[] = [
   "text",
@@ -87,23 +104,49 @@ function getDefaultValue(property: DatabaseProperty): DatabaseValue {
 export function DatabaseView({
   databaseId,
   inline = false,
+  parentPageId,
+  onRemoveInline,
 }: {
   databaseId: string;
   inline?: boolean;
+  parentPageId?: string;
+  onRemoveInline?: () => void;
 }) {
+  const router = useRouter();
   const {
     pages,
     databases,
     addDatabaseProperty,
     addDatabaseRow,
+    addInlineDatabase,
     addDatabaseView,
+    deleteDatabase,
+    deleteDatabaseProperty,
+    duplicateDatabase,
+    duplicateDatabaseProperty,
+    moveDatabase,
+    moveDatabaseProperty,
     updateDatabaseCell,
     updateDatabaseProperty,
     updateDatabaseTitle,
     updateDatabaseView,
   } = useNotionStore();
   const database = databases.find((candidate) => candidate.id === databaseId);
-  const [propertyType, setPropertyType] = useState<DatabasePropertyType>("text");
+  const [isAddPropertyOpen, setIsAddPropertyOpen] = useState(false);
+  const [isAddViewOpen, setIsAddViewOpen] = useState(false);
+  const [isDatabaseMenuOpen, setIsDatabaseMenuOpen] = useState(false);
+  const [isDeleteDatabaseDialogOpen, setIsDeleteDatabaseDialogOpen] = useState(false);
+  const [activePropertyMenuId, setActivePropertyMenuId] = useState<string | null>(null);
+  const [openRow, setOpenRow] = useState<DatabaseRow | null>(null);
+  const databaseMenuRef = useRef<HTMLDivElement | null>(null);
+  const addViewMenuRef = useRef<HTMLDivElement | null>(null);
+  const addPropertyMenuRef = useRef<HTMLDivElement | null>(null);
+  const propertyMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useClickOutside(databaseMenuRef, () => setIsDatabaseMenuOpen(false), isDatabaseMenuOpen);
+  useClickOutside(addViewMenuRef, () => setIsAddViewOpen(false), isAddViewOpen);
+  useClickOutside(addPropertyMenuRef, () => setIsAddPropertyOpen(false), isAddPropertyOpen);
+  useClickOutside(propertyMenuRef, () => setActivePropertyMenuId(null), activePropertyMenuId !== null);
 
   const activeView = useMemo(() => {
     if (!database) return null;
@@ -117,6 +160,10 @@ export function DatabaseView({
     if (!database || !activeView) return [];
     return sortRows(database!.rows.filter((row) => matchesFilter(row, activeView)), activeView);
   }, [activeView, database]);
+  const openRowDetails = useMemo(() => {
+    if (!database || !openRow) return null;
+    return database.rows.find((row) => row.id === openRow.id) ?? openRow;
+  }, [database, openRow]);
 
   if (!database || !activeView) {
     return <div className="text-sm text-muted-foreground">Database not found.</div>;
@@ -131,9 +178,13 @@ export function DatabaseView({
 
     if (property.type === "title") {
       return (
-        <Link href={`/page/${row.pageId}`} className="font-medium hover:underline">
+        <button
+          type="button"
+          onClick={() => setOpenRow(row)}
+          className="font-medium hover:underline"
+        >
           {stringifyValue(value) || "Untitled"}
-        </Link>
+        </button>
       );
     }
 
@@ -238,6 +289,191 @@ export function DatabaseView({
     );
   }
 
+  function handleDuplicateDatabase() {
+    const copiedDatabase = duplicateDatabase(database!.id);
+    if (copiedDatabase) {
+      if (inline && parentPageId) {
+        addInlineDatabase(parentPageId, copiedDatabase.id);
+      } else if (copiedDatabase.parentId) {
+        router.push(`/page/${copiedDatabase.parentId}`);
+      } else {
+        router.push("/dashboard");
+      }
+    }
+    setIsDatabaseMenuOpen(false);
+  }
+
+  function handleDeleteDatabase() {
+    setIsDatabaseMenuOpen(false);
+    setIsDeleteDatabaseDialogOpen(true);
+  }
+
+  function confirmDeleteDatabase() {
+    if (!database) {
+      return;
+    }
+
+    deleteDatabase(database.id);
+    setIsDeleteDatabaseDialogOpen(false);
+    if (!inline) {
+      router.push("/dashboard");
+    }
+  }
+
+  function renderDatabaseMenu() {
+    if (!isDatabaseMenuOpen) {
+      return null;
+    }
+
+    return (
+      <div className="absolute right-0 top-9 z-40 w-72 rounded-lg border bg-popover p-1 text-sm text-popover-foreground shadow-xl">
+        <button
+          type="button"
+          onClick={handleDuplicateDatabase}
+          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+        >
+          <Copy className="size-4" />
+          Duplicate database
+        </button>
+        <label className="block border-t px-3 py-2 text-xs font-medium text-muted-foreground">
+          Move to
+        </label>
+        <select
+          value={database!.parentId ?? parentPageId ?? ""}
+          onChange={(event) => {
+            const nextParentId = event.target.value || null;
+            moveDatabase(database!.id, nextParentId);
+            if (inline && parentPageId && nextParentId && nextParentId !== parentPageId) {
+              onRemoveInline?.();
+              addInlineDatabase(nextParentId, database!.id);
+            }
+            setIsDatabaseMenuOpen(false);
+          }}
+          className="mb-1 h-9 w-full rounded-md border bg-background px-2 text-sm"
+        >
+          {pages.filter((page) => page.type === "page").map((page) => (
+            <option key={page.id} value={page.id}>
+              {page.title || "Untitled"}
+            </option>
+          ))}
+        </select>
+        {inline && onRemoveInline ? (
+          <button
+            type="button"
+            onClick={() => {
+              onRemoveInline();
+              setIsDatabaseMenuOpen(false);
+            }}
+            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+          >
+            <X className="size-4" />
+            Remove from this page
+          </button>
+        ) : null}
+        <button
+          type="button"
+          onClick={handleDeleteDatabase}
+          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-destructive hover:bg-destructive/10"
+        >
+          <Trash2 className="size-4" />
+          Delete database
+        </button>
+      </div>
+    );
+  }
+
+  function renderPropertyHeader(property: DatabaseProperty, index: number) {
+    const isOpen = activePropertyMenuId === property.id;
+    const canEditType = property.type !== "title";
+
+    return (
+      <div ref={isOpen ? propertyMenuRef : null} className="relative">
+        <button
+          type="button"
+          onClick={() => {
+            setIsAddPropertyOpen(false);
+            setIsAddViewOpen(false);
+            setIsDatabaseMenuOpen(false);
+            setActivePropertyMenuId(isOpen ? null : property.id);
+          }}
+          className="flex h-7 w-full items-center justify-between gap-2 rounded-md px-1 text-left hover:bg-muted"
+        >
+          <span className="truncate">{property.name}</span>
+          <MoreHorizontal className="size-4 text-muted-foreground" />
+        </button>
+
+        {isOpen ? (
+          <div className="absolute left-0 top-8 z-30 w-72 rounded-lg border bg-popover p-1 text-sm text-popover-foreground shadow-xl">
+            <Input
+              value={property.name}
+              onChange={(event) =>
+                updateDatabaseProperty(database!.id, { ...property, name: event.target.value })
+              }
+              className="mb-1 h-9"
+            />
+            <select
+              value={property.type}
+              disabled={!canEditType}
+              onChange={(event) =>
+                updateDatabaseProperty(database!.id, {
+                  ...property,
+                  type: event.target.value as DatabasePropertyType,
+                })
+              }
+              className="mb-1 h-9 w-full rounded-md border bg-background px-2 text-sm disabled:opacity-50"
+            >
+              {property.type === "title" ? <option value="title">title</option> : null}
+              {propertyTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type.replace("_", " ")}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={() => moveDatabaseProperty(database!.id, property.id, "left")}
+              disabled={index <= 1}
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted disabled:opacity-40"
+            >
+              <ArrowLeft className="size-4" />
+              Move left
+            </button>
+            <button
+              type="button"
+              onClick={() => moveDatabaseProperty(database!.id, property.id, "right")}
+              disabled={index === database!.properties.length - 1}
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted disabled:opacity-40"
+            >
+              <ArrowRight className="size-4" />
+              Move right
+            </button>
+            <button
+              type="button"
+              onClick={() => duplicateDatabaseProperty(database!.id, property.id)}
+              disabled={!canEditType}
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted disabled:opacity-40"
+            >
+              <Copy className="size-4" />
+              Duplicate property
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                deleteDatabaseProperty(database!.id, property.id);
+                setActivePropertyMenuId(null);
+              }}
+              disabled={!canEditType}
+              className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-destructive hover:bg-destructive/10 disabled:opacity-40"
+            >
+              <Trash2 className="size-4" />
+              Delete property
+            </button>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   function renderRows() {
     if (activeView!.type === "list") {
       return (
@@ -308,15 +544,9 @@ export function DatabaseView({
         <table className="w-full min-w-[760px] border-collapse text-sm">
           <thead className="bg-muted/60">
             <tr>
-              {database!.properties.map((property) => (
+              {database!.properties.map((property, index) => (
                 <th key={property.id} className="border-b px-3 py-2 text-left font-medium">
-                  <Input
-                    value={property.name}
-                    onChange={(event) =>
-                      updateDatabaseProperty(database!.id, { ...property, name: event.target.value })
-                    }
-                    className="h-7 border-0 bg-transparent px-0 shadow-none focus-visible:ring-0"
-                  />
+                  {renderPropertyHeader(property, index)}
                 </th>
               ))}
             </tr>
@@ -345,15 +575,47 @@ export function DatabaseView({
           onChange={(event) => updateDatabaseTitle(database!.id, event.target.value)}
           className="h-auto max-w-sm border-0 px-0 text-2xl font-semibold shadow-none focus-visible:ring-0"
         />
-        <Button
-          type="button"
-          onClick={() => addDatabaseRow(database!.id)}
-          className="justify-start"
-        >
-          <Plus />
-          New entry
-        </Button>
+        <div className="relative flex items-center gap-2">
+          <Button
+            type="button"
+            onClick={() => {
+              setIsDatabaseMenuOpen(false);
+              addDatabaseRow(database!.id);
+            }}
+            className="justify-start"
+          >
+            <Plus />
+            New
+          </Button>
+          <div ref={databaseMenuRef} className="relative">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Database actions"
+              onClick={() => {
+                setIsAddPropertyOpen(false);
+                setIsAddViewOpen(false);
+                setActivePropertyMenuId(null);
+                setIsDatabaseMenuOpen((isOpen) => !isOpen);
+              }}
+            >
+              <MoreHorizontal />
+            </Button>
+            {renderDatabaseMenu()}
+          </div>
+        </div>
       </div>
+      {isDeleteDatabaseDialogOpen ? (
+        <ConfirmDialog
+          title="Delete database"
+          description={`Delete "${database!.title}"? This removes its views and rows.`}
+          confirmLabel="Delete"
+          destructive
+          onCancel={() => setIsDeleteDatabaseDialogOpen(false)}
+          onConfirm={confirmDeleteDatabase}
+        />
+      ) : null}
 
       <div className="flex flex-wrap items-center gap-2">
         {database!.views.map((view) => {
@@ -371,11 +633,43 @@ export function DatabaseView({
             </Button>
           );
         })}
-        {(["table", "list", "board", "calendar", "gallery"] as DatabaseViewType[]).map((type) => (
-          <Button key={type} type="button" variant="ghost" size="sm" onClick={() => addDatabaseView(database!.id, type)}>
-            + {type}
+        <div ref={addViewMenuRef} className="relative">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setIsAddPropertyOpen(false);
+              setIsDatabaseMenuOpen(false);
+              setActivePropertyMenuId(null);
+              setIsAddViewOpen((isOpen) => !isOpen);
+            }}
+          >
+            <Plus />
+            New view
           </Button>
-        ))}
+          {isAddViewOpen ? (
+            <div className="absolute left-0 top-9 z-30 w-56 rounded-lg border bg-popover p-1 text-sm text-popover-foreground shadow-xl">
+              {(["table", "list", "board", "calendar", "gallery"] as DatabaseViewType[]).map((type) => {
+                const Icon = viewIcons[type];
+                return (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => {
+                      addDatabaseView(database!.id, type);
+                      setIsAddViewOpen(false);
+                    }}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left capitalize hover:bg-muted"
+                  >
+                    <Icon className="size-4" />
+                    {type}
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <div className="grid gap-2 md:grid-cols-4">
@@ -434,22 +728,80 @@ export function DatabaseView({
         </select>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        <select
-          value={propertyType}
-          onChange={(event) => setPropertyType(event.target.value as DatabasePropertyType)}
-          className="h-9 rounded-lg border bg-background px-2 text-sm"
+      <div ref={addPropertyMenuRef} className="relative flex flex-wrap items-center gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => {
+            setIsAddViewOpen(false);
+            setIsDatabaseMenuOpen(false);
+            setActivePropertyMenuId(null);
+            setIsAddPropertyOpen((isOpen) => !isOpen);
+          }}
         >
-          {propertyTypes.map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
-        <Button type="button" variant="secondary" onClick={() => addDatabaseProperty(database!.id, propertyType)}>
+          <Plus />
           Add property
         </Button>
+        {isAddPropertyOpen ? (
+          <div className="absolute left-0 top-10 z-30 grid w-[30rem] grid-cols-2 gap-1 rounded-lg border bg-popover p-2 text-sm text-popover-foreground shadow-xl">
+            {propertyTypes
+              .filter((type) => type !== "title")
+              .map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => {
+                    addDatabaseProperty(database!.id, type);
+                    setIsAddPropertyOpen(false);
+                  }}
+                  className="rounded-md px-3 py-2 text-left capitalize hover:bg-muted"
+                >
+                  {type.replace("_", " ")}
+                </button>
+              ))}
+          </div>
+        ) : null}
       </div>
 
       {renderRows()}
+
+      {openRowDetails ? (
+        <div className="fixed inset-0 z-50 bg-black/20" onClick={() => setOpenRow(null)}>
+          <aside
+            className="ml-auto flex h-full w-full max-w-2xl flex-col overflow-y-auto border-l bg-background p-8 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <Button asChild variant="ghost" size="sm">
+                <Link href={`/page/${openRowDetails.pageId}`}>
+                  <ExternalLink />
+                  Open full page
+                </Link>
+              </Button>
+              <Button type="button" variant="ghost" size="icon-sm" onClick={() => setOpenRow(null)}>
+                <X />
+              </Button>
+            </div>
+            <Input
+              value={stringifyValue(openRowDetails.properties.title)}
+              onChange={(event) =>
+                updateDatabaseCell(database!.id, openRowDetails.id, "title", event.target.value)
+              }
+              className="mb-6 h-auto border-0 px-0 text-4xl font-bold shadow-none focus-visible:ring-0"
+            />
+            <div className="space-y-3">
+              {database!.properties
+                .filter((property) => property.type !== "title")
+                .map((property) => (
+                  <div key={property.id} className="grid gap-2 border-b pb-3 md:grid-cols-[10rem_1fr]">
+                    <div className="text-sm text-muted-foreground">{property.name}</div>
+                    <div>{renderPropertyInput(property, openRowDetails)}</div>
+                  </div>
+                ))}
+            </div>
+          </aside>
+        </div>
+      ) : null}
     </section>
   );
 }

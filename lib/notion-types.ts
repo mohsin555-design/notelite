@@ -20,6 +20,8 @@ export type Page = {
   content: JSONContent;
   canvas: CanvasData;
   inlineDatabaseIds?: string[];
+  folderColor?: string;
+  isFavorite?: boolean;
 };
 
 export type DatabasePropertyType =
