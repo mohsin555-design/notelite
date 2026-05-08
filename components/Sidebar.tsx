@@ -54,10 +54,12 @@ function SidebarItemRow({
   item,
   isActive,
   onOpenItemMenu,
+  onDropItem,
 }: {
   item: Page;
   isActive: boolean;
   onOpenItemMenu: (itemId: string, x: number, y: number) => void;
+  onDropItem: (activeId: string, overId: string) => void;
 }) {
   function openMenuFromButton(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -65,6 +67,19 @@ function SidebarItemRow({
 
     const rect = event.currentTarget.getBoundingClientRect();
     onOpenItemMenu(item.id, rect.left, rect.bottom + 6);
+  }
+
+  function handleDragOver(event: React.DragEvent) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }
+
+  function handleDrop(event: React.DragEvent) {
+    event.preventDefault();
+    const activeId = event.dataTransfer.getData("text/plain");
+    if (activeId) {
+      onDropItem(activeId, item.id);
+    }
   }
 
   return (
@@ -77,9 +92,25 @@ function SidebarItemRow({
         event.preventDefault();
         onOpenItemMenu(item.id, event.clientX, event.clientY);
       }}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
-      <Link href={itemHref(item)} className="flex min-w-0 flex-1 items-center gap-2">
+      <span
+        draggable
+        aria-label={`Drag ${item.title || "item"}`}
+        role="button"
+        tabIndex={0}
+        onDragStart={(event) => {
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", item.id);
+        }}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        className="flex size-4 shrink-0 touch-none cursor-grab items-center justify-center active:cursor-grabbing"
+      >
         <SidebarItemIcon item={item} />
+      </span>
+      <Link href={itemHref(item)} className="flex min-w-0 flex-1 items-center gap-2">
         <span className="truncate text-sm font-semibold">
           {item.title.trim() || (item.type === "folder" ? "New Folder" : isCanvasPage(item) ? "Canvas" : "Untitled")}
         </span>
@@ -103,12 +134,14 @@ function SidebarSection({
   moreHref,
   pathname,
   onOpenItemMenu,
+  onDropItem,
 }: {
   title: string;
   items: Page[];
   moreHref: string;
   pathname: string | null;
   onOpenItemMenu: (itemId: string, x: number, y: number) => void;
+  onDropItem: (activeId: string, overId: string) => void;
 }) {
   const visibleItems = items.slice(0, SIDEBAR_ITEM_LIMIT);
 
@@ -122,6 +155,7 @@ function SidebarSection({
             item={item}
             isActive={item.type === "page" && pathname === `/page/${item.id}`}
             onOpenItemMenu={onOpenItemMenu}
+            onDropItem={onDropItem}
           />
         ))}
       </nav>
@@ -147,6 +181,7 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     switchWorkspace,
     createFolder,
     createPage,
+    movePage,
   } = useNotionStore();
   const workspaceMenuRef = useRef<HTMLDivElement>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -198,6 +233,24 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   function handleNewCanvas() {
     const page = createPage(null, "New canvas");
     router.push(`/page/${page.id}`);
+  }
+
+  function handleSidebarDrop(activeId: string, overId: string) {
+    if (activeId === overId) {
+      return;
+    }
+
+    const overItem = pages.find((page) => page.id === overId);
+    if (!overItem) {
+      return;
+    }
+
+    if (overItem.type === "folder") {
+      movePage(activeId, overItem.id);
+      return;
+    }
+
+    movePage(activeId, overItem.parentId, overItem.id);
   }
 
   return (
@@ -324,6 +377,7 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
               moreHref="/library?view=list&section=recent"
               pathname={pathname}
               onOpenItemMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
+              onDropItem={handleSidebarDrop}
             />
             <SidebarSection
               title="Favorites"
@@ -331,6 +385,7 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
               moreHref="/library?view=list&section=favorites"
               pathname={pathname}
               onOpenItemMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
+              onDropItem={handleSidebarDrop}
             />
           </div>
 
