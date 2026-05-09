@@ -6,7 +6,9 @@ import {
   ChevronDown,
   ChevronsLeft,
   ChevronsRight,
+  Folder,
   MoreHorizontal,
+  Home,
   Search,
   Trash2,
 } from "lucide-react";
@@ -106,7 +108,7 @@ function SidebarItemRow({
         }}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className="flex size-4 shrink-0 touch-none cursor-grab items-center justify-center active:cursor-grabbing"
+        className="flex size-4 shrink-0 touch-none cursor-grab items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 active:cursor-grabbing"
       >
         <SidebarItemIcon item={item} />
       </span>
@@ -235,6 +237,14 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     router.push(`/page/${page.id}`);
   }
 
+  function handleNavigateHome() {
+    router.push("/dashboard");
+  }
+
+  function handleNavigateLibrary() {
+    router.push("/library");
+  }
+
   function handleSidebarDrop(activeId: string, overId: string) {
     if (activeId === overId) {
       return;
@@ -346,20 +356,43 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
 
       {isSidebarCollapsed ? null : (
         <>
-          <div className="space-y-3 px-3 py-4">
-            <Button
-              type="button"
-              variant="ghost"
-              className="h-8 w-full justify-start rounded-lg border border-[#d9d9d9] bg-white px-2 text-sm font-normal text-[#8e8e93] shadow-[inset_0_1px_0_rgba(31,35,40,0.04)] hover:bg-white"
-              onClick={onOpenSearch}
-            >
-              <Search className="size-4 text-[#59636e]" />
-              <span className="min-w-0 flex-1 truncate text-left">Search anything...</span>
-              <span className="rounded-md border border-[#d9d9d9] bg-white px-1.5 py-0.5 text-xs font-semibold text-[#1a1a1a]">
-                ⌘ K
-              </span>
-            </Button>
+          <div className="px-3 pt-3">
+            <div className="flex items-center justify-between rounded-2xl bg-white p-1 shadow-[inset_0_0_0_1px_rgba(217,217,217,0.9)]">
+              <button
+                type="button"
+                aria-label="Home"
+                onClick={handleNavigateHome}
+                className={cn(
+                  "flex h-9 items-center gap-2 rounded-2xl px-3 text-sm font-semibold text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]",
+                  pathname === "/dashboard" && "bg-[#ece8e3]",
+                )}
+              >
+                <Home className="size-4 shrink-0" />
+                Home
+              </button>
+              <button
+                type="button"
+                aria-label="Library"
+                onClick={handleNavigateLibrary}
+                className={cn(
+                  "flex h-9 w-9 items-center justify-center rounded-2xl text-[#727272] transition-colors hover:bg-[#f2f2f2]",
+                  pathname === "/library" && "bg-[#ece8e3] text-[#1a1a1a]",
+                )}
+              >
+                <Folder className="size-4 shrink-0" />
+              </button>
+              <button
+                type="button"
+                aria-label="Search"
+                onClick={onOpenSearch}
+                className="flex h-9 w-9 items-center justify-center rounded-2xl text-[#727272] transition-colors hover:bg-[#f2f2f2]"
+              >
+                <Search className="size-4 shrink-0" />
+              </button>
+            </div>
+          </div>
 
+          <div className="space-y-3 px-3 py-4">
             <NewItemMenu
               align="left"
               className="w-full"
@@ -390,16 +423,6 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
           </div>
 
           <div className="space-y-0.5 px-2 pb-3">
-            <Link
-              href="/library"
-              className={cn(
-                "flex h-8 items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[#1a1a1a] hover:bg-[#f2f2f2]",
-                pathname === "/library" && "bg-[#e6e6e6]",
-              )}
-            >
-              <FolderLineIcon className="size-4 text-[#1a1a1a]" />
-              <span className="truncate">Library</span>
-            </Link>
             <button
               type="button"
               className="flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-sm font-semibold text-[#1a1a1a] hover:bg-[#f2f2f2]"
