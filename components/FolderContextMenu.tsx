@@ -15,21 +15,13 @@ import {
 } from "lucide-react";
 
 import { FolderLineIcon } from "@/components/NoteliteIcons";
+import { folderColorOptions, getFolderColorOption } from "@/lib/folder-utils";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
 import { cn } from "@/lib/utils";
 
-export const folderColorOptions = [
-  { value: "amber", label: "Yellow", swatch: "bg-[#f7c34b]", card: "bg-[#f8c854]", icon: "text-[#bd8f25]" },
-  { value: "green", label: "Green", swatch: "bg-[#48bd45]", card: "bg-[#62b947]", icon: "text-[#3d8f2c]" },
-  { value: "red", label: "Red", swatch: "bg-[#e65350]", card: "bg-[#e95750]", icon: "text-[#b73d39]" },
-  { value: "orange", label: "Orange", swatch: "bg-[#e98235]", card: "bg-[#e57f35]", icon: "text-[#b85d23]" },
-] as const;
-
-export function getFolderColorClasses(folderColor?: string) {
-  return folderColorOptions.find((option) => option.value === folderColor) ?? folderColorOptions[0];
-}
+export { folderColorOptions, getFolderColorOption as getFolderColorClasses };
 
 type FolderContextMenuProps = {
   folder: Page;
@@ -158,7 +150,7 @@ export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }
   } = useNotionStore();
   const isFolder = item.type === "folder";
   const label = itemLabel(item);
-  const activeColor = getFolderColorClasses(item.folderColor);
+  const activeColor = getFolderColorOption(item.folderColor);
   const itemUrl = typeof window !== "undefined" ? `${window.location.origin}/page/${item.id}` : "";
 
   const destinationFolders = useMemo(() => {

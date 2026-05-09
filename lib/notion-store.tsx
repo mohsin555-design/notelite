@@ -23,6 +23,7 @@ import type {
   Workspace,
   WorkspaceData,
 } from "@/lib/notion-types";
+import { DEFAULT_FOLDER_COLOR, DEFAULT_FOLDER_NAME } from "@/lib/folder-utils";
 
 const defaultContent: Page["content"] = {
   type: "doc",
@@ -176,7 +177,7 @@ type NotionStore = {
   createWorkspace: (name?: string) => Workspace;
   switchWorkspace: (workspaceId: string) => void;
   createPage: (parentId?: string | null, title?: string) => Page;
-  createFolder: (parentId?: string | null) => Page;
+  createFolder: (parentId?: string | null, title?: string, folderColor?: string) => Page;
   createDatabase: (parentId?: string | null, title?: string) => Database;
   duplicatePage: (pageId: string) => Page | null;
   duplicateFolder: (folderId: string) => Page | null;
@@ -247,16 +248,20 @@ function createUntitledPage(
   };
 }
 
-function createUntitledFolder(parentId: string | null = null): Page {
+function createUntitledFolder(
+  parentId: string | null = null,
+  title = DEFAULT_FOLDER_NAME,
+  folderColor = DEFAULT_FOLDER_COLOR,
+): Page {
   return {
     id: createId("folder"),
-    title: "New Folder",
+    title,
     type: "folder",
     parentId,
     content: { type: "doc", content: [] },
     canvas: createEmptyCanvas(),
     inlineDatabaseIds: [],
-    folderColor: "amber",
+    folderColor,
   };
 }
 
@@ -335,7 +340,7 @@ function normalizePages(pages: Page[]): Page[] {
   return pages.map((page) => ({
     ...page,
     inlineDatabaseIds: page.inlineDatabaseIds ?? [],
-    folderColor: page.type === "folder" ? page.folderColor ?? "amber" : page.folderColor,
+    folderColor: page.type === "folder" ? page.folderColor ?? DEFAULT_FOLDER_COLOR : page.folderColor,
     isFavorite: page.isFavorite ?? false,
   }));
 }
@@ -522,8 +527,8 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     return page;
   }, []);
 
-  const createFolder = useCallback((parentId: string | null = null) => {
-    const folder = createUntitledFolder(parentId);
+  const createFolder = useCallback((parentId: string | null = null, title?: string, folderColor?: string) => {
+    const folder = createUntitledFolder(parentId, title, folderColor);
     setPages((currentPages) => [folder, ...currentPages]);
     return folder;
   }, []);

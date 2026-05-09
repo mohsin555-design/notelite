@@ -1,0 +1,193 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - button "MW My workspace" [ref=e6] [cursor=pointer]:
+          - generic [ref=e7]: MW
+          - generic [ref=e8]: My workspace
+          - img [ref=e9]
+        - button "Collapse sidebar" [ref=e11] [cursor=pointer]:
+          - img
+      - generic [ref=e13]:
+        - button "Home" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Home
+        - button "Library" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+        - button "Search" [ref=e21] [cursor=pointer]:
+          - img [ref=e22]
+      - button "New" [ref=e27] [cursor=pointer]:
+        - img
+        - text: New
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - heading "Recent" [level=2] [ref=e30]
+          - navigation [ref=e31]:
+            - generic [ref=e177]:
+              - button "Drag Heena Sayyed" [ref=e178]:
+                - img [ref=e179]
+              - link "Heena Sayyed" [ref=e181] [cursor=pointer]:
+                - /url: /library?view=list&folder=folder-4d3182d8-6449-40bf-8f0c-e3dd3ba103df
+                - generic [ref=e182]: Heena Sayyed
+              - button "Open Heena Sayyed actions" [ref=e183] [cursor=pointer]:
+                - img [ref=e184]
+            - generic [ref=e188]:
+              - button "Drag New Folder" [ref=e189]:
+                - img [ref=e190]
+              - link "New Folder" [ref=e192] [cursor=pointer]:
+                - /url: /library?view=list&folder=folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec
+                - generic [ref=e193]: New Folder
+              - button "Open New Folder actions" [ref=e194] [cursor=pointer]:
+                - img [ref=e195]
+            - generic [ref=e199]:
+              - button "Drag New Folder" [ref=e200]:
+                - img [ref=e201]
+              - link "New Folder" [ref=e203] [cursor=pointer]:
+                - /url: /library?view=list&folder=folder-ab1c4dd8-8f8d-4e10-b0c4-3189d9a97ba8
+                - generic [ref=e204]: New Folder
+              - button "Open New Folder actions" [ref=e205] [cursor=pointer]:
+                - img [ref=e206]
+            - generic [ref=e210]:
+              - button "Drag Untitled" [ref=e211]:
+                - img [ref=e212]
+              - link "Untitled" [ref=e215] [cursor=pointer]:
+                - /url: /page/page-c7fea17a-bbfd-438c-9f94-8704d40d2359
+                - generic [ref=e216]: Untitled
+              - button "Open Untitled actions" [ref=e217] [cursor=pointer]:
+                - img [ref=e218]
+            - generic [ref=e222]:
+              - button "Drag Untitled" [ref=e223]:
+                - img [ref=e224]
+              - link "Untitled" [ref=e227] [cursor=pointer]:
+                - /url: /page/page-adf1067b-9851-4008-a2c1-79c77a83c4e4
+                - generic [ref=e228]: Untitled
+              - button "Open Untitled actions" [ref=e229] [cursor=pointer]:
+                - img [ref=e230]
+            - generic [ref=e234]:
+              - button "Drag Untitled" [ref=e235]:
+                - img [ref=e236]
+              - link "Untitled" [ref=e239] [cursor=pointer]:
+                - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+                - generic [ref=e240]: Untitled
+              - button "Open Untitled actions" [ref=e241] [cursor=pointer]:
+                - img [ref=e242]
+            - generic [ref=e246]:
+              - button "Drag New canvas" [ref=e247]:
+                - img [ref=e248]
+              - link "New canvas" [ref=e251] [cursor=pointer]:
+                - /url: /page/page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c
+                - generic [ref=e252]: New canvas
+              - button "Open New canvas actions" [ref=e253] [cursor=pointer]:
+                - img [ref=e254]
+            - generic [ref=e258]:
+              - button "Drag My Folder Copy" [ref=e259]:
+                - img [ref=e260]
+              - link "My Folder Copy" [ref=e262] [cursor=pointer]:
+                - /url: /library?view=list&folder=folder-f7c41135-7756-42ee-962e-f47b9ab5723b
+                - generic [ref=e263]: My Folder Copy
+              - button "Open My Folder Copy actions" [ref=e264] [cursor=pointer]:
+                - img [ref=e265]
+          - link "More" [ref=e269] [cursor=pointer]:
+            - /url: /library?view=list&section=recent
+            - img [ref=e270]
+            - text: More
+        - generic [ref=e91]:
+          - heading "Favorites" [level=2] [ref=e92]
+          - navigation [ref=e274]:
+            - generic [ref=e275]:
+              - button "Drag Untitled" [ref=e276]:
+                - img [ref=e277]
+              - link "Untitled" [ref=e280] [cursor=pointer]:
+                - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+                - generic [ref=e281]: Untitled
+              - button "Open Untitled actions" [ref=e282] [cursor=pointer]:
+                - img [ref=e283]
+      - button "Trash" [ref=e94] [cursor=pointer]:
+        - img [ref=e95]
+        - generic [ref=e98]: Trash
+      - generic [ref=e100]:
+        - generic [ref=e101]: UN
+        - generic [ref=e102]: You
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - button "New" [ref=e110] [cursor=pointer]:
+          - img
+          - text: New
+        - button "Page options" [ref=e112] [cursor=pointer]:
+          - img
+      - generic [ref=e113]:
+        - heading "Welcome to NoteLite" [level=1] [ref=e114]
+        - button "Search anything... ⌘ K" [ref=e115] [cursor=pointer]:
+          - img [ref=e116]
+          - generic [ref=e119]: Search anything...
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - generic [ref=e120]:
+          - heading "Recent" [level=2] [ref=e121]
+          - generic [ref=e122]:
+            - link "Untitled" [ref=e287] [cursor=pointer]:
+              - /url: /page/page-c7fea17a-bbfd-438c-9f94-8704d40d2359
+              - img [ref=e288]
+              - generic [ref=e292]: Untitled
+            - link "Untitled" [ref=e293] [cursor=pointer]:
+              - /url: /page/page-adf1067b-9851-4008-a2c1-79c77a83c4e4
+              - img [ref=e294]
+              - generic [ref=e298]: Untitled
+            - link "Untitled sdfsadfasdfasdf asdfasdfasd asdfadsfasdf asdfasdfasdf asdfasdfadsfa / safasdfasd asdfasdfasdf adsfasdfasdf" [ref=e299] [cursor=pointer]:
+              - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+              - img [ref=e300]
+              - generic [ref=e303]:
+                - generic [ref=e304]: Untitled
+                - generic [ref=e305]: sdfsadfasdfasdf asdfasdfasd asdfadsfasdf asdfasdfasdf asdfasdfadsfa / safasdfasd asdfasdfasdf adsfasdfasdf
+            - link "New canvas asfasdfasdfasdfasdfasdfasd" [ref=e306] [cursor=pointer]:
+              - /url: /page/page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c
+              - img [ref=e307]
+              - generic [ref=e310]:
+                - generic [ref=e311]: New canvas
+                - generic [ref=e312]: asfasdfasdfasdfasdfasdfasd
+            - link "Test Page sdfsadfasdf sdfasdfasdf asdfasdf sdfasdfasdf asdfasdfasdf asdfasdfasdf ✨" [ref=e313] [cursor=pointer]:
+              - /url: /page/page-f536b84c-c5bf-4827-9715-258f5e77a3e4
+              - img [ref=e314]
+              - generic [ref=e317]:
+                - generic [ref=e318]: Test Page
+                - generic [ref=e319]: sdfsadfasdf sdfasdfasdf asdfasdf sdfasdfasdf asdfasdfasdf asdfasdfasdf ✨
+            - link "New page" [ref=e320] [cursor=pointer]:
+              - /url: /page/page-0aba7780-150d-4903-89a1-aaa6cd157bf1
+              - img [ref=e321]
+              - generic [ref=e325]: New page
+            - link "New sub-page" [ref=e326] [cursor=pointer]:
+              - /url: /page/page-a88e5db1-3d3a-4469-963b-6d3141a0df1a
+              - img [ref=e327]
+              - generic [ref=e331]: New sub-page
+            - link "New page" [ref=e332] [cursor=pointer]:
+              - /url: /page/page-11a10f32-972c-4bce-a59f-d7ae1fdb59a2
+              - img [ref=e333]
+              - generic [ref=e337]: New page
+        - generic [ref=e149]:
+          - heading "Go to" [level=2] [ref=e150]
+          - generic [ref=e151]:
+            - button "Favorites 1 item" [ref=e338] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e155]:
+                - generic [ref=e156]: Favorites
+                - generic [ref=e157]: 1 item
+            - link "Library 21 items" [ref=e339] [cursor=pointer]:
+              - /url: /library
+              - img [ref=e159]
+              - generic [ref=e161]:
+                - generic [ref=e162]: Library
+                - generic [ref=e163]: 21 items
+        - generic [ref=e164]:
+          - button "Folder" [ref=e165] [cursor=pointer]:
+            - img
+            - text: Folder
+          - button "New page" [ref=e166] [cursor=pointer]:
+            - img
+            - text: New page
+          - button "New canvas" [ref=e167] [cursor=pointer]:
+            - img
+            - text: New canvas
+  - button "Open Next.js Dev Tools" [ref=e173] [cursor=pointer]:
+    - img [ref=e174]
+  - alert [ref=e340]

@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, ChevronRight, Heart, MoreHorizontal, Plus, Rows2, Search } from "lucide-react";
+import { Check, ChevronRight, Heart, Plus, Search } from "lucide-react";
 import { useRef, useState } from "react";
 
-import { CanvasIcon, FolderFillIcon, PageIcon } from "@/components/NoteliteIcons";
+import { FolderCreationModal } from "@/components/FolderCreationModal";
+import { CanvasIcon, ContainerIcon, FolderFillIcon, FullWidthIcon, MoreIcon, PageIcon, PageLayoutIcon } from "@/components/NoteliteIcons";
 import { NewItemMenu } from "@/components/NewItemMenu";
 import { Button } from "@/components/ui/button";
+import type { FolderColor } from "@/lib/folder-utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
@@ -36,6 +38,7 @@ export function HomeDashboard() {
   const { pages, createPage, createFolder } = useNotionStore();
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isLayoutOpen, setIsLayoutOpen] = useState(false);
+  const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
   const [pageLayout, setPageLayout] = useState<"container" | "full">("container");
   const moreMenuRef = useRef<HTMLDivElement | null>(null);
 
@@ -53,8 +56,8 @@ export function HomeDashboard() {
     router.push(`/page/${page.id}`);
   }
 
-  function handleNewFolder() {
-    createFolder();
+  function handleCreateFolder(name: string, folderColor: FolderColor) {
+    createFolder(null, name, folderColor);
   }
 
   function handleNewCanvas() {
@@ -68,10 +71,10 @@ export function HomeDashboard() {
 
   return (
     <ScrollArea className="h-full">
-      <div className="relative flex min-h-screen items-center justify-center px-6 py-12">
+      <div className="relative flex min-h-screen items-start justify-center px-6 py-4">
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <NewItemMenu
-            onCreateFolder={handleNewFolder}
+            onCreateFolder={handleCreateFolder}
             onCreatePage={handleNewPage}
             onCreateCanvas={handleNewCanvas}
           />
@@ -79,16 +82,16 @@ export function HomeDashboard() {
           <div ref={moreMenuRef} className="relative">
             <Button
               type="button"
-              variant="secondary"
+              variant="ghost"
               size="icon-sm"
               aria-label="Page options"
-              className="size-8 rounded-md bg-[#f2f2f2]"
+              className="size-8 rounded-md text-[#1a1a1a]"
               onClick={() => setIsMoreOpen((isOpen) => !isOpen)}
             >
-              <MoreHorizontal className="size-4" />
+              <MoreIcon className="size-4 text-[#1e1e1e]" />
             </Button>
             {isMoreOpen ? (
-              <div className="absolute right-0 top-10 z-40 w-56 rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+              <div className="absolute right-0 top-10 z-40 w-[140px] rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
                 <div className="group/layout relative">
                   <button
                     type="button"
@@ -96,19 +99,19 @@ export function HomeDashboard() {
                     onMouseEnter={() => setIsLayoutOpen(true)}
                     onClick={() => setIsLayoutOpen((isOpen) => !isOpen)}
                   >
-                    <Rows2 className="size-4 text-[#727272]" />
+                    <PageLayoutIcon className="size-4 text-[#1e1e1e]" />
                     <span className="flex-1">Page layout</span>
                     <ChevronRight className="size-4 text-[#727272]" />
                   </button>
                   {isLayoutOpen ? (
-                    <div className="absolute right-full top-0 z-50 mr-2 w-56 rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                    <div className="absolute right-full top-0 z-50 mr-2 w-[140px] rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
                       <button
                         type="button"
                         className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
                         onClick={() => setPageLayout("container")}
                       >
                         {pageLayout === "container" ? <Check className="size-4" /> : <span className="size-4" />}
-                        <Rows2 className="size-4 text-[#727272]" />
+                        <ContainerIcon className="size-4 text-[#1e1e1e]" />
                         Container
                       </button>
                       <button
@@ -117,7 +120,7 @@ export function HomeDashboard() {
                         onClick={() => setPageLayout("full")}
                       >
                         {pageLayout === "full" ? <Check className="size-4" /> : <span className="size-4" />}
-                        <span className="size-4 rounded-sm border border-[#727272]" />
+                        <FullWidthIcon className="size-4 text-[#1e1e1e]" />
                         Full width
                       </button>
                     </div>
@@ -128,7 +131,7 @@ export function HomeDashboard() {
           </div>
         </div>
 
-        <div className={cn("flex w-full flex-col items-stretch gap-5", pageLayout === "container" ? "max-w-[840px]" : "max-w-[calc(100vw-360px)]")}>
+        <div className={cn("flex w-full flex-col items-stretch gap-5 pt-12", pageLayout === "container" ? "max-w-[840px]" : "max-w-[calc(100vw-360px)]")}>
           <h1 className="text-center text-2xl font-bold tracking-normal text-[#1a1a1a]">
             Welcome to NoteLite
           </h1>
@@ -139,7 +142,7 @@ export function HomeDashboard() {
             className="relative flex h-10 w-full items-center rounded-lg border border-[#d9d9d9] bg-white px-3 text-left shadow-[inset_0_1px_0_rgba(31,35,40,0.04)] transition-colors hover:bg-[#fbfbfb]"
           >
             <Search className="mr-2 size-4 shrink-0 text-[#727272]" />
-            <span className="min-w-0 flex-1 truncate text-sm text-[#8e8e93]">Search anything...</span>
+            <span className="min-w-0 flex-1 truncate text-sm text-[#8e8e93]">Search anything..</span>
             <SearchShortcut />
           </button>
 
@@ -151,7 +154,7 @@ export function HomeDashboard() {
                   <Link
                     key={page.id}
                     href={`/page/${page.id}`}
-                    className="flex h-[62px] min-w-0 items-center gap-2 overflow-hidden rounded-lg border border-[#d9d9d9] bg-white p-3 transition-colors hover:bg-[#f7f7f7]"
+                    className="flex h-[59px] min-w-0 items-center gap-2 overflow-hidden rounded-lg border border-[#d9d9d9] bg-white p-3 transition-colors hover:bg-[#f7f7f7]"
                   >
                     <PageIcon className="size-6 shrink-0 text-[#757575]" />
                     <span className="min-w-0 flex-1">
@@ -178,7 +181,7 @@ export function HomeDashboard() {
               <button
                 type="button"
                 onClick={handleOpenSearch}
-                className="flex w-[184.5px] flex-col gap-2 rounded-lg border border-[#d9d9d9] bg-white p-3 text-left transition-colors hover:bg-[#f7f7f7]"
+                className="flex h-[91px] w-[180px] flex-col gap-2 rounded-lg border border-[#d9d9d9] bg-white p-3 text-left transition-colors hover:bg-[#f7f7f7]"
               >
                 <Heart className="size-6 text-[#727272]" />
                 <span>
@@ -191,7 +194,7 @@ export function HomeDashboard() {
 
               <Link
                 href="/library"
-                className="flex w-[184.5px] flex-col gap-2 rounded-lg border border-[#d9d9d9] bg-white p-3 text-left transition-colors hover:bg-[#f7f7f7]"
+                className="flex h-[91px] w-[180px] flex-col gap-2 rounded-lg border border-[#d9d9d9] bg-white p-3 text-left transition-colors hover:bg-[#f7f7f7]"
               >
                 <FolderFillIcon className="size-6 text-[#b3b3b3]" />
                 <span>
@@ -208,33 +211,41 @@ export function HomeDashboard() {
             <Button
               type="button"
               variant="outline"
-              className="h-10 rounded-md border-[#d9d9d9] bg-white px-4 text-sm"
-              onClick={handleNewFolder}
+              className="h-12 w-[115px] justify-start rounded-md border-[#d9d9d9] bg-white px-3 text-sm"
+              onClick={() => setIsFolderModalOpen(true)}
             >
               <FolderFillIcon className="size-4 text-[#b3b3b3]" />
-              Folder
+              Favorites
             </Button>
             <Button
               type="button"
               variant="outline"
-              className="h-10 rounded-md border-[#d9d9d9] bg-white px-4 text-sm"
+              className="h-12 w-[89px] justify-start rounded-md border-[#d9d9d9] bg-white px-3 text-sm"
               onClick={handleNewPage}
             >
               <Plus className="size-4" />
-              New page
+              Page
             </Button>
             <Button
               type="button"
               variant="outline"
-              className="h-10 rounded-md border-[#d9d9d9] bg-white px-4 text-sm"
+              className="h-12 w-[103px] justify-start rounded-md border-[#d9d9d9] bg-white px-3 text-sm"
               onClick={handleNewCanvas}
             >
               <CanvasIcon className="size-4 text-[#757575]" />
-              New canvas
+              Canvas
             </Button>
           </div>
         </div>
       </div>
+      <FolderCreationModal
+        isOpen={isFolderModalOpen}
+        onClose={() => setIsFolderModalOpen(false)}
+        onCreate={(name, folderColor) => {
+          handleCreateFolder(name, folderColor);
+          setIsFolderModalOpen(false);
+        }}
+      />
     </ScrollArea>
   );
 }

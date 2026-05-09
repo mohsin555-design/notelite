@@ -1,0 +1,138 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - button "MW My workspace" [ref=e6] [cursor=pointer]:
+          - generic [ref=e7]: MW
+          - generic [ref=e8]: My workspace
+          - img [ref=e9]
+        - button "Collapse sidebar" [ref=e11] [cursor=pointer]:
+          - img
+      - generic [ref=e13]:
+        - button "Home" [ref=e14] [cursor=pointer]:
+          - img [ref=e15]
+          - text: Home
+        - button "Library" [ref=e18] [cursor=pointer]:
+          - img [ref=e19]
+        - button "Search" [ref=e21] [cursor=pointer]:
+          - img [ref=e22]
+      - button "New" [ref=e27] [cursor=pointer]:
+        - img
+        - text: New
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - heading "Recent" [level=2] [ref=e30]
+          - navigation [ref=e31]:
+            - generic [ref=e32]:
+              - button "Drag Welcome to Notelite" [ref=e33]:
+                - img [ref=e34]
+              - link "Welcome to Notelite" [ref=e37] [cursor=pointer]:
+                - /url: /page/welcome
+                - generic [ref=e38]: Welcome to Notelite
+              - button "Open Welcome to Notelite actions" [ref=e39] [cursor=pointer]:
+                - img [ref=e40]
+            - generic [ref=e44]:
+              - button "Drag Projects" [ref=e45]:
+                - img [ref=e46]
+              - link "Projects" [ref=e48] [cursor=pointer]:
+                - /url: /library?view=list&folder=projects
+                - generic [ref=e49]: Projects
+              - button "Open Projects actions" [ref=e50] [cursor=pointer]:
+                - img [ref=e51]
+            - generic [ref=e55]:
+              - button "Drag Product roadmap" [ref=e56]:
+                - img [ref=e57]
+              - link "Product roadmap" [ref=e60] [cursor=pointer]:
+                - /url: /page/product-roadmap
+                - generic [ref=e61]: Product roadmap
+              - button "Open Product roadmap actions" [ref=e62] [cursor=pointer]:
+                - img [ref=e63]
+            - generic [ref=e67]:
+              - button "Drag Design database UI" [ref=e68]:
+                - img [ref=e69]
+              - link "Design database UI" [ref=e72] [cursor=pointer]:
+                - /url: /page/task-design
+                - generic [ref=e73]: Design database UI
+              - button "Open Design database UI actions" [ref=e74] [cursor=pointer]:
+                - img [ref=e75]
+            - generic [ref=e79]:
+              - button "Drag Ship installable PWA" [ref=e80]:
+                - img [ref=e81]
+              - link "Ship installable PWA" [ref=e84] [cursor=pointer]:
+                - /url: /page/task-pwa
+                - generic [ref=e85]: Ship installable PWA
+              - button "Open Ship installable PWA actions" [ref=e86] [cursor=pointer]:
+                - img [ref=e87]
+        - generic [ref=e91]:
+          - heading "Favorites" [level=2] [ref=e92]
+          - navigation
+      - button "Trash" [ref=e94] [cursor=pointer]:
+        - img [ref=e95]
+        - generic [ref=e98]: Trash
+      - generic [ref=e100]:
+        - generic [ref=e101]: UN
+        - generic [ref=e102]: You
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - button "New" [ref=e110] [cursor=pointer]:
+          - img
+          - text: New
+        - button "Page options" [ref=e112] [cursor=pointer]:
+          - img
+      - generic [ref=e113]:
+        - heading "Welcome to NoteLite" [level=1] [ref=e114]
+        - button "Search anything... ⌘ K" [ref=e115] [cursor=pointer]:
+          - img [ref=e116]
+          - generic [ref=e119]: Search anything...
+          - generic:
+            - generic: ⌘
+            - generic: K
+        - generic [ref=e120]:
+          - heading "Recent" [level=2] [ref=e121]
+          - generic [ref=e122]:
+            - link "Welcome to Notelite A complete block workspace Try [[Product roadmap]], add blocks, switch to focus mode, or open the Tasks database." [ref=e123] [cursor=pointer]:
+              - /url: /page/welcome
+              - img [ref=e124]
+              - generic [ref=e127]:
+                - generic [ref=e128]: Welcome to Notelite
+                - generic [ref=e129]: A complete block workspace Try [[Product roadmap]], add blocks, switch to focus mode, or open the Tasks database.
+            - link "Product roadmap Roadmap Editor foundation Database views" [ref=e130] [cursor=pointer]:
+              - /url: /page/product-roadmap
+              - img [ref=e131]
+              - generic [ref=e134]:
+                - generic [ref=e135]: Product roadmap
+                - generic [ref=e136]: Roadmap Editor foundation Database views
+            - link "Design database UI" [ref=e137] [cursor=pointer]:
+              - /url: /page/task-design
+              - img [ref=e138]
+              - generic [ref=e142]: Design database UI
+            - link "Ship installable PWA" [ref=e143] [cursor=pointer]:
+              - /url: /page/task-pwa
+              - img [ref=e144]
+              - generic [ref=e148]: Ship installable PWA
+        - generic [ref=e149]:
+          - heading "Go to" [level=2] [ref=e150]
+          - generic [ref=e151]:
+            - button "Favorites 0 items" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e155]:
+                - generic [ref=e156]: Favorites
+                - generic [ref=e157]: 0 items
+            - link "Library 5 items" [ref=e158] [cursor=pointer]:
+              - /url: /library
+              - img [ref=e159]
+              - generic [ref=e161]:
+                - generic [ref=e162]: Library
+                - generic [ref=e163]: 5 items
+        - generic [ref=e164]:
+          - button "Folder" [ref=e165] [cursor=pointer]:
+            - img
+            - text: Folder
+          - button "New page" [ref=e166] [cursor=pointer]:
+            - img
+            - text: New page
+          - button "New canvas" [ref=e167] [cursor=pointer]:
+            - img
+            - text: New canvas
+  - button "Open Next.js Dev Tools" [ref=e173] [cursor=pointer]:
+    - img [ref=e174]

@@ -1,0 +1,250 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e148] [cursor=pointer]:
+    - img [ref=e149]
+  - alert [ref=e291]
+  - main [ref=e292]:
+    - complementary [ref=e293]:
+      - generic [ref=e294]:
+        - button "MW My workspace" [ref=e296] [cursor=pointer]:
+          - generic [ref=e297]: MW
+          - generic [ref=e298]: My workspace
+          - img [ref=e299]
+        - button "Collapse sidebar" [ref=e301] [cursor=pointer]:
+          - img
+      - generic [ref=e303]:
+        - button "Home" [ref=e304] [cursor=pointer]:
+          - img [ref=e305]
+        - button "Library" [ref=e307] [cursor=pointer]:
+          - img [ref=e308]
+        - button "Search" [ref=e312] [cursor=pointer]:
+          - img [ref=e313]
+        - button "Add" [ref=e317] [cursor=pointer]:
+          - img
+      - generic [ref=e318]:
+        - generic [ref=e319]:
+          - heading "Recent" [level=2] [ref=e320]
+          - navigation [ref=e321]:
+            - generic [ref=e322]:
+              - button "Drag New canvas" [ref=e323]:
+                - img [ref=e324]
+              - link "New canvas" [ref=e329] [cursor=pointer]:
+                - /url: /page/page-77885ea3-730a-4700-ac95-34758e0f8b1a
+                - generic [ref=e330]: New canvas
+              - button "Open New canvas actions" [ref=e331] [cursor=pointer]:
+                - img [ref=e332]
+            - generic [ref=e334]:
+              - button "Drag Untitled" [ref=e335]:
+                - img [ref=e336]
+              - link "Untitled" [ref=e338] [cursor=pointer]:
+                - /url: /page/page-c7fea17a-bbfd-438c-9f94-8704d40d2359
+                - generic [ref=e339]: Untitled
+              - button "Open Untitled actions" [ref=e340] [cursor=pointer]:
+                - img [ref=e341]
+            - generic [ref=e343]:
+              - button "Drag Untitled" [ref=e344]:
+                - img [ref=e345]
+              - link "Untitled" [ref=e347] [cursor=pointer]:
+                - /url: /page/page-adf1067b-9851-4008-a2c1-79c77a83c4e4
+                - generic [ref=e348]: Untitled
+              - button "Open Untitled actions" [ref=e349] [cursor=pointer]:
+                - img [ref=e350]
+            - generic [ref=e352]:
+              - button "Drag Untitled" [ref=e353]:
+                - img [ref=e354]
+              - link "Untitled" [ref=e356] [cursor=pointer]:
+                - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+                - generic [ref=e357]: Untitled
+              - button "Open Untitled actions" [ref=e358] [cursor=pointer]:
+                - img [ref=e359]
+            - generic [ref=e361]:
+              - button "Drag New canvas" [ref=e362]:
+                - img [ref=e363]
+              - link "New canvas" [ref=e368] [cursor=pointer]:
+                - /url: /page/page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c
+                - generic [ref=e369]: New canvas
+              - button "Open New canvas actions" [ref=e370] [cursor=pointer]:
+                - img [ref=e371]
+            - generic [ref=e373]:
+              - button "Drag Test Page" [ref=e374]:
+                - img [ref=e375]
+              - link "Test Page" [ref=e380] [cursor=pointer]:
+                - /url: /page/page-f536b84c-c5bf-4827-9715-258f5e77a3e4
+                - generic [ref=e381]: Test Page
+              - button "Open Test Page actions" [ref=e382] [cursor=pointer]:
+                - img [ref=e383]
+            - generic [ref=e385]:
+              - button "Drag New page" [ref=e386]:
+                - img [ref=e387]
+              - link "New page" [ref=e389] [cursor=pointer]:
+                - /url: /page/page-0aba7780-150d-4903-89a1-aaa6cd157bf1
+                - generic [ref=e390]: New page
+              - button "Open New page actions" [ref=e391] [cursor=pointer]:
+                - img [ref=e392]
+            - generic [ref=e394]:
+              - button "Drag New sub-page" [ref=e395]:
+                - img [ref=e396]
+              - link "New sub-page" [ref=e398] [cursor=pointer]:
+                - /url: /page/page-a88e5db1-3d3a-4469-963b-6d3141a0df1a
+                - generic [ref=e399]: New sub-page
+              - button "Open New sub-page actions" [ref=e400] [cursor=pointer]:
+                - img [ref=e401]
+            - link "...more" [ref=e403] [cursor=pointer]:
+              - /url: /library?view=list&section=recent
+              - img [ref=e404]
+              - text: ...more
+        - generic [ref=e406]:
+          - heading "Favorites" [level=2] [ref=e407]
+          - navigation [ref=e408]:
+            - generic [ref=e409]:
+              - button "Drag Untitled" [ref=e410]:
+                - img [ref=e411]
+              - link "Untitled" [ref=e413] [cursor=pointer]:
+                - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+                - generic [ref=e414]: Untitled
+              - button "Open Untitled actions" [ref=e415] [cursor=pointer]:
+                - img [ref=e416]
+      - button "Trash" [ref=e419] [cursor=pointer]:
+        - img [ref=e420]
+        - generic [ref=e423]: Trash
+      - button "MW Mohsin ali sayyed" [ref=e425] [cursor=pointer]:
+        - generic [ref=e426]: MW
+        - generic [ref=e427]: Mohsin ali sayyed
+        - img [ref=e428]
+    - generic [ref=e434]:
+      - generic [ref=e435]:
+        - generic [ref=e436]:
+          - heading "Library" [level=1] [ref=e437]
+          - generic [ref=e438]:
+            - img [ref=e439]
+            - textbox "Search in library" [ref=e442]
+          - generic [ref=e443]:
+            - button "Add" [ref=e445] [cursor=pointer]:
+              - img
+              - text: Add
+            - generic [ref=e446]:
+              - button "Grid" [ref=e447] [cursor=pointer]:
+                - img [ref=e448]
+              - button "List" [ref=e450] [cursor=pointer]:
+                - img [ref=e451]
+              - button "Split" [ref=e454] [cursor=pointer]:
+                - img [ref=e455]
+            - button "More library actions" [ref=e457] [cursor=pointer]:
+              - img
+        - generic [ref=e458]:
+          - navigation [ref=e459]:
+            - button "All 22" [ref=e460] [cursor=pointer]:
+              - text: All
+              - generic [ref=e461]: "22"
+            - button "Folder 7" [ref=e462] [cursor=pointer]:
+              - text: Folder
+              - generic [ref=e463]: "7"
+            - button "Pages 10" [ref=e464] [cursor=pointer]:
+              - text: Pages
+              - generic [ref=e465]: "10"
+            - button "Canvas 5" [ref=e466] [cursor=pointer]:
+              - text: Canvas
+              - generic [ref=e467]: "5"
+            - button "Favorites 1" [ref=e468] [cursor=pointer]:
+              - text: Favorites
+              - generic [ref=e469]: "1"
+          - button "Recent" [ref=e470] [cursor=pointer]:
+            - text: Recent
+            - img [ref=e471]
+      - main [ref=e473]:
+        - generic [ref=e474]:
+          - generic [ref=e475]: Recent
+          - generic [ref=e476]:
+            - generic [ref=e477]:
+              - link "Untitled - New Folder" [ref=e478] [cursor=pointer]:
+                - /url: /page/page-c7fea17a-bbfd-438c-9f94-8704d40d2359
+                - img [ref=e479]
+                - generic [ref=e482]:
+                  - text: Untitled
+                  - generic [ref=e483]: "- New Folder"
+              - button "Open Untitled actions" [ref=e484] [cursor=pointer]:
+                - img [ref=e485]
+            - generic [ref=e489]:
+              - link "Untitled - Library" [ref=e490] [cursor=pointer]:
+                - /url: /page/page-adf1067b-9851-4008-a2c1-79c77a83c4e4
+                - img [ref=e491]
+                - generic [ref=e494]:
+                  - text: Untitled
+                  - generic [ref=e495]: "- Library"
+              - button "Open Untitled actions" [ref=e496] [cursor=pointer]:
+                - img [ref=e497]
+            - generic [ref=e501]:
+              - link "Untitled - Heena Sayyed sdfsadfasdfasdf asdfasdfasd asdfadsfasdf asdfasdfasdf asdfasdfadsfa / safasdfasd asdfasdfasdf adsfasdfasdf" [ref=e502] [cursor=pointer]:
+                - /url: /page/page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909
+                - img [ref=e503]
+                - generic [ref=e505]:
+                  - generic [ref=e506]:
+                    - text: Untitled
+                    - generic [ref=e507]: "- Heena Sayyed"
+                  - generic [ref=e508]: sdfsadfasdfasdf asdfasdfasd asdfadsfasdf asdfasdfasdf asdfasdfadsfa / safasdfasd asdfasdfasdf adsfasdfasdf
+              - button "Open Untitled actions" [ref=e509] [cursor=pointer]:
+                - img [ref=e510]
+            - generic [ref=e514]:
+              - link "New page - My Folder" [ref=e515] [cursor=pointer]:
+                - /url: /page/page-0aba7780-150d-4903-89a1-aaa6cd157bf1
+                - img [ref=e516]
+                - generic [ref=e519]:
+                  - text: New page
+                  - generic [ref=e520]: "- My Folder"
+              - button "Open New page actions" [ref=e521] [cursor=pointer]:
+                - img [ref=e522]
+            - generic [ref=e526]:
+              - link "New sub-page - Welcome to Notelite" [ref=e527] [cursor=pointer]:
+                - /url: /page/page-a88e5db1-3d3a-4469-963b-6d3141a0df1a
+                - img [ref=e528]
+                - generic [ref=e531]:
+                  - text: New sub-page
+                  - generic [ref=e532]: "- Welcome to Notelite"
+              - button "Open New sub-page actions" [ref=e533] [cursor=pointer]:
+                - img [ref=e534]
+            - generic [ref=e538]:
+              - link "New page - Library" [ref=e539] [cursor=pointer]:
+                - /url: /page/page-11a10f32-972c-4bce-a59f-d7ae1fdb59a2
+                - img [ref=e540]
+                - generic [ref=e543]:
+                  - text: New page
+                  - generic [ref=e544]: "- Library"
+              - button "Open New page actions" [ref=e545] [cursor=pointer]:
+                - img [ref=e546]
+            - generic [ref=e550]:
+              - link "New entry - Library dfsgdsfgdsfg" [ref=e551] [cursor=pointer]:
+                - /url: /page/page-4f94ca5d-cfd1-4b15-804e-b354fc3678d8
+                - img [ref=e552]
+                - generic [ref=e554]:
+                  - generic [ref=e555]:
+                    - text: New entry
+                    - generic [ref=e556]: "- Library"
+                  - generic [ref=e557]: dfsgdsfgdsfg
+              - button "Open New entry actions" [ref=e558] [cursor=pointer]:
+                - img [ref=e559]
+            - generic [ref=e563]:
+              - link "Untitled - Library" [ref=e564] [cursor=pointer]:
+                - /url: /page/page-9c320d48-05f8-43d0-b265-804de7c94f02
+                - img [ref=e565]
+                - generic [ref=e568]:
+                  - text: Untitled
+                  - generic [ref=e569]: "- Library"
+              - button "Open Untitled actions" [ref=e570] [cursor=pointer]:
+                - img [ref=e571]
+            - generic [ref=e575]:
+              - link "Design database UI - Projects" [ref=e576] [cursor=pointer]:
+                - /url: /page/task-design
+                - img [ref=e577]
+                - generic [ref=e580]:
+                  - text: Design database UI
+                  - generic [ref=e581]: "- Projects"
+              - button "Open Design database UI actions" [ref=e582] [cursor=pointer]:
+                - img [ref=e583]
+            - generic [ref=e587]:
+              - link "Ship installable PWA - Library" [ref=e588] [cursor=pointer]:
+                - /url: /page/task-pwa
+                - img [ref=e589]
+                - generic [ref=e592]:
+                  - text: Ship installable PWA
+                  - generic [ref=e593]: "- Library"
+              - button "Open Ship installable PWA actions" [ref=e594] [cursor=pointer]:
+                - img [ref=e595]

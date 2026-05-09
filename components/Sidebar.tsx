@@ -3,21 +3,21 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  ChevronDown,
   ChevronsLeft,
   ChevronsRight,
-  Folder,
-  MoreHorizontal,
-  Home,
+  GripVertical,
+  LogOut,
   Search,
+  Settings,
   Trash2,
 } from "lucide-react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { CanvasIcon, FolderLineIcon, PageIcon } from "@/components/NoteliteIcons";
+import { CanvasIcon, CaretDownIcon, FolderListIcon, HomeIcon, LibraryIcon, MoreIcon, PageIcon } from "@/components/NoteliteIcons";
 import { NewItemMenu } from "@/components/NewItemMenu";
 import { Button } from "@/components/ui/button";
-import { WorkspaceItemContextMenu, getFolderColorClasses } from "@/components/FolderContextMenu";
+import { WorkspaceItemContextMenu } from "@/components/FolderContextMenu";
+import type { FolderColor } from "@/lib/folder-utils";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
@@ -27,6 +27,12 @@ type ItemMenuState = {
   itemId: string;
   x: number;
   y: number;
+} | null;
+type SidebarSectionKind = "recent" | "favorites";
+type DropPosition = "before" | "after";
+type DragIndicatorState = {
+  itemId: string;
+  position: DropPosition;
 } | null;
 
 const SIDEBAR_ITEM_LIMIT = 8;
@@ -40,9 +46,9 @@ function itemHref(item: Page) {
   return item.type === "folder" ? `/library?view=list&folder=${item.id}` : `/page/${item.id}`;
 }
 
-function SidebarItemIcon({ item }: { item: Page }) {
+function SidebarItemIcon({ item, childCount }: { item: Page; childCount: number }) {
   if (item.type === "folder") {
-    return <FolderLineIcon className={cn("size-4 shrink-0", getFolderColorClasses(item.folderColor).icon)} />;
+    return <FolderListIcon childCount={childCount} folderColor={item.folderColor} className="size-4 shrink-0" />;
   }
 
   if (isCanvasPage(item)) {
@@ -55,14 +61,30 @@ function SidebarItemIcon({ item }: { item: Page }) {
 function SidebarItemRow({
   item,
   isActive,
+  section,
+  childCount,
+  dropPosition,
   onOpenItemMenu,
+  onDragOverItem,
+  onClearDragIndicator,
   onDropItem,
 }: {
   item: Page;
   isActive: boolean;
+  section: SidebarSectionKind;
+  childCount: number;
+  dropPosition: DropPosition | null;
   onOpenItemMenu: (itemId: string, x: number, y: number) => void;
-  onDropItem: (activeId: string, overId: string) => void;
+  onDragOverItem: (itemId: string, position: DropPosition) => void;
+  onClearDragIndicator: () => void;
+  onDropItem: (activeId: string, overId: string, targetSection: SidebarSectionKind, sourceSection: SidebarSectionKind | null, position: DropPosition) => void;
 }) {
+  function handleDragStart(event: React.DragEvent) {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", item.id);
+    event.dataTransfer.setData("application/notelite-sidebar-section", section);
+  }
+
   function openMenuFromButton(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
@@ -74,46 +96,57 @@ function SidebarItemRow({
   function handleDragOver(event: React.DragEvent) {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
+    const rect = event.currentTarget.getBoundingClientRect();
+    const position = event.clientY < rect.top + rect.height / 2 ? "before" : "after";
+    onDragOverItem(item.id, position);
   }
 
   function handleDrop(event: React.DragEvent) {
     event.preventDefault();
+    event.stopPropagation();
     const activeId = event.dataTransfer.getData("text/plain");
+    const sourceSection = event.dataTransfer.getData("application/notelite-sidebar-section") as SidebarSectionKind | "";
+    const rect = event.currentTarget.getBoundingClientRect();
+    const position = event.clientY < rect.top + rect.height / 2 ? "before" : "after";
+    onClearDragIndicator();
     if (activeId) {
-      onDropItem(activeId, item.id);
+      onDropItem(activeId, item.id, section, sourceSection || null, position);
     }
   }
 
   return (
     <div
+      draggable
       className={cn(
-        "group flex h-[25px] items-center gap-2 rounded-lg px-2 text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]",
-        isActive && "bg-[#e6e6e6]",
+        "group relative flex h-6 items-center gap-2 rounded-lg px-2 text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2] active:cursor-grabbing",
+        isActive && "bg-white",
       )}
       onContextMenu={(event) => {
         event.preventDefault();
         onOpenItemMenu(item.id, event.clientX, event.clientY);
       }}
+      onDragStart={handleDragStart}
       onDragOver={handleDragOver}
+      onDragEnd={onClearDragIndicator}
       onDrop={handleDrop}
     >
+      {dropPosition ? (
+        <span
+          className={cn(
+            "pointer-events-none absolute left-2 right-2 z-10 h-0.5 rounded-full bg-[#0062ff]",
+            dropPosition === "before" ? "-top-0.5" : "-bottom-0.5",
+          )}
+        />
+      ) : null}
       <span
-        draggable
         aria-label={`Drag ${item.title || "item"}`}
-        role="button"
-        tabIndex={0}
-        onDragStart={(event) => {
-          event.dataTransfer.effectAllowed = "move";
-          event.dataTransfer.setData("text/plain", item.id);
-        }}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        className="flex size-4 shrink-0 touch-none cursor-grab items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 active:cursor-grabbing"
+        className="flex size-4 shrink-0 touch-none cursor-grab items-center justify-center opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
       >
-        <SidebarItemIcon item={item} />
+        <GripVertical className="size-4 text-[#757575]" />
       </span>
       <Link href={itemHref(item)} className="flex min-w-0 flex-1 items-center gap-2">
-        <span className="truncate text-sm font-semibold">
+        <SidebarItemIcon item={item} childCount={childCount} />
+        <span className="truncate text-[14px] font-medium leading-[normal]">
           {item.title.trim() || (item.type === "folder" ? "New Folder" : isCanvasPage(item) ? "Canvas" : "Untitled")}
         </span>
       </Link>
@@ -122,9 +155,9 @@ function SidebarItemRow({
         aria-label={`Open ${item.title || "item"} actions`}
         onClick={openMenuFromButton}
         onContextMenu={openMenuFromButton}
-        className="flex size-6 shrink-0 items-center justify-center rounded-md text-[#1a1a1a] opacity-0 transition-opacity hover:bg-white group-focus-within:opacity-100 group-hover:opacity-100"
+        className="flex size-5 shrink-0 items-center justify-center rounded-md text-[#1a1a1a] opacity-0 transition-opacity hover:bg-[#f2f2f2] group-focus-within:opacity-100 group-hover:opacity-100"
       >
-        <MoreHorizontal className="size-4" />
+        <MoreIcon className="size-4 text-[#1e1e1e]" />
       </button>
     </div>
   );
@@ -133,40 +166,70 @@ function SidebarItemRow({
 function SidebarSection({
   title,
   items,
+  pages,
+  section,
   moreHref,
   pathname,
+  activeFolderId,
   onOpenItemMenu,
   onDropItem,
+  onDropToSection,
 }: {
   title: string;
   items: Page[];
+  pages: Page[];
+  section: SidebarSectionKind;
   moreHref: string;
   pathname: string | null;
+  activeFolderId: string | null;
   onOpenItemMenu: (itemId: string, x: number, y: number) => void;
-  onDropItem: (activeId: string, overId: string) => void;
+  onDropItem: (activeId: string, overId: string, targetSection: SidebarSectionKind, sourceSection: SidebarSectionKind | null, position: DropPosition) => void;
+  onDropToSection: (activeId: string, targetSection: SidebarSectionKind, sourceSection: SidebarSectionKind | null) => void;
 }) {
   const visibleItems = items.slice(0, SIDEBAR_ITEM_LIMIT);
+  const hasMore = items.length > SIDEBAR_ITEM_LIMIT;
+  const [dragIndicator, setDragIndicator] = useState<DragIndicatorState>(null);
+
+  function handleSectionDragOver(event: React.DragEvent) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+  }
+
+  function handleSectionDrop(event: React.DragEvent) {
+    event.preventDefault();
+    setDragIndicator(null);
+    const activeId = event.dataTransfer.getData("text/plain");
+    const sourceSection = event.dataTransfer.getData("application/notelite-sidebar-section") as SidebarSectionKind | "";
+    if (activeId) {
+      onDropToSection(activeId, section, sourceSection || null);
+    }
+  }
 
   return (
-    <section className="space-y-1">
-      <h2 className="px-2 text-sm font-semibold text-[#727272]">{title}</h2>
-      <nav className="space-y-0">
+    <section className="space-y-2">
+      <h2 className="px-4 text-[12px] font-medium leading-[normal] text-[#757575]">{title}</h2>
+      <nav className="min-h-7 space-y-0.5 px-2" onDragOver={handleSectionDragOver} onDrop={handleSectionDrop}>
         {visibleItems.map((item) => (
           <SidebarItemRow
             key={item.id}
             item={item}
-            isActive={item.type === "page" && pathname === `/page/${item.id}`}
+            childCount={pages.filter((page) => page.parentId === item.id).length}
+            section={section}
+            dropPosition={dragIndicator?.itemId === item.id ? dragIndicator.position : null}
+            isActive={(item.type === "page" && pathname === `/page/${item.id}`) || (item.type === "folder" && activeFolderId === item.id)}
             onOpenItemMenu={onOpenItemMenu}
+            onDragOverItem={(itemId, position) => setDragIndicator({ itemId, position })}
+            onClearDragIndicator={() => setDragIndicator(null)}
             onDropItem={onDropItem}
           />
         ))}
+        {hasMore ? (
+          <Link href={moreHref} className="flex h-6 items-center gap-2 rounded-lg px-2 text-[14px] font-medium text-[#0062ff] hover:bg-[#f2f2f2]">
+            <MoreIcon className="size-4" />
+            More
+          </Link>
+        ) : null}
       </nav>
-      {items.length > SIDEBAR_ITEM_LIMIT ? (
-        <Link href={moreHref} className="flex h-[25px] items-center gap-2 rounded-lg px-2 text-sm font-semibold text-[#0d6fff] hover:bg-[#eef4ff]">
-          <MoreHorizontal className="size-4" />
-          More
-        </Link>
-      ) : null}
     </section>
   );
 }
@@ -184,11 +247,15 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     createFolder,
     createPage,
     movePage,
+    togglePageFavorite,
   } = useNotionStore();
   const workspaceMenuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isWorkspaceMenuOpen, setIsWorkspaceMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [itemMenu, setItemMenu] = useState<ItemMenuState>(null);
+  const [activeFolderId, setActiveFolderId] = useState<string | null>(null);
   const displayedWorkspace = activeWorkspace ?? workspaces[0] ?? {
     id: "workspace-main",
     name: "My workspace",
@@ -196,13 +263,29 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     pages: [],
     databases: [],
   };
-  const recentItems = useMemo(() => pages, [pages]);
-  const favoriteItems = useMemo(() => pages.filter((page) => page.isFavorite), [pages]);
+  const documentItems = useMemo(() => pages.filter((page) => page.type === "page"), [pages]);
+  const recentItems = useMemo(() => documentItems, [documentItems]);
+  const favoriteItems = useMemo(() => documentItems.filter((page) => page.isFavorite), [documentItems]);
   const handleWorkspaceOutsideClick = useCallback(() => {
     setIsWorkspaceMenuOpen(false);
   }, []);
+  const handleUserOutsideClick = useCallback(() => {
+    setIsUserMenuOpen(false);
+  }, []);
 
   useClickOutside(workspaceMenuRef, handleWorkspaceOutsideClick, isWorkspaceMenuOpen);
+  useClickOutside(userMenuRef, handleUserOutsideClick, isUserMenuOpen);
+
+  useEffect(() => {
+    function syncActiveFolder() {
+      setActiveFolderId(new URLSearchParams(window.location.search).get("folder"));
+    }
+
+    syncActiveFolder();
+    window.addEventListener("popstate", syncActiveFolder);
+
+    return () => window.removeEventListener("popstate", syncActiveFolder);
+  }, [pathname]);
 
   function handleCreateWorkspace() {
     const name = window.prompt("Workspace name", "New workspace");
@@ -228,8 +311,8 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     router.push(`/page/${page.id}`);
   }
 
-  function handleNewFolder() {
-    createFolder();
+  function handleNewFolder(name: string, folderColor: FolderColor) {
+    createFolder(null, name, folderColor);
   }
 
   function handleNewCanvas() {
@@ -245,7 +328,43 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     router.push("/library");
   }
 
-  function handleSidebarDrop(activeId: string, overId: string) {
+  function handleOpenSettings() {
+    setIsUserMenuOpen(false);
+    router.push("/dashboard?settings=account");
+  }
+
+  function handleLogout() {
+    setIsUserMenuOpen(false);
+  }
+
+  function syncDraggedItemSection(activeId: string, targetSection: SidebarSectionKind, sourceSection: SidebarSectionKind | null) {
+    if (!sourceSection || sourceSection === targetSection) {
+      return;
+    }
+
+    const activeItem = pages.find((page) => page.id === activeId);
+    if (!activeItem) {
+      return;
+    }
+
+    if (targetSection === "favorites" && !activeItem.isFavorite) {
+      togglePageFavorite(activeId);
+    }
+
+    if (targetSection === "recent" && activeItem.isFavorite) {
+      togglePageFavorite(activeId);
+    }
+  }
+
+  function handleSidebarDrop(
+    activeId: string,
+    overId: string,
+    targetSection: SidebarSectionKind,
+    sourceSection: SidebarSectionKind | null,
+    position: DropPosition,
+  ) {
+    syncDraggedItemSection(activeId, targetSection, sourceSection);
+
     if (activeId === overId) {
       return;
     }
@@ -261,18 +380,32 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     }
 
     movePage(activeId, overItem.parentId, overItem.id);
+    if (position === "after") {
+      movePage(overItem.id, overItem.parentId, activeId);
+    }
   }
+
+  function handleSectionDrop(
+    activeId: string,
+    targetSection: SidebarSectionKind,
+    sourceSection: SidebarSectionKind | null,
+  ) {
+    syncDraggedItemSection(activeId, targetSection, sourceSection);
+  }
+
+  const isHomeActive = pathname === "/dashboard";
+  const isLibraryActive = pathname?.startsWith("/library") ?? false;
 
   return (
     <aside
       className={cn(
-        "flex h-full shrink-0 flex-col border-r border-[#d9d9d9] bg-[#f7f7f7] text-[#1a1a1a] transition-[width]",
-        isSidebarCollapsed ? "w-12" : "w-60",
+        "flex h-full shrink-0 flex-col border-r border-[#e2e6eb] bg-[#f7f8fa] text-[#1a1a1a] transition-[width]",
+        isSidebarCollapsed ? "w-12" : "w-[240px]",
       )}
     >
       <div
         className={cn(
-          "flex h-12 items-center gap-2 border-b border-[#d9d9d9] px-3",
+          "flex h-12 items-center gap-2 border-b border-[#e2e6eb] px-3",
           isSidebarCollapsed && "justify-center px-2",
         )}
       >
@@ -281,9 +414,9 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
             type="button"
             size="icon-sm"
             variant="ghost"
-            aria-label="Open sidebar"
-            onClick={() => setIsSidebarCollapsed(false)}
-          >
+              aria-label="Open sidebar"
+              onClick={() => setIsSidebarCollapsed(false)}
+            >
             <ChevronsRight className="size-4 text-[#1a1a1a]" />
           </Button>
         ) : (
@@ -295,13 +428,13 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
                 className="flex h-8 min-w-0 items-center gap-2 rounded-lg text-left"
                 onClick={() => setIsWorkspaceMenuOpen((isOpen) => !isOpen)}
               >
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#e6e6e6] text-[10px] font-semibold text-black">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-[14px] font-medium text-[#0062ff]">
                   {displayedWorkspace.initials}
                 </span>
-                <span className="truncate text-sm font-bold">{displayedWorkspace.name}</span>
-                <ChevronDown
+                <span className="truncate text-[14px] font-medium">{displayedWorkspace.name}</span>
+                <CaretDownIcon
                   className={cn(
-                    "size-4 shrink-0 text-[#1a1a1a] transition-transform",
+                    "size-4 shrink-0 text-[#1e1e1e] transition-transform",
                     isWorkspaceMenuOpen && "rotate-180",
                   )}
                 />
@@ -356,89 +489,125 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
 
       {isSidebarCollapsed ? null : (
         <>
-          <div className="px-3 pt-3">
-            <div className="flex items-center justify-between rounded-2xl bg-white p-1 shadow-[inset_0_0_0_1px_rgba(217,217,217,0.9)]">
+          <div className="px-3 pt-4">
+            <div className="flex items-center gap-1">
               <button
                 type="button"
                 aria-label="Home"
                 onClick={handleNavigateHome}
                 className={cn(
-                  "flex h-9 items-center gap-2 rounded-2xl px-3 text-sm font-semibold text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]",
-                  pathname === "/dashboard" && "bg-[#ece8e3]",
+                  "flex h-8 w-8 items-center justify-center rounded-[36px] border text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]",
+                  isHomeActive
+                    ? "border-[#d9d9d9] bg-white shadow-[0_1px_0_rgba(31,35,40,0.04)]"
+                    : "border-transparent bg-transparent",
                 )}
               >
-                <Home className="size-4 shrink-0" />
-                Home
+                <HomeIcon className="size-4 shrink-0" />
               </button>
               <button
                 type="button"
                 aria-label="Library"
                 onClick={handleNavigateLibrary}
                 className={cn(
-                  "flex h-9 w-9 items-center justify-center rounded-2xl text-[#727272] transition-colors hover:bg-[#f2f2f2]",
-                  pathname === "/library" && "bg-[#ece8e3] text-[#1a1a1a]",
+                  "flex h-8 w-8 items-center justify-center rounded-[36px] border text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]",
+                  isLibraryActive
+                    ? "border-[#d9d9d9] bg-white shadow-[0_1px_0_rgba(31,35,40,0.04)]"
+                    : "border-transparent bg-transparent",
                 )}
               >
-                <Folder className="size-4 shrink-0" />
+                <LibraryIcon className="size-4 shrink-0" />
               </button>
               <button
                 type="button"
                 aria-label="Search"
                 onClick={onOpenSearch}
-                className="flex h-9 w-9 items-center justify-center rounded-2xl text-[#727272] transition-colors hover:bg-[#f2f2f2]"
+                className="ml-auto flex h-8 w-8 items-center justify-center rounded-[36px] text-[#1a1a1a] transition-colors hover:bg-[#f2f2f2]"
               >
                 <Search className="size-4 shrink-0" />
               </button>
+              <NewItemMenu
+                align="left"
+                label=""
+                className="shrink-0"
+                buttonClassName="h-8 w-8 rounded-full bg-[#0062ff] p-0 text-white hover:bg-[#0052d4] [&>svg]:mr-0"
+                onCreateFolder={handleNewFolder}
+                onCreatePage={handleNewPage}
+                onCreateCanvas={handleNewCanvas}
+              />
             </div>
           </div>
 
-          <div className="space-y-3 px-3 py-4">
-            <NewItemMenu
-              align="left"
-              className="w-full"
-              buttonClassName="h-8 w-full justify-center rounded-md bg-black text-sm font-semibold text-white hover:bg-black/85"
-              onCreateFolder={handleNewFolder}
-              onCreatePage={handleNewPage}
-              onCreateCanvas={handleNewCanvas}
-            />
-          </div>
-
-          <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-2 pb-4">
+          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto pb-4 pt-4">
             <SidebarSection
               title="Recent"
+              section="recent"
               items={recentItems}
+              pages={pages}
               moreHref="/library?view=list&section=recent"
               pathname={pathname}
+              activeFolderId={activeFolderId}
               onOpenItemMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
               onDropItem={handleSidebarDrop}
+              onDropToSection={handleSectionDrop}
             />
             <SidebarSection
               title="Favorites"
+              section="favorites"
               items={favoriteItems}
+              pages={pages}
               moreHref="/library?view=list&section=favorites"
               pathname={pathname}
+              activeFolderId={activeFolderId}
               onOpenItemMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })}
               onDropItem={handleSidebarDrop}
+              onDropToSection={handleSectionDrop}
             />
           </div>
 
-          <div className="space-y-0.5 px-2 pb-3">
+          <div className="px-2 pb-4">
             <button
               type="button"
-              className="flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-sm font-semibold text-[#1a1a1a] hover:bg-[#f2f2f2]"
+              onClick={() => router.push("/library?view=list&section=trash")}
+              className="flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-[14px] font-medium text-[#1a1a1a] hover:bg-[#f2f2f2]"
             >
-              <Trash2 className="size-4 text-[#1a1a1a]" />
+              <Trash2 className="size-4 shrink-0 text-[#1a1a1a]" />
               <span className="truncate">Trash</span>
             </button>
           </div>
 
-          <div className="flex h-12 items-center border-t border-[#d9d9d9] px-3">
-            <div className="flex min-w-0 items-center gap-2">
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#e6e6e6] text-[10px] font-semibold text-black">
-                UN
+          <div ref={userMenuRef} className="relative border-t border-[#d9d9d9] px-2 py-2">
+            {isUserMenuOpen ? (
+              <div className="absolute bottom-14 left-2 z-50 w-[calc(100%-16px)] rounded-lg border border-[#d9d9d9] bg-white p-1.5 shadow-lg">
+                <button
+                  type="button"
+                  className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left text-sm font-medium text-[#1a1a1a] hover:bg-[#f2f2f2]"
+                  onClick={handleOpenSettings}
+                >
+                  <Settings className="size-4 shrink-0" />
+                  <span className="truncate">Settings</span>
+                </button>
+                <button
+                  type="button"
+                  className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left text-sm font-medium text-[#1a1a1a] hover:bg-[#f2f2f2]"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="size-4 shrink-0" />
+                  <span className="truncate">Logout</span>
+                </button>
+              </div>
+            ) : null}
+            <button
+              type="button"
+              aria-expanded={isUserMenuOpen}
+              className="flex h-9 w-full items-center gap-2 rounded-lg px-1 text-left hover:bg-[#f2f2f2]"
+              onClick={() => setIsUserMenuOpen((isOpen) => !isOpen)}
+            >
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-[14px] font-medium text-[#0062ff]">
+                {displayedWorkspace.initials}
               </span>
-              <span className="truncate text-sm font-bold">You</span>
-            </div>
+              <span className="min-w-0 flex-1 truncate text-sm font-medium">Mohsin ali sayyed</span>
+              <CaretDownIcon className={cn("size-4 shrink-0 text-[#1e1e1e] transition-transform", isUserMenuOpen && "rotate-180")} />
+            </button>
           </div>
         </>
       )}

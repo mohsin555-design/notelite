@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-tt-norms-pro);
   --font-mono: var(--font-jetbrains-mono);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-tt-norms-pro);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,10 +49,9 @@
 }
 
 :root {
-  --font-inter: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-jetbrains-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-tt-norms-pro), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-tt-norms-pro), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -256,8 +255,15 @@
     display: block;
     width: 181px;
     height: 185px;
+    overflow: hidden;
     padding-left: 16px;
     color: #1a1a1a;
+    --folder-card-fill: #ffffff;
+    --folder-card-border: #e6e6e6;
+    --folder-card-sheet-fill: #f5f5f5;
+    --folder-card-sheet-border: #d9d9d9;
+    --folder-card-name: #1a1a1a;
+    --folder-card-count: #727272;
   }
 
   .notelite-folder-card::before {
@@ -266,53 +272,142 @@
     inset: 0 auto auto 0;
     width: 32px;
     height: 185px;
-    z-index: 0;
+    z-index: 2;
     background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23F7F7F7' stroke='%23D9D9D9'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     pointer-events: none;
   }
 
+  .notelite-folder-card__sheet {
+    position: absolute;
+    top: 0;
+    left: 16px;
+    width: 38px;
+    height: 185px;
+    border: 1px solid var(--folder-card-sheet-border);
+    border-radius: 10px;
+    background: var(--folder-card-sheet-fill);
+    pointer-events: none;
+  }
+
+  .notelite-folder-card__sheet--back {
+    z-index: 0;
+    transform: translateX(-8px) rotate(-3.643deg);
+    transform-origin: top left;
+  }
+
+  .notelite-folder-card__sheet--front {
+    z-index: 1;
+    height: 186px;
+    transform: translateX(-5px) rotate(-2.868deg);
+    transform-origin: top left;
+  }
+
   .notelite-folder-card__container {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     display: flex;
     width: 165px;
     height: 185px;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
-    border: 1px solid #e6e6e6;
+    border: 1px solid var(--folder-card-border);
     border-radius: 8px;
-    background: #ffffff;
+    background: var(--folder-card-fill);
     padding: 18px 12px;
   }
 
-  .notelite-folder-card[data-folder-color="green"]::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23d5f8dd' stroke='%2313b65f'/%3E%3C/svg%3E");
+  .notelite-folder-card[data-folder-color="amber"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23E6A000' stroke='%23BF6A02'/%3E%3C/svg%3E");
   }
 
-  .notelite-folder-card[data-folder-color="green"] .notelite-folder-card__container {
-    border-color: #13b65f;
-    background: #d5f8dd;
+  .notelite-folder-card[data-folder-color="amber"] {
+    --folder-card-border: #bf6a02;
+    --folder-card-fill: #e8b931;
+    --folder-card-sheet-fill: #fff1c2;
+    --folder-card-sheet-border: #bf6a02;
+    --folder-card-name: #1e1e1e;
+    --folder-card-count: #5a5a5a;
+  }
+
+  .notelite-folder-card[data-folder-color="green"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23009951' stroke='%2302542D'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="green"] {
+    --folder-card-border: #02542d;
+    --folder-card-fill: #14ae5c;
+    --folder-card-sheet-fill: #cff7d3;
+    --folder-card-sheet-border: #14ae5c;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
   }
 
   .notelite-folder-card[data-folder-color="red"]::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23ffd0d0' stroke='%23ff2626'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23C00F0C' stroke='%23900B09'/%3E%3C/svg%3E");
   }
 
-  .notelite-folder-card[data-folder-color="red"] .notelite-folder-card__container {
-    border-color: #ff2626;
-    background: #ffd0d0;
+  .notelite-folder-card[data-folder-color="red"] {
+    --folder-card-border: #900b09;
+    --folder-card-fill: #ec221f;
+    --folder-card-sheet-fill: #fdd3d0;
+    --folder-card-sheet-border: #ec221f;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
+  }
+
+  .notelite-folder-card[data-folder-color="purple"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%239102CF' stroke='%23771BB4'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="purple"] {
+    --folder-card-border: #771bb4;
+    --folder-card-fill: #9f31e8;
+    --folder-card-sheet-fill: #ecc2ff;
+    --folder-card-sheet-border: #aa4ee7;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
+  }
+
+  .notelite-folder-card[data-folder-color="pink"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23E1329B' stroke='%23B41B98'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="pink"] {
+    --folder-card-border: #b41b98;
+    --folder-card-fill: #ff31ad;
+    --folder-card-sheet-fill: #fdacdc;
+    --folder-card-sheet-border: #f45bb7;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
+  }
+
+  .notelite-folder-card[data-folder-color="blue"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%230287CF' stroke='%231B6AB4'/%3E%3C/svg%3E");
+  }
+
+  .notelite-folder-card[data-folder-color="blue"] {
+    --folder-card-border: #1b6ab4;
+    --folder-card-fill: #319ce8;
+    --folder-card-sheet-fill: #c2e6ff;
+    --folder-card-sheet-border: #4e9de7;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
   }
 
   .notelite-folder-card[data-folder-color="orange"]::before {
-    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23ffe4cf' stroke='%23e57f35'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='185' viewBox='0 0 32 185' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 0.5H30.6865V184.5H19.4814C14.2347 184.5 9.98145 180.247 9.98145 175V81.3184C9.98138 79.6662 9.59086 78.0375 8.84277 76.5645L1.5293 62.1641C0.852419 60.8312 0.5 59.3572 0.5 57.8623V10C0.5 4.7533 4.75329 0.5 10 0.5Z' fill='%23E27324' stroke='%23B4651B'/%3E%3C/svg%3E");
   }
 
-  .notelite-folder-card[data-folder-color="orange"] .notelite-folder-card__container {
-    border-color: #e57f35;
-    background: #ffe4cf;
+  .notelite-folder-card[data-folder-color="orange"] {
+    --folder-card-border: #b4651b;
+    --folder-card-fill: #fc8b3a;
+    --folder-card-sheet-fill: #fdcfae;
+    --folder-card-sheet-border: #f49551;
+    --folder-card-name: #ffffff;
+    --folder-card-count: #f3f3f3;
   }
 
   .notelite-folder-card__meta {
@@ -329,13 +424,13 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
-    color: #1a1a1a;
+    color: var(--folder-card-name);
   }
 
   .notelite-folder-card__count {
     font-size: 12px;
     line-height: 16px;
-    color: #727272;
+    color: var(--folder-card-count);
   }
 
   .notelite-folder-grid {

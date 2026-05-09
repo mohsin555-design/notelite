@@ -1,21 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { type MouseEvent, type ReactNode, useEffect, useMemo, useState } from "react";
 import { ChevronDown, Grid2X2, LayoutList, MoreHorizontal, Search, Table2 } from "lucide-react";
 
-import { CanvasIcon, FolderFillIcon, PageIcon } from "@/components/NoteliteIcons";
+import { CanvasIcon, FolderListIcon, PageIcon } from "@/components/NoteliteIcons";
 import { NewItemMenu } from "@/components/NewItemMenu";
 import { Button } from "@/components/ui/button";
 import { WorkspaceItemContextMenu } from "@/components/FolderContextMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import type { FolderColor } from "@/lib/folder-utils";
+import { getFolderColorOption } from "@/lib/folder-utils";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
 import { cn } from "@/lib/utils";
 
 type LibraryFilter = "all" | "folder" | "pages" | "canvas";
-type LibrarySection = "all" | "recent" | "favorites";
+type LibrarySection = "all" | "recent" | "favorites" | "trash";
 type LibraryView = "grid" | "list" | "split";
 type ItemMenuState = {
   itemId: string;
@@ -89,7 +91,7 @@ function FolderTile({
         }}
       >
         <Link href={`/page/${folder.id}`} className="flex min-w-0 flex-1 items-center gap-3">
-          <FolderFillIcon className={cn("size-6 shrink-0", folder.folderColor === "green" ? "text-[#13b65f]" : folder.folderColor === "red" ? "text-[#ff2626]" : folder.folderColor === "orange" ? "text-[#e57f35]" : "text-[#b3b3b3]")} />
+          <FolderListIcon childCount={childCount} folderColor={folder.folderColor} className="size-6 shrink-0" />
           <span className="min-w-0">
             <span className="block truncate text-sm font-semibold text-[#1f1f1f]">{folder.title || "New Folder"}</span>
             <span className="block text-xs text-[#727272]">{childCount} {childCount === 1 ? "item" : "items"}</span>
@@ -110,7 +112,18 @@ function FolderTile({
         onOpenMenu(folder.id, event.clientX, event.clientY);
       }}
     >
-      <Link href={`/page/${folder.id}`} className="notelite-folder-card" data-folder-color={folder.folderColor ?? "amber"}>
+      <Link
+        href={`/page/${folder.id}`}
+        className="notelite-folder-card"
+        data-folder-color={folder.folderColor ?? "neutral"}
+        data-folder-state={childCount > 0 ? "full" : "empty"}
+      >
+        {childCount > 0 ? (
+          <>
+            <span className="notelite-folder-card__sheet notelite-folder-card__sheet--back" aria-hidden="true" />
+            <span className="notelite-folder-card__sheet notelite-folder-card__sheet--front" aria-hidden="true" />
+          </>
+        ) : null}
         <span className="notelite-folder-card__container">
           <span className="notelite-folder-card__meta">
             <span className="notelite-folder-card__name">{folder.title || "New Folder"}</span>
@@ -203,6 +216,7 @@ function ItemCard({
 
 export function LibraryPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { pages, createFolder, createPage } = useNotionStore();
   const [filter, setFilter] = useState<LibraryFilter>("all");
   const [section, setSection] = useState<LibrarySection>("all");
@@ -210,6 +224,7 @@ export function LibraryPage() {
   const [query, setQuery] = useState("");
   const [itemMenu, setItemMenu] = useState<ItemMenuState>(null);
   const folders = useMemo(() => pages.filter((page) => page.type === "folder"), [pages]);
+  const documentItems = useMemo(() => pages.filter((page) => page.type === "page"), [pages]);
   const canvasItems = useMemo(() => pages.filter(isCanvasPage), [pages]);
   const pageItems = useMemo(
     () => pages.filter((page) => page.type === "page" && !isCanvasPage(page)),
@@ -218,22 +233,21 @@ export function LibraryPage() {
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(folders[0]?.id ?? null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const nextView = params.get("view");
-    const nextSection = params.get("section");
+    const nextView = searchParams.get("view");
+    const nextSection = searchParams.get("section");
 
     if (nextView === "grid" || nextView === "list" || nextView === "split") {
       setView(nextView);
     }
 
-    if (nextSection === "recent" || nextSection === "favorites") {
+    if (nextSection === "recent" || nextSection === "favorites" || nextSection === "trash") {
       setSection(nextSection);
       setFilter("all");
       setView("list");
     } else {
       setSection("all");
     }
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!selectedFolderId || !folders.some((folder) => folder.id === selectedFolderId)) {
@@ -247,14 +261,18 @@ export function LibraryPage() {
   const visibleFolders = normalizedQuery ? folders.filter(matches) : folders;
   const visiblePages = normalizedQuery ? pageItems.filter(matches) : pageItems;
   const visibleCanvases = normalizedQuery ? canvasItems.filter(matches) : canvasItems;
-  const visibleRecentItems = (normalizedQuery ? pages.filter(matches) : pages);
-  const visibleFavoriteItems = (normalizedQuery ? pages.filter(matches) : pages).filter((page) => page.isFavorite);
+  const visibleRecentItems = (normalizedQuery ? documentItems.filter(matches) : documentItems);
+  const visibleFavoriteItems = (normalizedQuery ? documentItems.filter(matches) : documentItems).filter((page) => page.isFavorite);
   const selectedFolder = folders.find((folder) => folder.id === selectedFolderId) ?? folders[0];
   const selectedFolderPages = pages.filter((page) => selectedFolder && page.parentId === selectedFolder.id && page.type === "page");
 
   function createAndOpenPage(title: string) {
     const page = createPage(null, title);
     router.push(`/page/${page.id}`);
+  }
+
+  function handleCreateFolder(name: string, folderColor: FolderColor) {
+    createFolder(null, name, folderColor);
   }
 
   function renderItemRow(item: Page) {
@@ -314,6 +332,10 @@ export function LibraryPage() {
       return <SectionList label="Favorites" items={visibleFavoriteItems.map(renderItemRow)} />;
     }
 
+    if (section === "trash") {
+      return <SectionList label="Trash" items={[]} emptyLabel="Trash is empty" />;
+    }
+
     return (
       <div className="space-y-6">
         {(filter === "all" || filter === "pages") ? <SectionList label="Pages" items={visiblePages.map((page) => <ItemCard key={page.id} item={page} pages={pages} kind="page" view="row" onOpenMenu={(itemId, x, y) => setItemMenu({ itemId, x, y })} />)} /> : null}
@@ -331,13 +353,14 @@ export function LibraryPage() {
           <div className="space-y-0">
             {visibleFolders.map((folder) => {
               const isSelected = selectedFolder?.id === folder.id;
-              const color = folder.folderColor === "green" ? "text-[#13b65f]" : folder.folderColor === "red" ? "text-[#ff2626]" : folder.folderColor === "orange" ? "text-[#e57f35]" : "text-[#b3b3b3]";
+              const color = getFolderColorOption(folder.folderColor);
+              const childCount = childCountFor(pages, folder.id);
               return (
                 <div key={folder.id} className={cn("group flex h-[41px] items-center border-b border-[#d8d8d8] px-2", isSelected && "bg-[#f2f2f2]")}>
                   <button type="button" className="flex min-w-0 flex-1 items-center gap-2 text-left" onClick={() => setSelectedFolderId(folder.id)}>
-                    <FolderFillIcon className={cn("size-4 shrink-0", color)} />
+                    <FolderListIcon childCount={childCount} folderColor={folder.folderColor} className={cn("size-4 shrink-0", color.icon)} />
                     <span className="truncate text-sm font-semibold">{folder.title || "New Folder"}</span>
-                    <span className="text-xs text-[#727272]">- {childCountFor(pages, folder.id)} items</span>
+                    <span className="text-xs text-[#727272]">- {childCount} items</span>
                   </button>
                   <button type="button" className="flex size-7 items-center justify-center rounded-md opacity-0 hover:bg-[#e8e8e8] group-hover:opacity-100" onClick={(event) => {
                     const { x, y } = openMenuCoordinates(event);
@@ -377,7 +400,7 @@ export function LibraryPage() {
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in library" className="h-8 w-full rounded-lg border border-[#d0d0d0] bg-white pl-9 pr-3 text-sm outline-none focus:border-[#8e8e93]" />
             </div>
             <div className="flex justify-end gap-2">
-              <NewItemMenu onCreateFolder={() => createFolder()} onCreatePage={() => createAndOpenPage("New page")} onCreateCanvas={() => createAndOpenPage("New canvas")} />
+              <NewItemMenu onCreateFolder={handleCreateFolder} onCreatePage={() => createAndOpenPage("New page")} onCreateCanvas={() => createAndOpenPage("New canvas")} />
               <div className="flex h-8 items-center rounded-md border border-[#d8d8d8] bg-white p-0.5">
                 {[
                   { value: "grid", icon: Grid2X2, label: "Grid" },
@@ -456,12 +479,18 @@ function SectionGrid({ label, items }: { label: string; items: ReactNode[] }) {
   );
 }
 
-function SectionList({ label, items }: { label: string; items: ReactNode[] }) {
-  if (!items.length) return null;
+function SectionList({ label, items, emptyLabel }: { label: string; items: ReactNode[]; emptyLabel?: string }) {
+  if (!items.length && !emptyLabel) return null;
   return (
     <section className="space-y-3">
       <div className="text-sm font-medium text-[#727272]">{label}</div>
-      <div className="space-y-2">{items}</div>
+      {items.length ? (
+        <div className="space-y-2">{items}</div>
+      ) : (
+        <div className="rounded-lg border border-[#d8d8d8] bg-white px-3 py-6 text-sm text-[#727272]">
+          {emptyLabel}
+        </div>
+      )}
     </section>
   );
 }

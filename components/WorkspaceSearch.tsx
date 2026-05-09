@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Search } from "lucide-react";
 
-import { CanvasIcon, FolderLineIcon, PageIcon } from "@/components/NoteliteIcons";
+import { CanvasIcon, FolderListIcon, PageIcon } from "@/components/NoteliteIcons";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNotionStore } from "@/lib/notion-store";
@@ -23,6 +23,7 @@ type SearchItem = {
   parentLabel: string;
   body: string;
   childCount?: number;
+  folderColor?: string;
 };
 
 type SearchGroup = {
@@ -40,7 +41,6 @@ function getPlainText(content: unknown): string {
 }
 
 function getIcon(type: SearchItem["type"]) {
-  if (type === "Folder") return FolderLineIcon;
   if (type === "Canvas") return CanvasIcon;
   return PageIcon;
 }
@@ -86,6 +86,7 @@ export function WorkspaceSearch({ isOpen, onOpenChange }: WorkspaceSearchProps) 
             ? `${folderCounts.get(page.id) ?? 0} items`
             : `${getPlainText(page.content)} ${inlineDatabaseText}`.trim(),
         childCount: page.type === "folder" ? folderCounts.get(page.id) ?? 0 : undefined,
+        folderColor: page.type === "folder" ? page.folderColor : undefined,
       } satisfies SearchItem;
     });
 
@@ -274,7 +275,11 @@ export function WorkspaceSearch({ isOpen, onOpenChange }: WorkspaceSearchProps) 
                               currentIndex === selectedIndex && "bg-[#f2f2f2]",
                             )}
                           >
-                            <Icon className="size-4 shrink-0 text-[#757575]" />
+                            {item.type === "Folder" ? (
+                              <FolderListIcon childCount={item.childCount ?? 0} folderColor={item.folderColor} className="size-4 shrink-0" />
+                            ) : (
+                              <Icon className="size-4 shrink-0 text-[#757575]" />
+                            )}
                             <span className="min-w-0 flex-1 truncate font-medium">
                               {item.title}
                               <span className="font-normal text-[#727272]"> - {detail}</span>

@@ -1,6 +1,460 @@
 {
   "pages": [
     {
+      "id": "page-04523f9f-7e78-4d4b-b62f-75c2cd047ec8",
+      "title": "New page",
+      "type": "page",
+      "parentId": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false
+    },
+    {
+      "id": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
+      "title": "Expneses",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "blue",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-7ee44c3b-6176-4e7d-81e4-d2f4ecfb1979",
+      "title": "This is a test folder name",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-1d1b7c92-1772-47e2-9339-bbbcc071cbf8",
+      "title": "Untitled",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-742cb117-3dc0-4ef7-b411-0cf6b925f211",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "blue",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-fba3eae1-14d6-4f14-a64f-68334cb73cc2",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-292ff4ef-5c1c-42fe-a0d4-0175d953aad3",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-da1a82a9-0187-4f8c-aaa2-551bdbffe80e",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-e986ed26-3457-4ba3-bbdb-6dc9280f393d",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "folder-ab1c4dd8-8f8d-4e10-b0c4-3189d9a97ba8",
+      "title": "New Folder",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "amber",
+      "isFavorite": false
+    },
+    {
+      "id": "page-a88e5db1-3d3a-4469-963b-6d3141a0df1a",
+      "title": "New sub-page",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": true
+    },
+    {
+      "id": "page-0aba7780-150d-4903-89a1-aaa6cd157bf1",
+      "title": "Dribbble",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 1
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Discover the "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "World’s Top Designers"
+              }
+            ]
+          },
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "Explore work from the most talented and accomplished designers ready to take on your next project."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": " Popular:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/dashboard",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": " dashboard "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/landing%20page",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "landing page "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/e-commerce",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "e-commerce "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/logo",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "logo "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/card",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "card "
+              },
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/search/icons",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "pill2 pill2--white-dark",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "icons"
+              }
+            ]
+          },
+          {
+            "type": "image",
+            "attrs": {
+              "src": "https://cdn.dribbble.com/users/5049071/avatars/normal/58237f63651e4bccd84f2036d95e0c3e.png?1759932211",
+              "alt": "Leandro Sosa",
+              "title": null,
+              "width": null,
+              "height": null
+            }
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/leasosa",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer",
+                      "class": "home-hero-media__designer-badge",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": " Leandro Sosa"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/instantmatch",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "project-brief-promo-banner",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": " Start a Project Brief New"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://dribbble.com/instantmatch",
+                      "target": "_blank",
+                      "rel": "noopener noreferrer nofollow",
+                      "class": "project-brief-promo-banner",
+                      "title": null
+                    }
+                  }
+                ],
+                "text": "Tell us what you need and instantly connect with world-class talent ready to work on your project."
+              }
+            ]
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": true
+    },
+    {
       "id": "page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909",
       "title": "Untitled",
       "type": "page",
@@ -8,6 +462,144 @@
       "content": {
         "type": "doc",
         "content": [
+          {
+            "type": "bulletList",
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "sdfsadfasdfasdf"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "asdfasdfasd"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "asdfadsfasdf"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "asdfasdfasdf"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "asdfasdfadsfa"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/"
+              }
+            ]
+          },
+          {
+            "type": "taskList",
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "safasdfasd"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "asdfasdfasdf"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": true
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "adsfasdfasdf"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
           {
             "type": "paragraph"
           }
@@ -26,10 +618,10 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": true
     },
     {
-      "id": "page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c",
+      "id": "page-77885ea3-730a-4700-ac95-34758e0f8b1a",
       "title": "New canvas",
       "type": "page",
       "parentId": null,
@@ -43,14 +635,49 @@
       },
       "canvas": {
         "elements": [],
-        "appState": {
-          "viewBackgroundColor": "#ffffff",
-          "scrollX": 0,
-          "scrollY": 0,
-          "zoom": {
-            "value": 1
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false
+    },
+    {
+      "id": "page-adf1067b-9851-4008-a2c1-79c77a83c4e4",
+      "title": "Untitled",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
           }
-        },
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false
+    },
+    {
+      "id": "page-c7fea17a-bbfd-438c-9f94-8704d40d2359",
+      "title": "Untitled",
+      "type": "page",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
         "files": {}
       },
       "inlineDatabaseIds": [],
@@ -500,27 +1127,6 @@
       "isFavorite": false
     },
     {
-      "id": "page-0aba7780-150d-4903-89a1-aaa6cd157bf1",
-      "title": "New page",
-      "type": "page",
-      "parentId": "folder-6fcfaa51-6ab1-4517-b034-cf42cdfe010a",
-      "content": {
-        "type": "doc",
-        "content": [
-          {
-            "type": "paragraph"
-          }
-        ]
-      },
-      "canvas": {
-        "elements": [],
-        "appState": {},
-        "files": {}
-      },
-      "inlineDatabaseIds": [],
-      "isFavorite": false
-    },
-    {
       "id": "folder-6fcfaa51-6ab1-4517-b034-cf42cdfe010a",
       "title": "My Folder",
       "type": "folder",
@@ -535,25 +1141,38 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "folderColor": "amber",
+      "folderColor": "green",
       "isFavorite": false
     },
     {
-      "id": "page-a88e5db1-3d3a-4469-963b-6d3141a0df1a",
-      "title": "New sub-page",
+      "id": "page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c",
+      "title": "New canvas",
       "type": "page",
       "parentId": "welcome",
       "content": {
         "type": "doc",
         "content": [
           {
-            "type": "paragraph"
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "asfasdfasdfasdfasdfasdfasd"
+              }
+            ]
           }
         ]
       },
       "canvas": {
         "elements": [],
-        "appState": {},
+        "appState": {
+          "viewBackgroundColor": "#ffffff",
+          "scrollX": 0,
+          "scrollY": 0,
+          "zoom": {
+            "value": 1
+          }
+        },
         "files": {}
       },
       "inlineDatabaseIds": [],
@@ -667,8 +1286,8 @@
       "isFavorite": false
     },
     {
-      "id": "page-d3759d52-b88f-4306-a697-696133e3b1f5",
-      "title": "My Test folder",
+      "id": "task-design",
+      "title": "Design database UI",
       "type": "page",
       "parentId": "projects",
       "content": {
@@ -676,740 +1295,24 @@
         "content": [
           {
             "type": "paragraph"
-          },
-          {
-            "type": "paragraph"
           }
         ]
-      },
-      "canvas": {
-        "elements": [
-          {
-            "id": "ODZl1zO5nFiAPDsutr0FO",
-            "type": "line",
-            "x": 352.5,
-            "y": 591,
-            "width": 5,
-            "height": 427,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a0",
-            "roundness": {
-              "type": 2
-            },
-            "seed": 1443434404,
-            "version": 109,
-            "versionNonce": 1966458532,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719281836,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                -5,
-                -427
-              ]
-            ],
-            "lastCommittedPoint": null,
-            "startBinding": null,
-            "endBinding": null,
-            "startArrowhead": null,
-            "endArrowhead": null
-          },
-          {
-            "id": "ZN0qHYkdsAZqpWZQXNr6z",
-            "type": "freedraw",
-            "x": 347.5,
-            "y": 167.5,
-            "width": 218.5,
-            "height": 4,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a1",
-            "roundness": null,
-            "seed": 260919844,
-            "version": 15,
-            "versionNonce": 473303452,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719284178,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                6,
-                0.5
-              ],
-              [
-                48.5,
-                0.5
-              ],
-              [
-                80.5,
-                0.5
-              ],
-              [
-                186,
-                0.5
-              ],
-              [
-                207.5,
-                0.5
-              ],
-              [
-                218.5,
-                0.5
-              ],
-              [
-                218,
-                0.5
-              ],
-              [
-                211.5,
-                0
-              ],
-              [
-                199.5,
-                0
-              ],
-              [
-                191.5,
-                2.5
-              ],
-              [
-                183.5,
-                3.5
-              ],
-              [
-                183,
-                4
-              ],
-              [
-                183,
-                4
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              183,
-              4
-            ]
-          },
-          {
-            "id": "JrRkSC7WR5R7BrDBTWeum",
-            "type": "freedraw",
-            "x": 559.5,
-            "y": 167,
-            "width": 30.5,
-            "height": 516.5,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a2",
-            "roundness": null,
-            "seed": 925141412,
-            "version": 41,
-            "versionNonce": 1895197852,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719286145,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                2.5,
-                21.5
-              ],
-              [
-                4.5,
-                75.5
-              ],
-              [
-                9.5,
-                106
-              ],
-              [
-                9.5,
-                129
-              ],
-              [
-                9.5,
-                171.5
-              ],
-              [
-                10,
-                181.5
-              ],
-              [
-                11,
-                183.5
-              ],
-              [
-                11,
-                181
-              ],
-              [
-                11,
-                179
-              ],
-              [
-                11,
-                176.5
-              ],
-              [
-                11,
-                175.5
-              ],
-              [
-                11,
-                176
-              ],
-              [
-                11,
-                191.5
-              ],
-              [
-                11,
-                222.5
-              ],
-              [
-                9.5,
-                256.5
-              ],
-              [
-                5,
-                284
-              ],
-              [
-                2.5,
-                301
-              ],
-              [
-                0.5,
-                314.5
-              ],
-              [
-                -0.5,
-                323.5
-              ],
-              [
-                -0.5,
-                333.5
-              ],
-              [
-                -3,
-                347
-              ],
-              [
-                -5.5,
-                363
-              ],
-              [
-                -7,
-                377.5
-              ],
-              [
-                -10,
-                389.5
-              ],
-              [
-                -10.5,
-                404.5
-              ],
-              [
-                -10.5,
-                420
-              ],
-              [
-                -10.5,
-                437
-              ],
-              [
-                -10.5,
-                452.5
-              ],
-              [
-                -10.5,
-                463.5
-              ],
-              [
-                -10.5,
-                480
-              ],
-              [
-                -11.5,
-                491
-              ],
-              [
-                -12.5,
-                501
-              ],
-              [
-                -14,
-                508.5
-              ],
-              [
-                -15,
-                515.5
-              ],
-              [
-                -15,
-                516.5
-              ],
-              [
-                -15.5,
-                514
-              ],
-              [
-                -18,
-                507
-              ],
-              [
-                -19.5,
-                503.5
-              ],
-              [
-                -19.5,
-                503.5
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              -19.5,
-              503.5
-            ]
-          },
-          {
-            "id": "mOILWWRlzMfjSpHhzjszz",
-            "type": "freedraw",
-            "x": 507.5,
-            "y": 294.5,
-            "width": 17,
-            "height": 243.5,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a3",
-            "roundness": null,
-            "seed": 777926308,
-            "version": 9,
-            "versionNonce": 1811629980,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719287415,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                13.5,
-                200.5
-              ],
-              [
-                14,
-                228.5
-              ],
-              [
-                15.5,
-                240.5
-              ],
-              [
-                17,
-                243.5
-              ],
-              [
-                17,
-                243
-              ],
-              [
-                16.5,
-                239
-              ],
-              [
-                16.5,
-                239
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              16.5,
-              239
-            ]
-          },
-          {
-            "id": "4ZO7RgZPXuCNEAtq845EZ",
-            "type": "freedraw",
-            "x": 374,
-            "y": 185,
-            "width": 30.5,
-            "height": 51,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a4",
-            "roundness": null,
-            "seed": 2094394276,
-            "version": 19,
-            "versionNonce": 1720893724,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719288612,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                -4.5,
-                21.5
-              ],
-              [
-                -4.5,
-                41
-              ],
-              [
-                -3,
-                44.5
-              ],
-              [
-                0,
-                45.5
-              ],
-              [
-                6,
-                46
-              ],
-              [
-                13,
-                43.5
-              ],
-              [
-                18,
-                39.5
-              ],
-              [
-                25,
-                25
-              ],
-              [
-                26,
-                17
-              ],
-              [
-                24.5,
-                8.5
-              ],
-              [
-                20.5,
-                1
-              ],
-              [
-                13.5,
-                -5
-              ],
-              [
-                13,
-                -5
-              ],
-              [
-                12.5,
-                -5
-              ],
-              [
-                11.5,
-                -5
-              ],
-              [
-                10.5,
-                -3
-              ],
-              [
-                10.5,
-                -3
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              10.5,
-              -3
-            ]
-          },
-          {
-            "id": "7WhLdD8Y3DrRaYr0AdWuA",
-            "type": "freedraw",
-            "x": 413,
-            "y": 194,
-            "width": 145.5,
-            "height": 24,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a5",
-            "roundness": null,
-            "seed": 55376420,
-            "version": 21,
-            "versionNonce": 1882289948,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719289435,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                1,
-                0.5
-              ],
-              [
-                1.5,
-                2.5
-              ],
-              [
-                2.5,
-                5
-              ],
-              [
-                2.5,
-                5.5
-              ],
-              [
-                3,
-                5.5
-              ],
-              [
-                6.5,
-                4.5
-              ],
-              [
-                16.5,
-                2
-              ],
-              [
-                33,
-                -2
-              ],
-              [
-                53,
-                -6
-              ],
-              [
-                77,
-                -8.5
-              ],
-              [
-                103.5,
-                -12
-              ],
-              [
-                126.5,
-                -15.5
-              ],
-              [
-                142.5,
-                -17
-              ],
-              [
-                145.5,
-                -18.5
-              ],
-              [
-                145,
-                -18.5
-              ],
-              [
-                144.5,
-                -18.5
-              ],
-              [
-                143,
-                -18.5
-              ],
-              [
-                140.5,
-                -18.5
-              ],
-              [
-                140.5,
-                -18.5
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              140.5,
-              -18.5
-            ]
-          },
-          {
-            "id": "NUeHyCJm-cmnU4ata2TfR",
-            "type": "freedraw",
-            "x": 436,
-            "y": 214.5,
-            "width": 112.5,
-            "height": 13,
-            "angle": 0,
-            "strokeColor": "#1e1e1e",
-            "backgroundColor": "transparent",
-            "fillStyle": "solid",
-            "strokeWidth": 2,
-            "strokeStyle": "solid",
-            "roughness": 1,
-            "opacity": 100,
-            "groupIds": [],
-            "frameId": null,
-            "index": "a6",
-            "roundness": null,
-            "seed": 1024943140,
-            "version": 8,
-            "versionNonce": 251802148,
-            "isDeleted": false,
-            "boundElements": null,
-            "updated": 1777719289970,
-            "link": null,
-            "locked": false,
-            "points": [
-              [
-                0,
-                0
-              ],
-              [
-                70,
-                -6.5
-              ],
-              [
-                92,
-                -9
-              ],
-              [
-                107,
-                -11.5
-              ],
-              [
-                112,
-                -13
-              ],
-              [
-                112.5,
-                -13
-              ],
-              [
-                112.5,
-                -13
-              ]
-            ],
-            "pressures": [],
-            "simulatePressure": true,
-            "lastCommittedPoint": [
-              112.5,
-              -13
-            ]
-          }
-        ],
-        "appState": {
-          "viewBackgroundColor": "#ffffff",
-          "scrollX": 0,
-          "scrollY": 0,
-          "zoom": {
-            "value": 1
-          }
-        },
-        "files": {}
-      },
-      "inlineDatabaseIds": [],
-      "isFavorite": false
-    },
-    {
-      "id": "projects",
-      "title": "Projects",
-      "type": "folder",
-      "parentId": null,
-      "content": {
-        "type": "doc",
-        "content": []
       },
       "canvas": {
         "elements": [],
         "appState": {},
         "files": {}
       },
-      "inlineDatabaseIds": [],
-      "folderColor": "red",
+      "inlineDatabaseIds": [
+        "db-47a2293f-be25-4bcf-86e1-275413a4748b"
+      ],
       "isFavorite": false
     },
     {
       "id": "welcome",
       "title": "Welcome to Notelite",
       "type": "page",
-      "parentId": null,
+      "parentId": "projects",
       "inlineDatabaseIds": [
         "tasks-db",
         "db-70262324-043b-4563-b8a1-877dac7672c8",
@@ -2157,17 +2060,734 @@
       "isFavorite": false
     },
     {
-      "id": "task-design",
-      "title": "Design database UI",
+      "id": "page-d3759d52-b88f-4306-a697-696133e3b1f5",
+      "title": "My Test folder",
       "type": "page",
-      "parentId": null,
+      "parentId": "projects",
       "content": {
         "type": "doc",
         "content": [
           {
             "type": "paragraph"
+          },
+          {
+            "type": "paragraph"
           }
         ]
+      },
+      "canvas": {
+        "elements": [
+          {
+            "id": "ODZl1zO5nFiAPDsutr0FO",
+            "type": "line",
+            "x": 352.5,
+            "y": 591,
+            "width": 5,
+            "height": 427,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a0",
+            "roundness": {
+              "type": 2
+            },
+            "seed": 1443434404,
+            "version": 109,
+            "versionNonce": 1966458532,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719281836,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                -5,
+                -427
+              ]
+            ],
+            "lastCommittedPoint": null,
+            "startBinding": null,
+            "endBinding": null,
+            "startArrowhead": null,
+            "endArrowhead": null
+          },
+          {
+            "id": "ZN0qHYkdsAZqpWZQXNr6z",
+            "type": "freedraw",
+            "x": 347.5,
+            "y": 167.5,
+            "width": 218.5,
+            "height": 4,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a1",
+            "roundness": null,
+            "seed": 260919844,
+            "version": 15,
+            "versionNonce": 473303452,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719284178,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                6,
+                0.5
+              ],
+              [
+                48.5,
+                0.5
+              ],
+              [
+                80.5,
+                0.5
+              ],
+              [
+                186,
+                0.5
+              ],
+              [
+                207.5,
+                0.5
+              ],
+              [
+                218.5,
+                0.5
+              ],
+              [
+                218,
+                0.5
+              ],
+              [
+                211.5,
+                0
+              ],
+              [
+                199.5,
+                0
+              ],
+              [
+                191.5,
+                2.5
+              ],
+              [
+                183.5,
+                3.5
+              ],
+              [
+                183,
+                4
+              ],
+              [
+                183,
+                4
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              183,
+              4
+            ]
+          },
+          {
+            "id": "JrRkSC7WR5R7BrDBTWeum",
+            "type": "freedraw",
+            "x": 559.5,
+            "y": 167,
+            "width": 30.5,
+            "height": 516.5,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a2",
+            "roundness": null,
+            "seed": 925141412,
+            "version": 41,
+            "versionNonce": 1895197852,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719286145,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                2.5,
+                21.5
+              ],
+              [
+                4.5,
+                75.5
+              ],
+              [
+                9.5,
+                106
+              ],
+              [
+                9.5,
+                129
+              ],
+              [
+                9.5,
+                171.5
+              ],
+              [
+                10,
+                181.5
+              ],
+              [
+                11,
+                183.5
+              ],
+              [
+                11,
+                181
+              ],
+              [
+                11,
+                179
+              ],
+              [
+                11,
+                176.5
+              ],
+              [
+                11,
+                175.5
+              ],
+              [
+                11,
+                176
+              ],
+              [
+                11,
+                191.5
+              ],
+              [
+                11,
+                222.5
+              ],
+              [
+                9.5,
+                256.5
+              ],
+              [
+                5,
+                284
+              ],
+              [
+                2.5,
+                301
+              ],
+              [
+                0.5,
+                314.5
+              ],
+              [
+                -0.5,
+                323.5
+              ],
+              [
+                -0.5,
+                333.5
+              ],
+              [
+                -3,
+                347
+              ],
+              [
+                -5.5,
+                363
+              ],
+              [
+                -7,
+                377.5
+              ],
+              [
+                -10,
+                389.5
+              ],
+              [
+                -10.5,
+                404.5
+              ],
+              [
+                -10.5,
+                420
+              ],
+              [
+                -10.5,
+                437
+              ],
+              [
+                -10.5,
+                452.5
+              ],
+              [
+                -10.5,
+                463.5
+              ],
+              [
+                -10.5,
+                480
+              ],
+              [
+                -11.5,
+                491
+              ],
+              [
+                -12.5,
+                501
+              ],
+              [
+                -14,
+                508.5
+              ],
+              [
+                -15,
+                515.5
+              ],
+              [
+                -15,
+                516.5
+              ],
+              [
+                -15.5,
+                514
+              ],
+              [
+                -18,
+                507
+              ],
+              [
+                -19.5,
+                503.5
+              ],
+              [
+                -19.5,
+                503.5
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              -19.5,
+              503.5
+            ]
+          },
+          {
+            "id": "mOILWWRlzMfjSpHhzjszz",
+            "type": "freedraw",
+            "x": 507.5,
+            "y": 294.5,
+            "width": 17,
+            "height": 243.5,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a3",
+            "roundness": null,
+            "seed": 777926308,
+            "version": 9,
+            "versionNonce": 1811629980,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719287415,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                13.5,
+                200.5
+              ],
+              [
+                14,
+                228.5
+              ],
+              [
+                15.5,
+                240.5
+              ],
+              [
+                17,
+                243.5
+              ],
+              [
+                17,
+                243
+              ],
+              [
+                16.5,
+                239
+              ],
+              [
+                16.5,
+                239
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              16.5,
+              239
+            ]
+          },
+          {
+            "id": "4ZO7RgZPXuCNEAtq845EZ",
+            "type": "freedraw",
+            "x": 374,
+            "y": 185,
+            "width": 30.5,
+            "height": 51,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a4",
+            "roundness": null,
+            "seed": 2094394276,
+            "version": 19,
+            "versionNonce": 1720893724,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719288612,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                -4.5,
+                21.5
+              ],
+              [
+                -4.5,
+                41
+              ],
+              [
+                -3,
+                44.5
+              ],
+              [
+                0,
+                45.5
+              ],
+              [
+                6,
+                46
+              ],
+              [
+                13,
+                43.5
+              ],
+              [
+                18,
+                39.5
+              ],
+              [
+                25,
+                25
+              ],
+              [
+                26,
+                17
+              ],
+              [
+                24.5,
+                8.5
+              ],
+              [
+                20.5,
+                1
+              ],
+              [
+                13.5,
+                -5
+              ],
+              [
+                13,
+                -5
+              ],
+              [
+                12.5,
+                -5
+              ],
+              [
+                11.5,
+                -5
+              ],
+              [
+                10.5,
+                -3
+              ],
+              [
+                10.5,
+                -3
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              10.5,
+              -3
+            ]
+          },
+          {
+            "id": "7WhLdD8Y3DrRaYr0AdWuA",
+            "type": "freedraw",
+            "x": 413,
+            "y": 194,
+            "width": 145.5,
+            "height": 24,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a5",
+            "roundness": null,
+            "seed": 55376420,
+            "version": 21,
+            "versionNonce": 1882289948,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719289435,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0.5
+              ],
+              [
+                1.5,
+                2.5
+              ],
+              [
+                2.5,
+                5
+              ],
+              [
+                2.5,
+                5.5
+              ],
+              [
+                3,
+                5.5
+              ],
+              [
+                6.5,
+                4.5
+              ],
+              [
+                16.5,
+                2
+              ],
+              [
+                33,
+                -2
+              ],
+              [
+                53,
+                -6
+              ],
+              [
+                77,
+                -8.5
+              ],
+              [
+                103.5,
+                -12
+              ],
+              [
+                126.5,
+                -15.5
+              ],
+              [
+                142.5,
+                -17
+              ],
+              [
+                145.5,
+                -18.5
+              ],
+              [
+                145,
+                -18.5
+              ],
+              [
+                144.5,
+                -18.5
+              ],
+              [
+                143,
+                -18.5
+              ],
+              [
+                140.5,
+                -18.5
+              ],
+              [
+                140.5,
+                -18.5
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              140.5,
+              -18.5
+            ]
+          },
+          {
+            "id": "NUeHyCJm-cmnU4ata2TfR",
+            "type": "freedraw",
+            "x": 436,
+            "y": 214.5,
+            "width": 112.5,
+            "height": 13,
+            "angle": 0,
+            "strokeColor": "#1e1e1e",
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "strokeWidth": 2,
+            "strokeStyle": "solid",
+            "roughness": 1,
+            "opacity": 100,
+            "groupIds": [],
+            "frameId": null,
+            "index": "a6",
+            "roundness": null,
+            "seed": 1024943140,
+            "version": 8,
+            "versionNonce": 251802148,
+            "isDeleted": false,
+            "boundElements": null,
+            "updated": 1777719289970,
+            "link": null,
+            "locked": false,
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                70,
+                -6.5
+              ],
+              [
+                92,
+                -9
+              ],
+              [
+                107,
+                -11.5
+              ],
+              [
+                112,
+                -13
+              ],
+              [
+                112.5,
+                -13
+              ],
+              [
+                112.5,
+                -13
+              ]
+            ],
+            "pressures": [],
+            "simulatePressure": true,
+            "lastCommittedPoint": [
+              112.5,
+              -13
+            ]
+          }
+        ],
+        "appState": {
+          "viewBackgroundColor": "#ffffff",
+          "scrollX": 0,
+          "scrollY": 0,
+          "zoom": {
+            "value": 1
+          }
+        },
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false
+    },
+    {
+      "id": "projects",
+      "title": "Projects",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
       },
       "canvas": {
         "elements": [],
@@ -2175,6 +2795,7 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
+      "folderColor": "neutral",
       "isFavorite": false
     },
     {
@@ -2200,6 +2821,66 @@
     }
   ],
   "databases": [
+    {
+      "id": "db-47a2293f-be25-4bcf-86e1-275413a4748b",
+      "title": "Inline Database",
+      "parentId": "task-design",
+      "defaultViewId": "view-0c68ad9c-9677-47bb-9da5-12579fa6d1c7",
+      "properties": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "title"
+        },
+        {
+          "id": "prop-161384ca-942e-41f6-9c71-81fcc613af1a",
+          "name": "Status",
+          "type": "status",
+          "options": [
+            "Not started",
+            "In progress",
+            "Done"
+          ]
+        },
+        {
+          "id": "prop-762c6c61-18eb-4eca-9edb-d3bb26aa753f",
+          "name": "Tags",
+          "type": "tags",
+          "options": [
+            "General"
+          ]
+        }
+      ],
+      "rows": [],
+      "views": [
+        {
+          "id": "view-0c68ad9c-9677-47bb-9da5-12579fa6d1c7",
+          "name": "Table",
+          "type": "table"
+        },
+        {
+          "id": "view-67ea65a8-be54-4188-a5a4-3bf4cc350583",
+          "name": "List",
+          "type": "list"
+        },
+        {
+          "id": "view-379628e3-96fb-4d14-b72c-197f2e0fa5b4",
+          "name": "Board",
+          "type": "board",
+          "groupBy": "status"
+        },
+        {
+          "id": "view-8f11a6e1-fb0d-43ea-b1b5-6e6d34e54dd1",
+          "name": "Calendar",
+          "type": "calendar"
+        },
+        {
+          "id": "view-d5c3260e-a6ad-4561-b9cc-5905aa37ae07",
+          "name": "Gallery",
+          "type": "gallery"
+        }
+      ]
+    },
     {
       "id": "db-74d61ef9-d33a-42f9-8620-f9ba3438dd07",
       "title": "Inline Database",
@@ -2510,5 +3191,3253 @@
         }
       ]
     }
-  ]
+  ],
+  "workspaces": [
+    {
+      "id": "workspace-main",
+      "name": "My workspace",
+      "initials": "MW",
+      "pages": [
+        {
+          "id": "page-04523f9f-7e78-4d4b-b62f-75c2cd047ec8",
+          "title": "New page",
+          "type": "page",
+          "parentId": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
+          "title": "Expneses",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "blue",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-7ee44c3b-6176-4e7d-81e4-d2f4ecfb1979",
+          "title": "This is a test folder name",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-1d1b7c92-1772-47e2-9339-bbbcc071cbf8",
+          "title": "Untitled",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-742cb117-3dc0-4ef7-b411-0cf6b925f211",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "blue",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-fba3eae1-14d6-4f14-a64f-68334cb73cc2",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-292ff4ef-5c1c-42fe-a0d4-0175d953aad3",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-da1a82a9-0187-4f8c-aaa2-551bdbffe80e",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-e986ed26-3457-4ba3-bbdb-6dc9280f393d",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "folder-ab1c4dd8-8f8d-4e10-b0c4-3189d9a97ba8",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "page-a88e5db1-3d3a-4469-963b-6d3141a0df1a",
+          "title": "New sub-page",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": true
+        },
+        {
+          "id": "page-0aba7780-150d-4903-89a1-aaa6cd157bf1",
+          "title": "Dribbble",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "heading",
+                "attrs": {
+                  "level": 1
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Discover the "
+                  },
+                  {
+                    "type": "hardBreak"
+                  },
+                  {
+                    "type": "text",
+                    "text": "World’s Top Designers"
+                  }
+                ]
+              },
+              {
+                "type": "heading",
+                "attrs": {
+                  "level": 2
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Explore work from the most talented and accomplished designers ready to take on your next project."
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": " Popular:"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/dashboard",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": " dashboard "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/landing%20page",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "landing page "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/e-commerce",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "e-commerce "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/logo",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "logo "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/card",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "card "
+                  },
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/search/icons",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "pill2 pill2--white-dark",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "icons"
+                  }
+                ]
+              },
+              {
+                "type": "image",
+                "attrs": {
+                  "src": "https://cdn.dribbble.com/users/5049071/avatars/normal/58237f63651e4bccd84f2036d95e0c3e.png?1759932211",
+                  "alt": "Leandro Sosa",
+                  "title": null,
+                  "width": null,
+                  "height": null
+                }
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/leasosa",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer",
+                          "class": "home-hero-media__designer-badge",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": " Leandro Sosa"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/instantmatch",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "project-brief-promo-banner",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": " Start a Project Brief New"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "href": "https://dribbble.com/instantmatch",
+                          "target": "_blank",
+                          "rel": "noopener noreferrer nofollow",
+                          "class": "project-brief-promo-banner",
+                          "title": null
+                        }
+                      }
+                    ],
+                    "text": "Tell us what you need and instantly connect with world-class talent ready to work on your project."
+                  }
+                ]
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": true
+        },
+        {
+          "id": "page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909",
+          "title": "Untitled",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "sdfsadfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdfasd"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfadsfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "asdfasdfadsfa"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph"
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "/"
+                  }
+                ]
+              },
+              {
+                "type": "taskList",
+                "content": [
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": true
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "safasdfasd"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": true
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": true
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "adsfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": true
+        },
+        {
+          "id": "page-77885ea3-730a-4700-ac95-34758e0f8b1a",
+          "title": "New canvas",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-adf1067b-9851-4008-a2c1-79c77a83c4e4",
+          "title": "Untitled",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-c7fea17a-bbfd-438c-9f94-8704d40d2359",
+          "title": "Untitled",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "folder-f7c41135-7756-42ee-962e-f47b9ab5723b",
+          "title": "My Folder Copy",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "green",
+          "isFavorite": false
+        },
+        {
+          "id": "page-f536b84c-c5bf-4827-9715-258f5e77a3e4",
+          "title": "Test Page",
+          "type": "page",
+          "parentId": "folder-f7c41135-7756-42ee-962e-f47b9ab5723b",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "bulletList",
+                "content": [
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "sdfsadfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "sdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "listItem",
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskList",
+                "content": [
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": false
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "sdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": false
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": false
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "asdfasdfasdf"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "taskItem",
+                    "attrs": {
+                      "checked": false
+                    },
+                    "content": [
+                      {
+                        "type": "paragraph",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "✨"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "table",
+                        "content": [
+                          {
+                            "type": "tableRow",
+                            "content": [
+                              {
+                                "type": "tableHeader",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableHeader",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableHeader",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "tableRow",
+                            "content": [
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "tableRow",
+                            "content": [
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "tableCell",
+                                "attrs": {
+                                  "colspan": 1,
+                                  "rowspan": 1,
+                                  "colwidth": null,
+                                  "align": null
+                                },
+                                "content": [
+                                  {
+                                    "type": "paragraph"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [
+              {
+                "id": "c4GOwC3n4Dvcxydcm5fBY",
+                "type": "freedraw",
+                "x": 382,
+                "y": 230.5,
+                "width": 240.5,
+                "height": 256.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a0",
+                "roundness": null,
+                "seed": 1032200690,
+                "version": 24,
+                "versionNonce": 1297549042,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777748988486,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    -36,
+                    -35.5
+                  ],
+                  [
+                    -76.5,
+                    30
+                  ],
+                  [
+                    -94,
+                    123
+                  ],
+                  [
+                    -73.5,
+                    190
+                  ],
+                  [
+                    -50.5,
+                    209
+                  ],
+                  [
+                    -17,
+                    219
+                  ],
+                  [
+                    24,
+                    221
+                  ],
+                  [
+                    69.5,
+                    210.5
+                  ],
+                  [
+                    143,
+                    137
+                  ],
+                  [
+                    146.5,
+                    96
+                  ],
+                  [
+                    141.5,
+                    55
+                  ],
+                  [
+                    123.5,
+                    23
+                  ],
+                  [
+                    101,
+                    -7
+                  ],
+                  [
+                    69.5,
+                    -21
+                  ],
+                  [
+                    34,
+                    -28
+                  ],
+                  [
+                    -27,
+                    -17.5
+                  ],
+                  [
+                    -43.5,
+                    -5.5
+                  ],
+                  [
+                    -49.5,
+                    6
+                  ],
+                  [
+                    -50.5,
+                    9
+                  ],
+                  [
+                    -50,
+                    9
+                  ],
+                  [
+                    -46,
+                    7.5
+                  ],
+                  [
+                    -46,
+                    7.5
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  -46,
+                  7.5
+                ]
+              }
+            ],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [
+            "db-74d61ef9-d33a-42f9-8620-f9ba3438dd07"
+          ],
+          "isFavorite": false
+        },
+        {
+          "id": "folder-6fcfaa51-6ab1-4517-b034-cf42cdfe010a",
+          "title": "My Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "green",
+          "isFavorite": false
+        },
+        {
+          "id": "page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c",
+          "title": "New canvas",
+          "type": "page",
+          "parentId": "welcome",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "asfasdfasdfasdfasdfasdfasd"
+                  }
+                ]
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-11a10f32-972c-4bce-a59f-d7ae1fdb59a2",
+          "title": "New page",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-4f94ca5d-cfd1-4b15-804e-b354fc3678d8",
+          "title": "New entry",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "codeBlock",
+                "attrs": {
+                  "language": null
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "dfsgdsfgdsfg"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-9c320d48-05f8-43d0-b265-804de7c94f02",
+          "title": "Untitled",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "folder-f0245dc6-3cf5-4c88-8655-565c893b841c",
+          "title": "New Folder",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "amber",
+          "isFavorite": false
+        },
+        {
+          "id": "task-design",
+          "title": "Design database UI",
+          "type": "page",
+          "parentId": "projects",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [
+            "db-47a2293f-be25-4bcf-86e1-275413a4748b"
+          ],
+          "isFavorite": false
+        },
+        {
+          "id": "welcome",
+          "title": "Welcome to Notelite",
+          "type": "page",
+          "parentId": "projects",
+          "inlineDatabaseIds": [
+            "tasks-db",
+            "db-70262324-043b-4563-b8a1-877dac7672c8",
+            "db-c3346d28-d36c-4da4-bc5a-8b096183045b"
+          ],
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "codeBlock",
+                "attrs": {
+                  "language": null
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "A block editor with TipTap"
+                  }
+                ]
+              },
+              {
+                "type": "codeBlock",
+                "attrs": {
+                  "language": null
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "[[Page name]]"
+                  }
+                ]
+              },
+              {
+                "type": "codeBlock",
+                "attrs": {
+                  "language": null
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "sfsadfasdf dsfadsf"
+                  }
+                ]
+              },
+              {
+                "type": "table",
+                "content": [
+                  {
+                    "type": "tableRow",
+                    "content": [
+                      {
+                        "type": "tableHeader",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "asdfasfawdsf"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableHeader",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdfasdfasdf"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableHeader",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "content": [
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdfsdf"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdf"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "content": [
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdfsdf"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdfdsf"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "tableCell",
+                        "attrs": {
+                          "colspan": 1,
+                          "rowspan": 1,
+                          "colwidth": null,
+                          "align": null
+                        },
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "sdfsdf"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [
+              {
+                "id": "0-Bdr-SGxjo8vj5XwGfjF",
+                "type": "freedraw",
+                "x": 349,
+                "y": 1516.3743896484375,
+                "width": 124,
+                "height": 118,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a0",
+                "roundness": null,
+                "seed": 650724194,
+                "version": 15,
+                "versionNonce": 224320894,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718728036,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    -23,
+                    85.5
+                  ],
+                  [
+                    -10.5,
+                    110
+                  ],
+                  [
+                    35,
+                    118
+                  ],
+                  [
+                    61,
+                    114
+                  ],
+                  [
+                    83.5,
+                    101
+                  ],
+                  [
+                    101,
+                    70
+                  ],
+                  [
+                    93,
+                    55
+                  ],
+                  [
+                    75,
+                    38
+                  ],
+                  [
+                    52.5,
+                    24
+                  ],
+                  [
+                    17.5,
+                    11.5
+                  ],
+                  [
+                    2,
+                    8
+                  ],
+                  [
+                    -3,
+                    8
+                  ],
+                  [
+                    -3,
+                    8
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": null
+              },
+              {
+                "id": "BDbfGWVh-wD5PI8XKYoHz",
+                "type": "line",
+                "x": 455,
+                "y": 1551.3743896484375,
+                "width": 192,
+                "height": 3.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a1",
+                "roundness": {
+                  "type": 2
+                },
+                "seed": 2128224930,
+                "version": 10,
+                "versionNonce": 1984314722,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718734400,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    192,
+                    3.5
+                  ]
+                ],
+                "lastCommittedPoint": null,
+                "startBinding": null,
+                "endBinding": null,
+                "startArrowhead": null,
+                "endArrowhead": null
+              },
+              {
+                "id": "L7OOyTnH10bD0XIOsaNit",
+                "type": "freedraw",
+                "x": 296,
+                "y": 1828.3743896484375,
+                "width": 0.0001,
+                "height": 0.0001,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a2",
+                "roundness": null,
+                "seed": 2135207678,
+                "version": 3,
+                "versionNonce": 1846606754,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718741516,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0.0001,
+                    0.0001
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": null
+              },
+              {
+                "id": "EC9uKcR2DUEiBQebouL5m",
+                "type": "freedraw",
+                "x": 307,
+                "y": 1761.3743896484375,
+                "width": 212.5,
+                "height": 213.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a3",
+                "roundness": null,
+                "seed": 187033534,
+                "version": 22,
+                "versionNonce": 1338112638,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718743812,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    23,
+                    86.5
+                  ],
+                  [
+                    44,
+                    130.5
+                  ],
+                  [
+                    61.5,
+                    141.5
+                  ],
+                  [
+                    81.5,
+                    145.5
+                  ],
+                  [
+                    105,
+                    146.5
+                  ],
+                  [
+                    155,
+                    130.5
+                  ],
+                  [
+                    189.5,
+                    98
+                  ],
+                  [
+                    204.5,
+                    65
+                  ],
+                  [
+                    212.5,
+                    30
+                  ],
+                  [
+                    212.5,
+                    0
+                  ],
+                  [
+                    202.5,
+                    -21
+                  ],
+                  [
+                    188.5,
+                    -38.5
+                  ],
+                  [
+                    166,
+                    -53.5
+                  ],
+                  [
+                    141,
+                    -62
+                  ],
+                  [
+                    112,
+                    -66.5
+                  ],
+                  [
+                    86,
+                    -67
+                  ],
+                  [
+                    68.5,
+                    -67
+                  ],
+                  [
+                    59.5,
+                    -66
+                  ],
+                  [
+                    57,
+                    -64.5
+                  ],
+                  [
+                    57,
+                    -64.5
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": null
+              },
+              {
+                "id": "pUTMJ2Hk63hSCVzvcXGdu",
+                "type": "freedraw",
+                "x": 377,
+                "y": 1755.8743896484375,
+                "width": 394.5,
+                "height": 85.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a4",
+                "roundness": null,
+                "seed": 971413538,
+                "version": 24,
+                "versionNonce": 1124971810,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718744954,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    -0.5
+                  ],
+                  [
+                    0,
+                    -1
+                  ],
+                  [
+                    3,
+                    -1.5
+                  ],
+                  [
+                    25,
+                    -7.5
+                  ],
+                  [
+                    81.5,
+                    -25
+                  ],
+                  [
+                    117.5,
+                    -35
+                  ],
+                  [
+                    155,
+                    -45
+                  ],
+                  [
+                    191,
+                    -55.5
+                  ],
+                  [
+                    223,
+                    -60
+                  ],
+                  [
+                    249.5,
+                    -62.5
+                  ],
+                  [
+                    271.5,
+                    -66
+                  ],
+                  [
+                    290.5,
+                    -68.5
+                  ],
+                  [
+                    307,
+                    -71
+                  ],
+                  [
+                    323,
+                    -74
+                  ],
+                  [
+                    342.5,
+                    -77
+                  ],
+                  [
+                    356.5,
+                    -78.5
+                  ],
+                  [
+                    369.5,
+                    -81.5
+                  ],
+                  [
+                    381,
+                    -84.5
+                  ],
+                  [
+                    389,
+                    -85
+                  ],
+                  [
+                    393.5,
+                    -85
+                  ],
+                  [
+                    394.5,
+                    -85.5
+                  ],
+                  [
+                    394.5,
+                    -85.5
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": null
+              },
+              {
+                "id": "5CSHmigG0vtiHUwWdai6R",
+                "type": "freedraw",
+                "x": 207.5,
+                "y": 1462.3743896484375,
+                "width": 189,
+                "height": 14.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a5",
+                "roundness": null,
+                "seed": 1263777342,
+                "version": 12,
+                "versionNonce": 1372680126,
+                "isDeleted": false,
+                "boundElements": [],
+                "updated": 1777718753253,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    16.5,
+                    1.5
+                  ],
+                  [
+                    112.5,
+                    11.5
+                  ],
+                  [
+                    169,
+                    14.5
+                  ],
+                  [
+                    186,
+                    13
+                  ],
+                  [
+                    189,
+                    11
+                  ],
+                  [
+                    189,
+                    10
+                  ],
+                  [
+                    189,
+                    9.5
+                  ],
+                  [
+                    189,
+                    9
+                  ],
+                  [
+                    188.5,
+                    9
+                  ],
+                  [
+                    188.5,
+                    9
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": null
+              }
+            ],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 59,
+              "scrollY": -1304.8743896484375,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "isFavorite": false
+        },
+        {
+          "id": "page-d3759d52-b88f-4306-a697-696133e3b1f5",
+          "title": "My Test folder",
+          "type": "page",
+          "parentId": "projects",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              },
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [
+              {
+                "id": "ODZl1zO5nFiAPDsutr0FO",
+                "type": "line",
+                "x": 352.5,
+                "y": 591,
+                "width": 5,
+                "height": 427,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a0",
+                "roundness": {
+                  "type": 2
+                },
+                "seed": 1443434404,
+                "version": 109,
+                "versionNonce": 1966458532,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719281836,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    -5,
+                    -427
+                  ]
+                ],
+                "lastCommittedPoint": null,
+                "startBinding": null,
+                "endBinding": null,
+                "startArrowhead": null,
+                "endArrowhead": null
+              },
+              {
+                "id": "ZN0qHYkdsAZqpWZQXNr6z",
+                "type": "freedraw",
+                "x": 347.5,
+                "y": 167.5,
+                "width": 218.5,
+                "height": 4,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a1",
+                "roundness": null,
+                "seed": 260919844,
+                "version": 15,
+                "versionNonce": 473303452,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719284178,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    6,
+                    0.5
+                  ],
+                  [
+                    48.5,
+                    0.5
+                  ],
+                  [
+                    80.5,
+                    0.5
+                  ],
+                  [
+                    186,
+                    0.5
+                  ],
+                  [
+                    207.5,
+                    0.5
+                  ],
+                  [
+                    218.5,
+                    0.5
+                  ],
+                  [
+                    218,
+                    0.5
+                  ],
+                  [
+                    211.5,
+                    0
+                  ],
+                  [
+                    199.5,
+                    0
+                  ],
+                  [
+                    191.5,
+                    2.5
+                  ],
+                  [
+                    183.5,
+                    3.5
+                  ],
+                  [
+                    183,
+                    4
+                  ],
+                  [
+                    183,
+                    4
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  183,
+                  4
+                ]
+              },
+              {
+                "id": "JrRkSC7WR5R7BrDBTWeum",
+                "type": "freedraw",
+                "x": 559.5,
+                "y": 167,
+                "width": 30.5,
+                "height": 516.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a2",
+                "roundness": null,
+                "seed": 925141412,
+                "version": 41,
+                "versionNonce": 1895197852,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719286145,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    2.5,
+                    21.5
+                  ],
+                  [
+                    4.5,
+                    75.5
+                  ],
+                  [
+                    9.5,
+                    106
+                  ],
+                  [
+                    9.5,
+                    129
+                  ],
+                  [
+                    9.5,
+                    171.5
+                  ],
+                  [
+                    10,
+                    181.5
+                  ],
+                  [
+                    11,
+                    183.5
+                  ],
+                  [
+                    11,
+                    181
+                  ],
+                  [
+                    11,
+                    179
+                  ],
+                  [
+                    11,
+                    176.5
+                  ],
+                  [
+                    11,
+                    175.5
+                  ],
+                  [
+                    11,
+                    176
+                  ],
+                  [
+                    11,
+                    191.5
+                  ],
+                  [
+                    11,
+                    222.5
+                  ],
+                  [
+                    9.5,
+                    256.5
+                  ],
+                  [
+                    5,
+                    284
+                  ],
+                  [
+                    2.5,
+                    301
+                  ],
+                  [
+                    0.5,
+                    314.5
+                  ],
+                  [
+                    -0.5,
+                    323.5
+                  ],
+                  [
+                    -0.5,
+                    333.5
+                  ],
+                  [
+                    -3,
+                    347
+                  ],
+                  [
+                    -5.5,
+                    363
+                  ],
+                  [
+                    -7,
+                    377.5
+                  ],
+                  [
+                    -10,
+                    389.5
+                  ],
+                  [
+                    -10.5,
+                    404.5
+                  ],
+                  [
+                    -10.5,
+                    420
+                  ],
+                  [
+                    -10.5,
+                    437
+                  ],
+                  [
+                    -10.5,
+                    452.5
+                  ],
+                  [
+                    -10.5,
+                    463.5
+                  ],
+                  [
+                    -10.5,
+                    480
+                  ],
+                  [
+                    -11.5,
+                    491
+                  ],
+                  [
+                    -12.5,
+                    501
+                  ],
+                  [
+                    -14,
+                    508.5
+                  ],
+                  [
+                    -15,
+                    515.5
+                  ],
+                  [
+                    -15,
+                    516.5
+                  ],
+                  [
+                    -15.5,
+                    514
+                  ],
+                  [
+                    -18,
+                    507
+                  ],
+                  [
+                    -19.5,
+                    503.5
+                  ],
+                  [
+                    -19.5,
+                    503.5
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  -19.5,
+                  503.5
+                ]
+              },
+              {
+                "id": "mOILWWRlzMfjSpHhzjszz",
+                "type": "freedraw",
+                "x": 507.5,
+                "y": 294.5,
+                "width": 17,
+                "height": 243.5,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a3",
+                "roundness": null,
+                "seed": 777926308,
+                "version": 9,
+                "versionNonce": 1811629980,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719287415,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    13.5,
+                    200.5
+                  ],
+                  [
+                    14,
+                    228.5
+                  ],
+                  [
+                    15.5,
+                    240.5
+                  ],
+                  [
+                    17,
+                    243.5
+                  ],
+                  [
+                    17,
+                    243
+                  ],
+                  [
+                    16.5,
+                    239
+                  ],
+                  [
+                    16.5,
+                    239
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  16.5,
+                  239
+                ]
+              },
+              {
+                "id": "4ZO7RgZPXuCNEAtq845EZ",
+                "type": "freedraw",
+                "x": 374,
+                "y": 185,
+                "width": 30.5,
+                "height": 51,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a4",
+                "roundness": null,
+                "seed": 2094394276,
+                "version": 19,
+                "versionNonce": 1720893724,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719288612,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    -4.5,
+                    21.5
+                  ],
+                  [
+                    -4.5,
+                    41
+                  ],
+                  [
+                    -3,
+                    44.5
+                  ],
+                  [
+                    0,
+                    45.5
+                  ],
+                  [
+                    6,
+                    46
+                  ],
+                  [
+                    13,
+                    43.5
+                  ],
+                  [
+                    18,
+                    39.5
+                  ],
+                  [
+                    25,
+                    25
+                  ],
+                  [
+                    26,
+                    17
+                  ],
+                  [
+                    24.5,
+                    8.5
+                  ],
+                  [
+                    20.5,
+                    1
+                  ],
+                  [
+                    13.5,
+                    -5
+                  ],
+                  [
+                    13,
+                    -5
+                  ],
+                  [
+                    12.5,
+                    -5
+                  ],
+                  [
+                    11.5,
+                    -5
+                  ],
+                  [
+                    10.5,
+                    -3
+                  ],
+                  [
+                    10.5,
+                    -3
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  10.5,
+                  -3
+                ]
+              },
+              {
+                "id": "7WhLdD8Y3DrRaYr0AdWuA",
+                "type": "freedraw",
+                "x": 413,
+                "y": 194,
+                "width": 145.5,
+                "height": 24,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a5",
+                "roundness": null,
+                "seed": 55376420,
+                "version": 21,
+                "versionNonce": 1882289948,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719289435,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    1,
+                    0.5
+                  ],
+                  [
+                    1.5,
+                    2.5
+                  ],
+                  [
+                    2.5,
+                    5
+                  ],
+                  [
+                    2.5,
+                    5.5
+                  ],
+                  [
+                    3,
+                    5.5
+                  ],
+                  [
+                    6.5,
+                    4.5
+                  ],
+                  [
+                    16.5,
+                    2
+                  ],
+                  [
+                    33,
+                    -2
+                  ],
+                  [
+                    53,
+                    -6
+                  ],
+                  [
+                    77,
+                    -8.5
+                  ],
+                  [
+                    103.5,
+                    -12
+                  ],
+                  [
+                    126.5,
+                    -15.5
+                  ],
+                  [
+                    142.5,
+                    -17
+                  ],
+                  [
+                    145.5,
+                    -18.5
+                  ],
+                  [
+                    145,
+                    -18.5
+                  ],
+                  [
+                    144.5,
+                    -18.5
+                  ],
+                  [
+                    143,
+                    -18.5
+                  ],
+                  [
+                    140.5,
+                    -18.5
+                  ],
+                  [
+                    140.5,
+                    -18.5
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  140.5,
+                  -18.5
+                ]
+              },
+              {
+                "id": "NUeHyCJm-cmnU4ata2TfR",
+                "type": "freedraw",
+                "x": 436,
+                "y": 214.5,
+                "width": 112.5,
+                "height": 13,
+                "angle": 0,
+                "strokeColor": "#1e1e1e",
+                "backgroundColor": "transparent",
+                "fillStyle": "solid",
+                "strokeWidth": 2,
+                "strokeStyle": "solid",
+                "roughness": 1,
+                "opacity": 100,
+                "groupIds": [],
+                "frameId": null,
+                "index": "a6",
+                "roundness": null,
+                "seed": 1024943140,
+                "version": 8,
+                "versionNonce": 251802148,
+                "isDeleted": false,
+                "boundElements": null,
+                "updated": 1777719289970,
+                "link": null,
+                "locked": false,
+                "points": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    70,
+                    -6.5
+                  ],
+                  [
+                    92,
+                    -9
+                  ],
+                  [
+                    107,
+                    -11.5
+                  ],
+                  [
+                    112,
+                    -13
+                  ],
+                  [
+                    112.5,
+                    -13
+                  ],
+                  [
+                    112.5,
+                    -13
+                  ]
+                ],
+                "pressures": [],
+                "simulatePressure": true,
+                "lastCommittedPoint": [
+                  112.5,
+                  -13
+                ]
+              }
+            ],
+            "appState": {
+              "viewBackgroundColor": "#ffffff",
+              "scrollX": 0,
+              "scrollY": 0,
+              "zoom": {
+                "value": 1
+              }
+            },
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "projects",
+          "title": "Projects",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false
+        },
+        {
+          "id": "task-pwa",
+          "title": "Ship installable PWA",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        }
+      ],
+      "databases": [
+        {
+          "id": "db-47a2293f-be25-4bcf-86e1-275413a4748b",
+          "title": "Inline Database",
+          "parentId": "task-design",
+          "defaultViewId": "view-0c68ad9c-9677-47bb-9da5-12579fa6d1c7",
+          "properties": [
+            {
+              "id": "title",
+              "name": "Title",
+              "type": "title"
+            },
+            {
+              "id": "prop-161384ca-942e-41f6-9c71-81fcc613af1a",
+              "name": "Status",
+              "type": "status",
+              "options": [
+                "Not started",
+                "In progress",
+                "Done"
+              ]
+            },
+            {
+              "id": "prop-762c6c61-18eb-4eca-9edb-d3bb26aa753f",
+              "name": "Tags",
+              "type": "tags",
+              "options": [
+                "General"
+              ]
+            }
+          ],
+          "rows": [],
+          "views": [
+            {
+              "id": "view-0c68ad9c-9677-47bb-9da5-12579fa6d1c7",
+              "name": "Table",
+              "type": "table"
+            },
+            {
+              "id": "view-67ea65a8-be54-4188-a5a4-3bf4cc350583",
+              "name": "List",
+              "type": "list"
+            },
+            {
+              "id": "view-379628e3-96fb-4d14-b72c-197f2e0fa5b4",
+              "name": "Board",
+              "type": "board",
+              "groupBy": "status"
+            },
+            {
+              "id": "view-8f11a6e1-fb0d-43ea-b1b5-6e6d34e54dd1",
+              "name": "Calendar",
+              "type": "calendar"
+            },
+            {
+              "id": "view-d5c3260e-a6ad-4561-b9cc-5905aa37ae07",
+              "name": "Gallery",
+              "type": "gallery"
+            }
+          ]
+        },
+        {
+          "id": "db-74d61ef9-d33a-42f9-8620-f9ba3438dd07",
+          "title": "Inline Database",
+          "parentId": "page-f536b84c-c5bf-4827-9715-258f5e77a3e4",
+          "defaultViewId": "view-61613b90-f49b-45bf-8930-f80b0daca24c",
+          "properties": [
+            {
+              "id": "title",
+              "name": "Title",
+              "type": "title"
+            },
+            {
+              "id": "prop-9405a87d-22d6-4bf2-a22b-b423cc32eb3f",
+              "name": "Status",
+              "type": "status",
+              "options": [
+                "Not started",
+                "In progress",
+                "Done"
+              ]
+            },
+            {
+              "id": "prop-19b93424-28e7-483a-be2d-b21a8d9dc914",
+              "name": "Tags",
+              "type": "tags",
+              "options": [
+                "General"
+              ]
+            }
+          ],
+          "rows": [],
+          "views": [
+            {
+              "id": "view-61613b90-f49b-45bf-8930-f80b0daca24c",
+              "name": "Table",
+              "type": "table"
+            },
+            {
+              "id": "view-e9b43484-0739-447d-b79f-361fe2393e01",
+              "name": "List",
+              "type": "list"
+            },
+            {
+              "id": "view-758619f6-7f35-4734-96d5-69fe88db79ba",
+              "name": "Board",
+              "type": "board",
+              "groupBy": "status"
+            },
+            {
+              "id": "view-87542e0a-c00e-4778-b4ed-15ebf4a8517a",
+              "name": "Calendar",
+              "type": "calendar"
+            },
+            {
+              "id": "view-58ce5f26-c83d-4ddd-87c1-413c49d54694",
+              "name": "Gallery",
+              "type": "gallery"
+            }
+          ]
+        },
+        {
+          "id": "db-c3346d28-d36c-4da4-bc5a-8b096183045b",
+          "title": "Inline Database",
+          "parentId": "welcome",
+          "defaultViewId": "view-cb2642cb-367f-46b6-88a3-456a1757994a",
+          "properties": [
+            {
+              "id": "title",
+              "name": "Title",
+              "type": "title"
+            },
+            {
+              "id": "prop-bc272611-74ff-42a1-a760-ecb00f550680",
+              "name": "Status",
+              "type": "status",
+              "options": [
+                "Not started",
+                "In progress",
+                "Done"
+              ]
+            },
+            {
+              "id": "prop-96c6fb21-6e3a-40f9-a7e7-4d508e0fb94e",
+              "name": "Tags",
+              "type": "tags",
+              "options": [
+                "General"
+              ]
+            }
+          ],
+          "rows": [],
+          "views": [
+            {
+              "id": "view-cb2642cb-367f-46b6-88a3-456a1757994a",
+              "name": "Table",
+              "type": "table"
+            },
+            {
+              "id": "view-3841b6f8-952d-4d88-a7be-ab62a6e31e19",
+              "name": "List",
+              "type": "list"
+            },
+            {
+              "id": "view-332c424d-bfb7-426b-ab57-6e5bff22b01b",
+              "name": "Board",
+              "type": "board",
+              "groupBy": "status"
+            },
+            {
+              "id": "view-56dd9721-7138-4641-a698-a82fa9b1a9ca",
+              "name": "Calendar",
+              "type": "calendar"
+            },
+            {
+              "id": "view-aa42ec08-0165-4487-b695-1bce4bd81c89",
+              "name": "Gallery",
+              "type": "gallery"
+            }
+          ]
+        },
+        {
+          "id": "db-70262324-043b-4563-b8a1-877dac7672c8",
+          "title": "Inline Database",
+          "parentId": "welcome",
+          "defaultViewId": "view-1901084f-d0c9-45af-b829-bb6dbaf5ebdf",
+          "properties": [
+            {
+              "id": "title",
+              "name": "Title",
+              "type": "title"
+            },
+            {
+              "id": "prop-3e5c1a37-1c63-4185-bc06-59d0ef37045e",
+              "name": "Status",
+              "type": "status",
+              "options": [
+                "Not started",
+                "In progress",
+                "Done"
+              ]
+            },
+            {
+              "id": "prop-9c9dd094-6567-428a-8746-54d0166db208",
+              "name": "Tags",
+              "type": "tags",
+              "options": [
+                "General"
+              ]
+            }
+          ],
+          "rows": [],
+          "views": [
+            {
+              "id": "view-1901084f-d0c9-45af-b829-bb6dbaf5ebdf",
+              "name": "Table",
+              "type": "table"
+            },
+            {
+              "id": "view-0738ece9-c419-4792-95b3-98e22dbda4cb",
+              "name": "List",
+              "type": "list"
+            },
+            {
+              "id": "view-8c02dea9-e38f-40b2-a8e2-423f48cf158d",
+              "name": "Board",
+              "type": "board",
+              "groupBy": "status"
+            },
+            {
+              "id": "view-a2705604-a590-4983-9e51-b35d58b72bbe",
+              "name": "Calendar",
+              "type": "calendar"
+            },
+            {
+              "id": "view-9f573750-b5a8-4d7f-a2f9-0b1a29f5fb0c",
+              "name": "Gallery",
+              "type": "gallery"
+            }
+          ]
+        },
+        {
+          "id": "tasks-db",
+          "title": "Tasks",
+          "parentId": "welcome",
+          "defaultViewId": "tasks-board",
+          "properties": [
+            {
+              "id": "title",
+              "name": "Title",
+              "type": "title"
+            },
+            {
+              "id": "status",
+              "name": "Status",
+              "type": "status",
+              "options": [
+                "Not started",
+                "In progress",
+                "Done"
+              ]
+            },
+            {
+              "id": "tags",
+              "name": "Tags",
+              "type": "tags",
+              "options": [
+                "UX",
+                "Editor",
+                "PWA"
+              ]
+            },
+            {
+              "id": "due",
+              "name": "Due",
+              "type": "date"
+            },
+            {
+              "id": "done",
+              "name": "Done",
+              "type": "checkbox"
+            },
+            {
+              "id": "effort",
+              "name": "Effort",
+              "type": "number"
+            },
+            {
+              "id": "prop-db2f1a56-79cf-44d3-8400-2525f9d5a8d2",
+              "name": "text",
+              "type": "text"
+            }
+          ],
+          "rows": [
+            {
+              "id": "row-210ede0f-b4db-40f8-bb1d-d314f79d00a6",
+              "pageId": "page-4f94ca5d-cfd1-4b15-804e-b354fc3678d8",
+              "properties": {
+                "title": "New entry"
+              }
+            },
+            {
+              "id": "row-design",
+              "pageId": "task-design",
+              "properties": {
+                "title": "Design database UI",
+                "status": "In progress",
+                "tags": [
+                  "UX",
+                  "Editor"
+                ],
+                "due": "2026-04-30",
+                "done": false,
+                "effort": 5,
+                "prop-db2f1a56-79cf-44d3-8400-2525f9d5a8d2": ""
+              }
+            },
+            {
+              "id": "row-pwa",
+              "pageId": "task-pwa",
+              "properties": {
+                "title": "Ship installable PWA",
+                "status": "Not started",
+                "tags": [
+                  "PWA"
+                ],
+                "due": "2026-04-21",
+                "done": true,
+                "effort": 2,
+                "prop-db2f1a56-79cf-44d3-8400-2525f9d5a8d2": ""
+              }
+            }
+          ],
+          "views": [
+            {
+              "id": "tasks-table",
+              "name": "Table",
+              "type": "table",
+              "sort": {
+                "propertyId": "due",
+                "direction": "asc"
+              }
+            },
+            {
+              "id": "tasks-list",
+              "name": "List",
+              "type": "list"
+            },
+            {
+              "id": "tasks-board",
+              "name": "Board",
+              "type": "board",
+              "sort": {
+                "propertyId": "due",
+                "direction": "asc"
+              },
+              "groupBy": "status"
+            },
+            {
+              "id": "tasks-calendar",
+              "name": "Calendar",
+              "type": "calendar",
+              "groupBy": "due"
+            },
+            {
+              "id": "tasks-gallery",
+              "name": "Gallery",
+              "type": "gallery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workspace-abc7ee02-474d-423d-9a47-418009bc1986",
+      "name": "NEw work space",
+      "initials": "NW",
+      "pages": [
+        {
+          "id": "page-ebfd8d64-2bf5-4052-a12d-016e0901b2d6",
+          "title": "Welcome",
+          "type": "page",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "heading",
+                "attrs": {
+                  "level": 2
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "NEw work space"
+                  }
+                ]
+              },
+              {
+                "type": "paragraph",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Start writing, add pages, or create folders from the sidebar."
+                  }
+                ]
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        }
+      ],
+      "databases": []
+    }
+  ],
+  "activeWorkspaceId": "workspace-main"
 }
