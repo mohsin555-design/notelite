@@ -22,6 +22,7 @@ import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
 import { cn } from "@/lib/utils";
+import { isCanvasPage } from "@/lib/workspace-tree";
 
 type ItemMenuState = {
   itemId: string;
@@ -37,13 +38,8 @@ type DragIndicatorState = {
 
 const SIDEBAR_ITEM_LIMIT = 8;
 
-function isCanvasPage(page: Page) {
-  const canvas = page.canvas as { elements?: unknown[] } | undefined;
-  return page.type === "page" && (Boolean(canvas?.elements?.length) || page.title.toLowerCase().includes("canvas"));
-}
-
 function itemHref(item: Page) {
-  return item.type === "folder" ? `/library?view=list&folder=${item.id}` : `/page/${item.id}`;
+  return `/page/${item.id}`;
 }
 
 function SidebarItemIcon({ item, childCount }: { item: Page; childCount: number }) {
@@ -216,7 +212,7 @@ function SidebarSection({
             childCount={pages.filter((page) => page.parentId === item.id).length}
             section={section}
             dropPosition={dragIndicator?.itemId === item.id ? dragIndicator.position : null}
-            isActive={(item.type === "page" && pathname === `/page/${item.id}`) || (item.type === "folder" && activeFolderId === item.id)}
+            isActive={pathname === `/page/${item.id}` || (item.type === "folder" && activeFolderId === item.id)}
             onOpenItemMenu={onOpenItemMenu}
             onDragOverItem={(itemId, position) => setDragIndicator({ itemId, position })}
             onClearDragIndicator={() => setDragIndicator(null)}
@@ -265,7 +261,7 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   };
   const documentItems = useMemo(() => pages.filter((page) => page.type === "page"), [pages]);
   const recentItems = useMemo(() => documentItems, [documentItems]);
-  const favoriteItems = useMemo(() => documentItems.filter((page) => page.isFavorite), [documentItems]);
+  const favoriteItems = useMemo(() => pages.filter((page) => page.isFavorite), [pages]);
   const handleWorkspaceOutsideClick = useCallback(() => {
     setIsWorkspaceMenuOpen(false);
   }, []);
@@ -311,8 +307,9 @@ export function Sidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
     router.push(`/page/${page.id}`);
   }
 
-  function handleNewFolder(name: string, folderColor: FolderColor) {
-    createFolder(null, name, folderColor);
+  function handleNewFolder(name: string, folderColor: FolderColor, parentId: string | null) {
+    const folder = createFolder(parentId, name, folderColor);
+    router.push(`/page/${folder.id}`);
   }
 
   function handleNewCanvas() {

@@ -2,23 +2,30 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ChevronRight,
   Check,
   Copy,
+  ChevronRight,
   ExternalLink,
   FolderInput,
   Link2,
-  PanelRight,
   Pencil,
   Star,
   Trash2,
 } from "lucide-react";
 
-import { FolderLineIcon } from "@/components/NoteliteIcons";
-import { folderColorOptions, getFolderColorOption } from "@/lib/folder-utils";
+import { FolderCreationModal } from "@/components/FolderCreationModal";
+import { MoveItemModal } from "@/components/MoveItemModal";
+import { folderColorOptions, getFolderColorOption, type FolderColor } from "@/lib/folder-utils";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
+import { useWorkspaceTabs } from "@/lib/workspace-tabs";
+import {
+  formatCreatedOn,
+  getFolderTargets,
+  getItemDisplayTitle,
+  getPageCreatedAt,
+} from "@/lib/workspace-items";
 import { cn } from "@/lib/utils";
 
 export { folderColorOptions, getFolderColorOption as getFolderColorClasses };
@@ -39,66 +46,35 @@ type WorkspaceItemContextMenuProps = {
   onClose: () => void;
 };
 
-type DialogMode = "rename" | "delete" | null;
+type DialogMode = "rename" | "delete" | "move" | "duplicate-folder" | null;
 
 function itemLabel(item: Page) {
   return item.type === "folder" ? "Folder" : "Page";
 }
 
-function itemFallbackTitle(item: Page) {
-  return item.type === "folder" ? "New Folder" : "Untitled";
-}
-
 function ItemDialog({
   item,
-  mode,
   onCancel,
   onDelete,
   onRename,
 }: {
   item: Page;
-  mode: Exclude<DialogMode, null>;
   onCancel: () => void;
   onDelete: () => void;
   onRename: (title: string) => void;
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const label = itemLabel(item).toLowerCase();
-  const title = item.title || itemFallbackTitle(item);
+  const title = getItemDisplayTitle(item);
   const [value, setValue] = useState(title);
 
   useEffect(() => {
-    if (mode === "rename") {
-      inputRef.current?.focus();
-      inputRef.current?.select();
-    }
-  }, [mode]);
-
-  if (mode === "delete") {
-    return (
-      <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 px-4">
-        <div role="dialog" aria-modal="true" aria-labelledby="delete-item-title" className="w-full max-w-sm rounded-lg border bg-popover p-4 text-popover-foreground shadow-2xl">
-          <h2 id="delete-item-title" className="text-base font-semibold text-foreground">
-            Delete {label}
-          </h2>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Delete "{title}"? This cannot be undone.
-          </p>
-          <div className="mt-5 flex justify-end gap-2">
-            <button type="button" className="rounded-md px-3 py-2 text-sm hover:bg-muted" onClick={onCancel}>
-              Cancel
-            </button>
-            <button type="button" className="rounded-md bg-destructive px-3 py-2 text-sm font-medium text-white hover:bg-destructive/90" onClick={onDelete}>
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+    inputRef.current?.focus();
+    inputRef.current?.select();
+  }, []);
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 px-4">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/20 px-4">
       <form
         role="dialog"
         aria-modal="true"
@@ -135,11 +111,47 @@ function ItemDialog({
   );
 }
 
+function DeleteDialog({
+  item,
+  onCancel,
+  onDelete,
+}: {
+  item: Page;
+  onCancel: () => void;
+  onDelete: () => void;
+}) {
+  const label = itemLabel(item).toLowerCase();
+  const title = getItemDisplayTitle(item);
+
+  return (
+    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/20 px-4">
+      <div role="dialog" aria-modal="true" aria-labelledby="delete-item-title" className="w-full max-w-sm rounded-lg border bg-popover p-4 text-popover-foreground shadow-2xl">
+        <h2 id="delete-item-title" className="text-base font-semibold text-foreground">
+          Delete {label}
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          Delete "{title}"? This cannot be undone.
+        </p>
+        <div className="mt-5 flex justify-end gap-2">
+          <button type="button" className="rounded-md px-3 py-2 text-sm hover:bg-muted" onClick={onCancel}>
+            Cancel
+          </button>
+          <button type="button" className="rounded-md bg-destructive px-3 py-2 text-sm font-medium text-white hover:bg-destructive/90" onClick={onDelete}>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }: WorkspaceItemContextMenuProps) {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const [dialogMode, setDialogMode] = useState<DialogMode>(null);
+  const [copied, setCopied] = useState(false);
   const {
     pages,
+    createFolder,
     duplicatePage,
     duplicateFolder,
     deletePage,
@@ -148,37 +160,32 @@ export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }
     updatePageFolderColor,
     updatePageTitle,
   } = useNotionStore();
+  const workspaceTabs = useWorkspaceTabs();
   const isFolder = item.type === "folder";
   const label = itemLabel(item);
   const activeColor = getFolderColorOption(item.folderColor);
   const itemUrl = typeof window !== "undefined" ? `${window.location.origin}/page/${item.id}` : "";
 
-  const destinationFolders = useMemo(() => {
-    const descendantIds = new Set<string>();
-
-    function collectDescendants(folderId: string) {
-      for (const page of pages) {
-        if (page.parentId === folderId) {
-          descendantIds.add(page.id);
-          collectDescendants(page.id);
-        }
-      }
-    }
-
-    if (isFolder) {
-      collectDescendants(item.id);
-    }
-
-    return pages.filter(
-      (page) => page.type === "folder" && page.id !== item.id && !descendantIds.has(page.id),
-    );
-  }, [isFolder, item.id, pages]);
+  const folderTargets = useMemo(() => getFolderTargets(pages, item), [item, pages]);
 
   useClickOutside(menuRef, onClose, !dialogMode);
 
+  useEffect(() => {
+    if (!copied) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setCopied(false);
+      onClose();
+    }, 900);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [copied, onClose]);
+
   async function copyLink() {
     await navigator.clipboard?.writeText(itemUrl);
-    onClose();
+    setCopied(true);
   }
 
   function handleMoveItem(parentId: string | null) {
@@ -198,6 +205,20 @@ export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }
 
   function handleDeleteItem() {
     deletePage(item.id);
+    onClose();
+  }
+
+  function handleDuplicateFolder(name: string, folderColor: string, parentId: string | null) {
+    duplicateFolder(item.id, { title: name, parentId, folderColor });
+    onClose();
+  }
+
+  function handleOpenInNewTab() {
+    workspaceTabs?.openTab({
+      id: `tab-${item.id}-${Date.now()}`,
+      href: `/page/${item.id}`,
+      label: getItemDisplayTitle(item),
+    });
     onClose();
   }
 
@@ -231,106 +252,85 @@ export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }
 
           <div className="my-2 h-px bg-[#e9e9e9]" />
 
-          <div>
-            <button type="button" className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]" onClick={copyLink}>
-              <Link2 className="size-5 shrink-0" />
-              <span className="flex-1">Copy link</span>
-            </button>
-            <button
-              type="button"
-              className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-              onClick={() => {
-                if (isFolder) {
-                  duplicateFolder(item.id);
-                } else {
-                  duplicatePage(item.id);
-                }
-                onClose();
-              }}
-            >
-              <Copy className="size-5 shrink-0" />
-              <span className="flex-1">Duplicate</span>
-              <span className="text-sm font-semibold text-[#9b9b9b]">⌘D</span>
-            </button>
-            <button
-              type="button"
-              className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-              onClick={() => setDialogMode("rename")}
-            >
-              <Pencil className="size-5 shrink-0" />
-              <span className="flex-1">Rename</span>
-              <span className="text-sm font-semibold text-[#9b9b9b]">⌘⇧R</span>
-            </button>
-            <div className="group/move relative">
-              <button type="button" className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]">
-                <FolderInput className="size-5 shrink-0" />
-                <span className="flex-1">Move to</span>
-                <span className="text-sm font-semibold text-[#9b9b9b]">⌘⇧P</span>
-              </button>
-              <div className="invisible absolute left-full top-0 z-10 ml-1 max-h-72 w-60 overflow-y-auto rounded-lg border border-[#e6e6e6] bg-white p-1 text-sm text-[#2b2b2b] shadow-xl group-hover/move:visible">
-                <button
-                  type="button"
-                  className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-[#f5f5f5]"
-                  onClick={() => handleMoveItem(null)}
-                >
-                  <FolderLineIcon className="size-4 shrink-0" />
-                  <span className="flex-1 truncate">Workspace root</span>
-                  {item.parentId === null ? <Check className="size-4 text-muted-foreground" /> : null}
-                </button>
-                {destinationFolders.map((destination) => (
-                  <button
-                    key={destination.id}
-                    type="button"
-                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-[#f5f5f5]"
-                    onClick={() => handleMoveItem(destination.id)}
-                  >
-                    <FolderLineIcon className="size-4 shrink-0" />
-                    <span className="flex-1 truncate">{destination.title || "New Folder"}</span>
-                    {item.parentId === destination.id ? <Check className="size-4 text-muted-foreground" /> : null}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <button
-              type="button"
-              className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-              onClick={() => setDialogMode("delete")}
-            >
-              <Trash2 className="size-5 shrink-0" />
-              <span className="flex-1">Move to Trash</span>
-            </button>
-          </div>
+          <button type="button" className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]" onClick={copyLink}>
+            {copied ? <Check className="size-5 shrink-0 fill-current" /> : <Link2 className="size-5 shrink-0" />}
+            <span className="flex-1">{copied ? "Copied" : "Copy link"}</span>
+          </button>
+
+          <button
+            type="button"
+            className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
+            onClick={() => {
+              if (isFolder) {
+                setDialogMode("duplicate-folder");
+                return;
+              }
+
+              duplicatePage(item.id);
+              onClose();
+            }}
+          >
+            <Copy className="size-5 shrink-0" />
+            <span className="flex-1">Duplicate</span>
+          </button>
+
+          <button
+            type="button"
+            className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
+            onClick={() => setDialogMode("rename")}
+          >
+            <Pencil className="size-5 shrink-0" />
+            <span className="flex-1">Rename</span>
+          </button>
+
+          <button
+            type="button"
+            className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
+            onClick={() => setDialogMode("move")}
+          >
+            <FolderInput className="size-5 shrink-0" />
+            <span className="flex-1">{isFolder ? "Move folder" : "Move"}</span>
+          </button>
+
+          <button
+            type="button"
+            className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
+            onClick={() => setDialogMode("delete")}
+          >
+            <Trash2 className="size-5 shrink-0" />
+            <span className="flex-1">Move to Trash</span>
+          </button>
 
           {isFolder ? (
             <>
               <div className="my-2 h-px bg-[#e9e9e9]" />
-            <div className="group/color relative">
-              <button
-                type="button"
-                className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-              >
-                <span className={cn("size-5 shrink-0 rounded-full", activeColor.swatch)} />
-                <span className="flex-1">Folder Color</span>
-                <ChevronRight className="size-4 text-[#9b9b9b]" />
-              </button>
-              <div className="invisible absolute left-full top-0 z-10 ml-1 w-48 rounded-lg border border-[#e6e6e6] bg-white p-1 text-sm text-[#2b2b2b] shadow-xl group-hover/color:visible">
-                {folderColorOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-[#f5f5f5]"
-                    onClick={() => {
-                      updatePageFolderColor(item.id, option.value);
-                      onClose();
-                    }}
-                  >
-                    <span className={cn("size-4 rounded-full", option.swatch)} />
-                    <span className="flex-1">{option.label}</span>
-                    {item.folderColor === option.value ? <Check className="size-4 text-muted-foreground" /> : null}
-                  </button>
-                ))}
+              <div className="group/color relative">
+                <button
+                  type="button"
+                  className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
+                >
+                  <span className={cn("size-5 shrink-0 rounded-full", activeColor.swatch)} />
+                  <span className="flex-1">Folder color</span>
+                  <ChevronRight className="size-4 text-[#9b9b9b]" />
+                </button>
+                <div className="invisible absolute left-full top-0 z-10 ml-1 w-48 rounded-lg border border-[#e6e6e6] bg-white p-1 text-sm text-[#2b2b2b] shadow-xl group-hover/color:visible">
+                  {folderColorOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-[#f5f5f5]"
+                      onClick={() => {
+                        updatePageFolderColor(item.id, option.value);
+                        onClose();
+                      }}
+                    >
+                      <span className={cn("size-4 rounded-full", option.swatch)} />
+                      <span className="flex-1">{option.label}</span>
+                      {activeColor.value === option.value ? <Check className="size-4 text-muted-foreground" /> : null}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
             </>
           ) : null}
 
@@ -339,39 +339,53 @@ export function WorkspaceItemContextMenu({ item, childCount = 0, x, y, onClose }
           <button
             type="button"
             className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-            onClick={() => {
-              window.open(`/page/${item.id}`, "_blank", "noopener,noreferrer");
-              onClose();
-            }}
+            onClick={handleOpenInNewTab}
           >
             <ExternalLink className="size-5 shrink-0" />
             <span className="flex-1">Open in new tab</span>
-            <span className="text-sm font-semibold text-[#9b9b9b]">⌘⇧↵</span>
-          </button>
-          <button
-            type="button"
-            className="flex h-10 w-full items-center gap-3 rounded-md px-2 text-left text-base hover:bg-[#f5f5f5]"
-            onClick={onClose}
-          >
-            <PanelRight className="size-5 shrink-0" />
-            <span className="flex-1">Open in side peek</span>
-            <span className="text-sm font-semibold text-[#9b9b9b]">⌥Click</span>
           </button>
 
           <div className="mt-2 border-t border-[#e9e9e9] px-2 pt-3 text-sm leading-6 text-[#9b9b9b]">
-            <div>Last edited by Mohsin Ali</div>
-            <div>May 2, 2026, 4:32 PM</div>
+            <div>Created on {formatCreatedOn(getPageCreatedAt(item))}</div>
           </div>
         </div>
-      ) : (
-        <ItemDialog
-          item={item}
-          mode={dialogMode}
-          onCancel={onClose}
-          onDelete={handleDeleteItem}
-          onRename={handleRenameItem}
+      ) : null}
+
+      {dialogMode === "rename" ? (
+        <ItemDialog item={item} onCancel={onClose} onDelete={handleDeleteItem} onRename={handleRenameItem} />
+      ) : null}
+
+      {dialogMode === "delete" ? (
+        <DeleteDialog item={item} onCancel={onClose} onDelete={handleDeleteItem} />
+      ) : null}
+
+      {dialogMode === "duplicate-folder" ? (
+        <FolderCreationModal
+          isOpen
+          title="Duplicate folder"
+          submitLabel="Duplicate"
+          initialName={`${getItemDisplayTitle(item)} Copy`}
+          initialColor={(item.folderColor ?? "neutral") as FolderColor}
+          folderTargets={folderTargets}
+          initialParentId={item.parentId}
+          onClose={onClose}
+          onCreate={handleDuplicateFolder}
         />
-      )}
+      ) : null}
+
+      {dialogMode === "move" ? (
+        <MoveItemModal
+          isOpen
+          title={isFolder ? "Move folder" : "Move item"}
+          currentParentId={item.parentId}
+          targets={folderTargets}
+          onClose={onClose}
+          onMove={handleMoveItem}
+          onCreateFolder={(name, parentId, folderColor) => {
+            createFolder(parentId, name, folderColor);
+          }}
+        />
+      ) : null}
     </>
   );
 }

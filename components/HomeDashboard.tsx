@@ -6,11 +6,13 @@ import { Check, ChevronRight, Heart, Plus, Search } from "lucide-react";
 import { useRef, useState } from "react";
 
 import { FolderCreationModal } from "@/components/FolderCreationModal";
-import { CanvasIcon, ContainerIcon, FolderFillIcon, FullWidthIcon, MoreIcon, PageIcon, PageLayoutIcon } from "@/components/NoteliteIcons";
+import { CanvasIcon, ContainerIcon, FolderFillIcon, FullWidthIcon, PageIcon, PageLayoutIcon } from "@/components/NoteliteIcons";
 import { NewItemMenu } from "@/components/NewItemMenu";
+import { PageHead } from "@/components/PageHead";
 import { Button } from "@/components/ui/button";
 import type { FolderColor } from "@/lib/folder-utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getAnchoredPopoverPosition } from "@/lib/popover-position";
 import { useNotionStore } from "@/lib/notion-store";
 import { useClickOutside } from "@/lib/use-click-outside";
 import { cn } from "@/lib/utils";
@@ -41,6 +43,7 @@ export function HomeDashboard() {
   const [isFolderModalOpen, setIsFolderModalOpen] = useState(false);
   const [pageLayout, setPageLayout] = useState<"container" | "full">("container");
   const moreMenuRef = useRef<HTMLDivElement | null>(null);
+  const moreButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const pageItems = pages.filter((page) => page.type === "page");
   const favoriteItems = pages.filter((page) => page.isFavorite);
@@ -56,8 +59,9 @@ export function HomeDashboard() {
     router.push(`/page/${page.id}`);
   }
 
-  function handleCreateFolder(name: string, folderColor: FolderColor) {
-    createFolder(null, name, folderColor);
+  function handleCreateFolder(name: string, folderColor: FolderColor, parentId: string | null) {
+    const folder = createFolder(parentId, name, folderColor);
+    router.push(`/page/${folder.id}`);
   }
 
   function handleNewCanvas() {
@@ -69,82 +73,93 @@ export function HomeDashboard() {
     window.dispatchEvent(new CustomEvent("notelite:open-workspace-search"));
   }
 
+  const homeMenuPosition =
+    isMoreOpen && typeof window !== "undefined" && moreButtonRef.current
+      ? getAnchoredPopoverPosition(moreButtonRef.current.getBoundingClientRect(), {
+          width: 160,
+          height: 120,
+          viewportWidth: window.innerWidth,
+          viewportHeight: window.innerHeight,
+        })
+      : null;
+
   return (
     <ScrollArea className="h-full">
-      <div className="relative flex min-h-screen items-start justify-center px-6 py-4">
-        <div className="absolute right-4 top-4 flex items-center gap-2">
-          <NewItemMenu
-            onCreateFolder={handleCreateFolder}
-            onCreatePage={handleNewPage}
-            onCreateCanvas={handleNewCanvas}
-          />
-
-          <div ref={moreMenuRef} className="relative">
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label="Page options"
-              className="size-8 rounded-md text-[#1a1a1a]"
-              onClick={() => setIsMoreOpen((isOpen) => !isOpen)}
-            >
-              <MoreIcon className="size-4 text-[#1e1e1e]" />
-            </Button>
-            {isMoreOpen ? (
-              <div className="absolute right-0 top-10 z-40 w-[140px] rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-                <div className="group/layout relative">
-                  <button
-                    type="button"
-                    className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
-                    onMouseEnter={() => setIsLayoutOpen(true)}
-                    onClick={() => setIsLayoutOpen((isOpen) => !isOpen)}
-                  >
-                    <PageLayoutIcon className="size-4 text-[#1e1e1e]" />
-                    <span className="flex-1">Page layout</span>
-                    <ChevronRight className="size-4 text-[#727272]" />
-                  </button>
-                  {isLayoutOpen ? (
-                    <div className="absolute right-full top-0 z-50 mr-2 w-[140px] rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-                      <button
-                        type="button"
-                        className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
-                        onClick={() => setPageLayout("container")}
-                      >
-                        {pageLayout === "container" ? <Check className="size-4" /> : <span className="size-4" />}
-                        <ContainerIcon className="size-4 text-[#1e1e1e]" />
-                        Container
-                      </button>
-                      <button
-                        type="button"
-                        className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
-                        onClick={() => setPageLayout("full")}
-                      >
-                        {pageLayout === "full" ? <Check className="size-4" /> : <span className="size-4" />}
-                        <FullWidthIcon className="size-4 text-[#1e1e1e]" />
-                        Full width
-                      </button>
-                    </div>
-                  ) : null}
+      <div className="min-h-screen bg-white">
+        <div ref={moreMenuRef}>
+          <PageHead
+            title="Welcome to NoteLite"
+            breadcrumbs={[]}
+            breadcrumbCurrentLabel="Home"
+            addControl={
+              <NewItemMenu
+                label="Add"
+                align="right"
+                buttonClassName="h-7 rounded-md border border-[#0062ff] bg-[#0062ff] px-2 text-xs font-semibold text-white shadow-[0_1px_0_rgba(31,35,40,0.04)] hover:bg-[#0052d4]"
+                onCreateFolder={handleCreateFolder}
+                onCreatePage={handleNewPage}
+                onCreateCanvas={handleNewCanvas}
+              />
+            }
+            onOpenMore={() => setIsMoreOpen((isOpen) => !isOpen)}
+            moreButtonRef={moreButtonRef}
+            moreMenu={
+              isMoreOpen && homeMenuPosition ? (
+                <div
+                  className="fixed z-40 w-[160px] rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                  style={homeMenuPosition}
+                >
+                  <div className="group/layout relative">
+                    <button
+                      type="button"
+                      className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
+                      onMouseEnter={() => setIsLayoutOpen(true)}
+                      onClick={() => setIsLayoutOpen((isOpen) => !isOpen)}
+                    >
+                      <PageLayoutIcon className="size-4 text-[#1e1e1e]" />
+                      <span className="flex-1">Page layout</span>
+                      <ChevronRight className="size-4 text-[#727272]" />
+                    </button>
+                    {isLayoutOpen ? (
+                      <div className="absolute right-full top-0 z-50 mr-2 w-[160px] rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                        <button
+                          type="button"
+                          className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
+                          onClick={() => setPageLayout("container")}
+                        >
+                          {pageLayout === "container" ? <Check className="size-4" /> : <span className="size-4" />}
+                          <ContainerIcon className="size-4 text-[#1e1e1e]" />
+                          Container
+                        </button>
+                        <button
+                          type="button"
+                          className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
+                          onClick={() => setPageLayout("full")}
+                        >
+                          {pageLayout === "full" ? <Check className="size-4" /> : <span className="size-4" />}
+                          <FullWidthIcon className="size-4 text-[#1e1e1e]" />
+                          Full width
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
-            ) : null}
-          </div>
+              ) : null
+            }
+          />
         </div>
 
-        <div className={cn("flex w-full flex-col items-stretch gap-5 pt-12", pageLayout === "container" ? "max-w-[840px]" : "max-w-[calc(100vw-360px)]")}>
-          <h1 className="text-center text-2xl font-bold tracking-normal text-[#1a1a1a]">
-            Welcome to NoteLite
-          </h1>
-
-          <button
-            type="button"
-            onClick={handleOpenSearch}
-            className="relative flex h-10 w-full items-center rounded-lg border border-[#d9d9d9] bg-white px-3 text-left shadow-[inset_0_1px_0_rgba(31,35,40,0.04)] transition-colors hover:bg-[#fbfbfb]"
-          >
-            <Search className="mr-2 size-4 shrink-0 text-[#727272]" />
-            <span className="min-w-0 flex-1 truncate text-sm text-[#8e8e93]">Search anything..</span>
-            <SearchShortcut />
-          </button>
+        <div className="flex items-start justify-center px-6 py-4">
+          <div className={cn("flex w-full flex-col items-stretch gap-5 pt-16 md:pt-[284px]", pageLayout === "container" ? "max-w-[840px]" : "max-w-[calc(100vw-360px)]")}>
+            <button
+              type="button"
+              onClick={handleOpenSearch}
+              className="relative flex h-10 w-full items-center rounded-lg border border-[#d9d9d9] bg-white px-3 text-left shadow-[inset_0_1px_0_rgba(31,35,40,0.04)] transition-colors hover:bg-[#fbfbfb]"
+            >
+              <Search className="mr-2 size-4 shrink-0 text-[#727272]" />
+              <span className="min-w-0 flex-1 truncate text-sm text-[#8e8e93]">Search anything..</span>
+              <SearchShortcut />
+            </button>
 
           <section className="space-y-3">
             <h2 className="text-sm font-medium text-[#727272]">Recent</h2>
@@ -180,7 +195,7 @@ export function HomeDashboard() {
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={handleOpenSearch}
+                onClick={() => router.push("/library?view=list&section=favorites")}
                 className="flex h-[91px] w-[180px] flex-col gap-2 rounded-lg border border-[#d9d9d9] bg-white p-3 text-left transition-colors hover:bg-[#f7f7f7]"
               >
                 <Heart className="size-6 text-[#727272]" />
@@ -215,7 +230,7 @@ export function HomeDashboard() {
               onClick={() => setIsFolderModalOpen(true)}
             >
               <FolderFillIcon className="size-4 text-[#b3b3b3]" />
-              Favorites
+              Folder
             </Button>
             <Button
               type="button"
@@ -237,12 +252,13 @@ export function HomeDashboard() {
             </Button>
           </div>
         </div>
+        </div>
       </div>
       <FolderCreationModal
         isOpen={isFolderModalOpen}
         onClose={() => setIsFolderModalOpen(false)}
-        onCreate={(name, folderColor) => {
-          handleCreateFolder(name, folderColor);
+        onCreate={(name, folderColor, parentId) => {
+          handleCreateFolder(name, folderColor, parentId);
           setIsFolderModalOpen(false);
         }}
       />

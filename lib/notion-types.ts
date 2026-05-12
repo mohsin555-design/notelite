@@ -17,6 +17,7 @@ export type Page = {
   title: string;
   type: "page" | "folder";
   parentId: string | null;
+  createdAt?: string;
   content: JSONContent;
   canvas: CanvasData;
   inlineDatabaseIds?: string[];

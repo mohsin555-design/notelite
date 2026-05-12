@@ -179,8 +179,8 @@ type NotionStore = {
   createPage: (parentId?: string | null, title?: string) => Page;
   createFolder: (parentId?: string | null, title?: string, folderColor?: string) => Page;
   createDatabase: (parentId?: string | null, title?: string) => Database;
-  duplicatePage: (pageId: string) => Page | null;
-  duplicateFolder: (folderId: string) => Page | null;
+  duplicatePage: (pageId: string, overrides?: { parentId?: string | null; title?: string }) => Page | null;
+  duplicateFolder: (folderId: string, overrides?: { parentId?: string | null; title?: string; folderColor?: string }) => Page | null;
   deletePage: (pageId: string) => void;
   ensurePage: (id: string) => void;
   updatePageTitle: (pageId: string, title: string) => void;
@@ -242,6 +242,7 @@ function createUntitledPage(
     title,
     type: "page",
     parentId,
+    createdAt: new Date().toISOString(),
     content: defaultContent,
     canvas: createEmptyCanvas(),
     inlineDatabaseIds: [],
@@ -258,6 +259,7 @@ function createUntitledFolder(
     title,
     type: "folder",
     parentId,
+    createdAt: new Date().toISOString(),
     content: { type: "doc", content: [] },
     canvas: createEmptyCanvas(),
     inlineDatabaseIds: [],
@@ -339,6 +341,7 @@ function createWorkspaceRecord(
 function normalizePages(pages: Page[]): Page[] {
   return pages.map((page) => ({
     ...page,
+    createdAt: page.createdAt ?? "2026-05-02T16:32:00.000Z",
     inlineDatabaseIds: page.inlineDatabaseIds ?? [],
     folderColor: page.type === "folder" ? page.folderColor ?? DEFAULT_FOLDER_COLOR : page.folderColor,
     isFavorite: page.isFavorite ?? false,
@@ -539,7 +542,7 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     return database;
   }, []);
 
-  const duplicatePage = useCallback((pageId: string) => {
+  const duplicatePage = useCallback((pageId: string, overrides?: { parentId?: string | null; title?: string }) => {
     const source = pages.find((page) => page.id === pageId);
     if (!source) {
       return null;
@@ -548,7 +551,9 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     const page: Page = {
       ...source,
       id: createId(source.type === "folder" ? "folder" : "page"),
-      title: `${source.title || "Untitled"} Copy`,
+      title: overrides?.title ?? `${source.title || "Untitled"} Copy`,
+      parentId: overrides?.parentId ?? source.parentId,
+      createdAt: new Date().toISOString(),
       content: JSON.parse(JSON.stringify(source.content)) as Page["content"],
       canvas: JSON.parse(JSON.stringify(source.canvas)) as CanvasData,
       inlineDatabaseIds: [...(source.inlineDatabaseIds ?? [])],
@@ -558,7 +563,7 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     return page;
   }, [pages]);
 
-  const duplicateFolder = useCallback((folderId: string) => {
+  const duplicateFolder = useCallback((folderId: string, overrides?: { parentId?: string | null; title?: string; folderColor?: string }) => {
     const source = pages.find((page) => page.id === folderId && page.type === "folder");
     if (!source) {
       return null;
@@ -578,13 +583,15 @@ export function NotionStoreProvider({ children }: { children: ReactNode }) {
     const copiedPages = subtree.map((page) => ({
       ...page,
       id: idMap.get(page.id)!,
-      title: page.id === folderId ? `${page.title || "New Folder"} Copy` : page.title,
+      title: page.id === folderId ? overrides?.title ?? `${page.title || "New Folder"} Copy` : page.title,
+      folderColor: page.id === folderId ? overrides?.folderColor ?? page.folderColor : page.folderColor,
       parentId:
         page.id === folderId
-          ? page.parentId
+          ? overrides?.parentId ?? page.parentId
           : page.parentId
             ? idMap.get(page.parentId) ?? page.parentId
             : null,
+      createdAt: new Date().toISOString(),
       content: JSON.parse(JSON.stringify(page.content)) as Page["content"],
       canvas: JSON.parse(JSON.stringify(page.canvas)) as CanvasData,
       inlineDatabaseIds: [...(page.inlineDatabaseIds ?? [])],

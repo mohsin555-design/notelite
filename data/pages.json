@@ -1,6 +1,126 @@
 {
   "pages": [
     {
+      "id": "page-b62084d7-11ba-4e72-8f5a-179945cbbe1f",
+      "title": "New",
+      "type": "page",
+      "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
+      "createdAt": "2026-05-12T14:41:41.284Z",
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false
+    },
+    {
+      "id": "page-9a7e9cfc-c981-44cd-8b32-25d658d7b74c",
+      "title": "New page",
+      "type": "page",
+      "parentId": "folder-c1c51051-ad24-4335-91dc-a70ff1fee13c",
+      "content": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
+    },
+    {
+      "id": "folder-c1c51051-ad24-4335-91dc-a70ff1fee13c",
+      "title": "Untitled",
+      "type": "folder",
+      "parentId": "folder-764675e8-a8ae-4e6b-b82e-db0cd2b434d6",
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
+    },
+    {
+      "id": "folder-764675e8-a8ae-4e6b-b82e-db0cd2b434d6",
+      "title": "12 May - 2",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
+    },
+    {
+      "id": "folder-98e50b80-eaa9-461e-a344-195eb6b4c735",
+      "title": "12 May Copy",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
+    },
+    {
+      "id": "folder-c7fc7b74-824a-4396-9e8d-5bbf756f2cd7",
+      "title": "12 May",
+      "type": "folder",
+      "parentId": null,
+      "content": {
+        "type": "doc",
+        "content": []
+      },
+      "canvas": {
+        "elements": [],
+        "appState": {},
+        "files": {}
+      },
+      "inlineDatabaseIds": [],
+      "folderColor": "neutral",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
+    },
+    {
       "id": "page-04523f9f-7e78-4d4b-b62f-75c2cd047ec8",
       "title": "New page",
       "type": "page",
@@ -19,7 +139,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
@@ -37,7 +158,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "blue",
-      "isFavorite": false
+      "isFavorite": true,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-7ee44c3b-6176-4e7d-81e4-d2f4ecfb1979",
@@ -54,8 +176,9 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "folderColor": "neutral",
-      "isFavorite": false
+      "folderColor": "purple",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-1d1b7c92-1772-47e2-9339-bbbcc071cbf8",
@@ -72,8 +195,9 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "folderColor": "neutral",
-      "isFavorite": false
+      "folderColor": "pink",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-742cb117-3dc0-4ef7-b411-0cf6b925f211",
@@ -91,7 +215,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "blue",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-fba3eae1-14d6-4f14-a64f-68334cb73cc2",
@@ -109,7 +234,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-292ff4ef-5c1c-42fe-a0d4-0175d953aad3",
@@ -127,7 +253,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-da1a82a9-0187-4f8c-aaa2-551bdbffe80e",
@@ -145,7 +272,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-e986ed26-3457-4ba3-bbdb-6dc9280f393d",
@@ -163,7 +291,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
@@ -181,7 +310,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": true,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-ab1c4dd8-8f8d-4e10-b0c4-3189d9a97ba8",
@@ -199,13 +329,14 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-a88e5db1-3d3a-4469-963b-6d3141a0df1a",
       "title": "New sub-page",
       "type": "page",
-      "parentId": null,
+      "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
       "content": {
         "type": "doc",
         "content": [
@@ -220,13 +351,14 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": true
+      "isFavorite": true,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-0aba7780-150d-4903-89a1-aaa6cd157bf1",
       "title": "Dribbble",
       "type": "page",
-      "parentId": null,
+      "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
       "content": {
         "type": "doc",
         "content": [
@@ -372,16 +504,6 @@
             ]
           },
           {
-            "type": "image",
-            "attrs": {
-              "src": "https://cdn.dribbble.com/users/5049071/avatars/normal/58237f63651e4bccd84f2036d95e0c3e.png?1759932211",
-              "alt": "Leandro Sosa",
-              "title": null,
-              "width": null,
-              "height": null
-            }
-          },
-          {
             "type": "paragraph",
             "content": [
               {
@@ -452,7 +574,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": true
+      "isFavorite": true,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909",
@@ -618,13 +741,14 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": true
+      "isFavorite": true,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-77885ea3-730a-4700-ac95-34758e0f8b1a",
       "title": "New canvas",
       "type": "page",
-      "parentId": null,
+      "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
       "content": {
         "type": "doc",
         "content": [
@@ -639,7 +763,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-adf1067b-9851-4008-a2c1-79c77a83c4e4",
@@ -660,7 +785,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-c7fea17a-bbfd-438c-9f94-8704d40d2359",
@@ -681,7 +807,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-f7c41135-7756-42ee-962e-f47b9ab5723b",
@@ -699,7 +826,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "green",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-f536b84c-c5bf-4827-9715-258f5e77a3e4",
@@ -1124,7 +1252,8 @@
       "inlineDatabaseIds": [
         "db-74d61ef9-d33a-42f9-8620-f9ba3438dd07"
       ],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-6fcfaa51-6ab1-4517-b034-cf42cdfe010a",
@@ -1142,7 +1271,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "green",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c",
@@ -1176,7 +1306,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-11a10f32-972c-4bce-a59f-d7ae1fdb59a2",
@@ -1204,7 +1335,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-4f94ca5d-cfd1-4b15-804e-b354fc3678d8",
@@ -1244,7 +1376,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-9c320d48-05f8-43d0-b265-804de7c94f02",
@@ -1265,7 +1398,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "folder-f0245dc6-3cf5-4c88-8655-565c893b841c",
@@ -1283,7 +1417,8 @@
       },
       "inlineDatabaseIds": [],
       "folderColor": "amber",
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "task-design",
@@ -1306,7 +1441,8 @@
       "inlineDatabaseIds": [
         "db-47a2293f-be25-4bcf-86e1-275413a4748b"
       ],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "welcome",
@@ -2057,7 +2193,8 @@
         },
         "files": {}
       },
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "page-d3759d52-b88f-4306-a697-696133e3b1f5",
@@ -2778,7 +2915,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "projects",
@@ -2795,8 +2933,9 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "folderColor": "neutral",
-      "isFavorite": false
+      "folderColor": "amber",
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     },
     {
       "id": "task-pwa",
@@ -2817,7 +2956,8 @@
         "files": {}
       },
       "inlineDatabaseIds": [],
-      "isFavorite": false
+      "isFavorite": false,
+      "createdAt": "2026-05-02T16:32:00.000Z"
     }
   ],
   "databases": [
@@ -3199,6 +3339,126 @@
       "initials": "MW",
       "pages": [
         {
+          "id": "page-b62084d7-11ba-4e72-8f5a-179945cbbe1f",
+          "title": "New",
+          "type": "page",
+          "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
+          "createdAt": "2026-05-12T14:41:41.284Z",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false
+        },
+        {
+          "id": "page-9a7e9cfc-c981-44cd-8b32-25d658d7b74c",
+          "title": "New page",
+          "type": "page",
+          "parentId": "folder-c1c51051-ad24-4335-91dc-a70ff1fee13c",
+          "content": {
+            "type": "doc",
+            "content": [
+              {
+                "type": "paragraph"
+              }
+            ]
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
+        },
+        {
+          "id": "folder-c1c51051-ad24-4335-91dc-a70ff1fee13c",
+          "title": "Untitled",
+          "type": "folder",
+          "parentId": "folder-764675e8-a8ae-4e6b-b82e-db0cd2b434d6",
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
+        },
+        {
+          "id": "folder-764675e8-a8ae-4e6b-b82e-db0cd2b434d6",
+          "title": "12 May - 2",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
+        },
+        {
+          "id": "folder-98e50b80-eaa9-461e-a344-195eb6b4c735",
+          "title": "12 May Copy",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
+        },
+        {
+          "id": "folder-c7fc7b74-824a-4396-9e8d-5bbf756f2cd7",
+          "title": "12 May",
+          "type": "folder",
+          "parentId": null,
+          "content": {
+            "type": "doc",
+            "content": []
+          },
+          "canvas": {
+            "elements": [],
+            "appState": {},
+            "files": {}
+          },
+          "inlineDatabaseIds": [],
+          "folderColor": "neutral",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
+        },
+        {
           "id": "page-04523f9f-7e78-4d4b-b62f-75c2cd047ec8",
           "title": "New page",
           "type": "page",
@@ -3217,7 +3477,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-eae6322f-486f-4410-88fe-2f2d57b54b32",
@@ -3235,7 +3496,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "blue",
-          "isFavorite": false
+          "isFavorite": true,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-7ee44c3b-6176-4e7d-81e4-d2f4ecfb1979",
@@ -3252,8 +3514,9 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "folderColor": "neutral",
-          "isFavorite": false
+          "folderColor": "purple",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-1d1b7c92-1772-47e2-9339-bbbcc071cbf8",
@@ -3270,8 +3533,9 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "folderColor": "neutral",
-          "isFavorite": false
+          "folderColor": "pink",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-742cb117-3dc0-4ef7-b411-0cf6b925f211",
@@ -3289,7 +3553,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "blue",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-fba3eae1-14d6-4f14-a64f-68334cb73cc2",
@@ -3307,7 +3572,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-292ff4ef-5c1c-42fe-a0d4-0175d953aad3",
@@ -3325,7 +3591,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-da1a82a9-0187-4f8c-aaa2-551bdbffe80e",
@@ -3343,7 +3610,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-e986ed26-3457-4ba3-bbdb-6dc9280f393d",
@@ -3361,7 +3629,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
@@ -3379,7 +3648,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": true,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-ab1c4dd8-8f8d-4e10-b0c4-3189d9a97ba8",
@@ -3397,13 +3667,14 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-a88e5db1-3d3a-4469-963b-6d3141a0df1a",
           "title": "New sub-page",
           "type": "page",
-          "parentId": null,
+          "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
           "content": {
             "type": "doc",
             "content": [
@@ -3418,13 +3689,14 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": true
+          "isFavorite": true,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-0aba7780-150d-4903-89a1-aaa6cd157bf1",
           "title": "Dribbble",
           "type": "page",
-          "parentId": null,
+          "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
           "content": {
             "type": "doc",
             "content": [
@@ -3570,16 +3842,6 @@
                 ]
               },
               {
-                "type": "image",
-                "attrs": {
-                  "src": "https://cdn.dribbble.com/users/5049071/avatars/normal/58237f63651e4bccd84f2036d95e0c3e.png?1759932211",
-                  "alt": "Leandro Sosa",
-                  "title": null,
-                  "width": null,
-                  "height": null
-                }
-              },
-              {
                 "type": "paragraph",
                 "content": [
                   {
@@ -3650,7 +3912,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": true
+          "isFavorite": true,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-7e54cdb2-76e3-4bd4-a5cb-d6eccdc50909",
@@ -3816,13 +4079,14 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": true
+          "isFavorite": true,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-77885ea3-730a-4700-ac95-34758e0f8b1a",
           "title": "New canvas",
           "type": "page",
-          "parentId": null,
+          "parentId": "folder-ef01816a-1e12-47f1-b752-2c1f31e6f4ec",
           "content": {
             "type": "doc",
             "content": [
@@ -3837,7 +4101,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-adf1067b-9851-4008-a2c1-79c77a83c4e4",
@@ -3858,7 +4123,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-c7fea17a-bbfd-438c-9f94-8704d40d2359",
@@ -3879,7 +4145,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-f7c41135-7756-42ee-962e-f47b9ab5723b",
@@ -3897,7 +4164,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "green",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-f536b84c-c5bf-4827-9715-258f5e77a3e4",
@@ -4322,7 +4590,8 @@
           "inlineDatabaseIds": [
             "db-74d61ef9-d33a-42f9-8620-f9ba3438dd07"
           ],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-6fcfaa51-6ab1-4517-b034-cf42cdfe010a",
@@ -4340,7 +4609,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "green",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-5be18b6b-d3cc-4be9-99e8-c4d6005ac11c",
@@ -4374,7 +4644,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-11a10f32-972c-4bce-a59f-d7ae1fdb59a2",
@@ -4402,7 +4673,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-4f94ca5d-cfd1-4b15-804e-b354fc3678d8",
@@ -4442,7 +4714,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-9c320d48-05f8-43d0-b265-804de7c94f02",
@@ -4463,7 +4736,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "folder-f0245dc6-3cf5-4c88-8655-565c893b841c",
@@ -4481,7 +4755,8 @@
           },
           "inlineDatabaseIds": [],
           "folderColor": "amber",
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "task-design",
@@ -4504,7 +4779,8 @@
           "inlineDatabaseIds": [
             "db-47a2293f-be25-4bcf-86e1-275413a4748b"
           ],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "welcome",
@@ -5255,7 +5531,8 @@
             },
             "files": {}
           },
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "page-d3759d52-b88f-4306-a697-696133e3b1f5",
@@ -5976,7 +6253,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "projects",
@@ -5993,8 +6271,9 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "folderColor": "neutral",
-          "isFavorite": false
+          "folderColor": "amber",
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         },
         {
           "id": "task-pwa",
@@ -6015,7 +6294,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         }
       ],
       "databases": [
@@ -6433,7 +6713,8 @@
             "files": {}
           },
           "inlineDatabaseIds": [],
-          "isFavorite": false
+          "isFavorite": false,
+          "createdAt": "2026-05-02T16:32:00.000Z"
         }
       ],
       "databases": []

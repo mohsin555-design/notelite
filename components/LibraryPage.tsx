@@ -2,19 +2,22 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { type MouseEvent, type ReactNode, useEffect, useMemo, useState } from "react";
+import { type MouseEvent, type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, Grid2X2, LayoutList, MoreHorizontal, Search, Table2 } from "lucide-react";
 
 import { CanvasIcon, FolderListIcon, PageIcon } from "@/components/NoteliteIcons";
 import { NewItemMenu } from "@/components/NewItemMenu";
-import { Button } from "@/components/ui/button";
+import { PageHead } from "@/components/PageHead";
 import { WorkspaceItemContextMenu } from "@/components/FolderContextMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getLibraryCardPreview } from "@/lib/library-card-preview";
 import type { FolderColor } from "@/lib/folder-utils";
 import { getFolderColorOption } from "@/lib/folder-utils";
 import type { Page } from "@/lib/notion-types";
 import { useNotionStore } from "@/lib/notion-store";
+import { sortWorkspaceItems, type WorkspaceSortOption } from "@/lib/workspace-items";
 import { cn } from "@/lib/utils";
+import { isCanvasPage } from "@/lib/workspace-tree";
 
 type LibraryFilter = "all" | "folder" | "pages" | "canvas";
 type LibrarySection = "all" | "recent" | "favorites" | "trash";
@@ -36,11 +39,6 @@ function getPlainText(content: unknown): string {
 
 function childCountFor(pages: Page[], folderId: string) {
   return pages.filter((page) => page.parentId === folderId).length;
-}
-
-function isCanvasPage(page: Page) {
-  const canvas = page.canvas as { elements?: unknown[] } | undefined;
-  return page.type === "page" && (Boolean(canvas?.elements?.length) || page.title.toLowerCase().includes("canvas"));
 }
 
 function parentLabel(pages: Page[], page: Page) {
@@ -157,7 +155,8 @@ function ItemCard({
   onOpenMenu: (itemId: string, x: number, y: number) => void;
 }) {
   const Icon = kind === "canvas" ? CanvasIcon : PageIcon;
-  const body = getPlainText(item.content) || "This would be the text which is in the page";
+  const preview = getLibraryCardPreview(item.content);
+  const body = preview.body;
 
   function openMenuFromButton(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -182,7 +181,7 @@ function ItemCard({
               {item.title || (kind === "canvas" ? "Canvas" : "Untitled")}
               <span className="font-normal text-[#727272]"> - {parentLabel(pages, item)}</span>
             </span>
-            <span className="block truncate text-xs text-[#727272]">{body}</span>
+            <span className="block truncate text-xs text-[#727272]">{body || "No description"}</span>
           </span>
         </Link>
         <button type="button" aria-label={`Open ${item.title || kind} actions`} className="flex size-7 items-center justify-center rounded-md opacity-0 hover:bg-[#eeeeee] group-hover:opacity-100" onClick={openMenuFromButton}>
@@ -200,11 +199,19 @@ function ItemCard({
         onOpenMenu(item.id, event.clientX, event.clientY);
       }}
     >
-      <Link href={`/page/${item.id}`} className="flex min-w-0 flex-1 flex-col justify-end gap-2">
+      <Link
+        href={`/page/${item.id}`}
+        className={cn(
+          "flex min-w-0 flex-1 flex-col gap-2",
+          preview.contentAlignment === "between" ? "justify-between" : "justify-end",
+        )}
+      >
         <Icon className="size-8 text-[#757575]" />
-        <span className="min-w-0">
+        <span className="min-w-0 overflow-hidden">
           <span className="block truncate text-sm font-semibold text-[#1f1f1f]">{item.title || (kind === "canvas" ? "Canvas" : "Untitled")}</span>
-          <span className="line-clamp-3 block text-xs leading-4 text-[#727272]">{body}</span>
+          {preview.hasDescription ? (
+            <span className="line-clamp-3 text-xs leading-4 text-[#727272]">{body}</span>
+          ) : null}
         </span>
       </Link>
       <button type="button" aria-label={`Open ${item.title || kind} actions`} className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-md opacity-0 hover:bg-[#eeeeee] group-hover:opacity-100" onClick={openMenuFromButton}>
@@ -221,6 +228,7 @@ export function LibraryPage() {
   const [filter, setFilter] = useState<LibraryFilter>("all");
   const [section, setSection] = useState<LibrarySection>("all");
   const [view, setView] = useState<LibraryView>("grid");
+  const [sort, setSort] = useState<WorkspaceSortOption>("recent");
   const [query, setQuery] = useState("");
   const [itemMenu, setItemMenu] = useState<ItemMenuState>(null);
   const folders = useMemo(() => pages.filter((page) => page.type === "folder"), [pages]);
@@ -258,21 +266,43 @@ export function LibraryPage() {
   const normalizedQuery = query.trim().toLowerCase();
   const matches = (page: Page) =>
     `${page.title} ${getPlainText(page.content)}`.toLowerCase().includes(normalizedQuery);
-  const visibleFolders = normalizedQuery ? folders.filter(matches) : folders;
-  const visiblePages = normalizedQuery ? pageItems.filter(matches) : pageItems;
-  const visibleCanvases = normalizedQuery ? canvasItems.filter(matches) : canvasItems;
-  const visibleRecentItems = (normalizedQuery ? documentItems.filter(matches) : documentItems);
-  const visibleFavoriteItems = (normalizedQuery ? documentItems.filter(matches) : documentItems).filter((page) => page.isFavorite);
+  const visibleFolders = useMemo(
+    () => sortWorkspaceItems(normalizedQuery ? folders.filter(matches) : folders, sort),
+    [folders, normalizedQuery, sort],
+  );
+  const visiblePages = useMemo(
+    () => sortWorkspaceItems(normalizedQuery ? pageItems.filter(matches) : pageItems, sort),
+    [normalizedQuery, pageItems, sort],
+  );
+  const visibleCanvases = useMemo(
+    () => sortWorkspaceItems(normalizedQuery ? canvasItems.filter(matches) : canvasItems, sort),
+    [canvasItems, normalizedQuery, sort],
+  );
+  const visibleRecentItems = useMemo(
+    () => sortWorkspaceItems(normalizedQuery ? documentItems.filter(matches) : documentItems, sort),
+    [documentItems, normalizedQuery, sort],
+  );
+  const visibleFavoriteItems = useMemo(
+    () => sortWorkspaceItems(
+      (normalizedQuery ? pages.filter(matches) : pages).filter((page) => page.isFavorite),
+      sort,
+    ),
+    [normalizedQuery, pages, sort],
+  );
   const selectedFolder = folders.find((folder) => folder.id === selectedFolderId) ?? folders[0];
-  const selectedFolderPages = pages.filter((page) => selectedFolder && page.parentId === selectedFolder.id && page.type === "page");
+  const selectedFolderPages = sortWorkspaceItems(
+    pages.filter((page) => selectedFolder && page.parentId === selectedFolder.id && page.type === "page"),
+    sort,
+  );
 
   function createAndOpenPage(title: string) {
     const page = createPage(null, title);
     router.push(`/page/${page.id}`);
   }
 
-  function handleCreateFolder(name: string, folderColor: FolderColor) {
-    createFolder(null, name, folderColor);
+  function handleCreateFolder(name: string, folderColor: FolderColor, parentId: string | null) {
+    const folder = createFolder(parentId, name, folderColor);
+    router.push(`/page/${folder.id}`);
   }
 
   function renderItemRow(item: Page) {
@@ -392,35 +422,37 @@ export function LibraryPage() {
   return (
     <ScrollArea className="h-full">
       <div className="min-h-screen bg-white">
-        <header className="border-b border-[#d8d8d8] px-4 pt-4">
-          <div className="grid h-10 grid-cols-[260px_1fr_280px] items-start gap-4">
-            <h1 className="text-2xl font-bold tracking-normal text-[#1f1f1f]">Library</h1>
-            <div className="relative mx-auto w-full max-w-[360px]">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[#727272]" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search in library" className="h-8 w-full rounded-lg border border-[#d0d0d0] bg-white pl-9 pr-3 text-sm outline-none focus:border-[#8e8e93]" />
-            </div>
-            <div className="flex justify-end gap-2">
-              <NewItemMenu onCreateFolder={handleCreateFolder} onCreatePage={() => createAndOpenPage("New page")} onCreateCanvas={() => createAndOpenPage("New canvas")} />
-              <div className="flex h-8 items-center rounded-md border border-[#d8d8d8] bg-white p-0.5">
-                {[
-                  { value: "grid", icon: Grid2X2, label: "Grid" },
-                  { value: "list", icon: LayoutList, label: "List" },
-                  { value: "split", icon: Table2, label: "Split" },
-                ].map((option) => {
-                  const Icon = option.icon;
-                  return (
-                    <button key={option.value} type="button" aria-label={option.label} title={option.label} onClick={() => setView(option.value as LibraryView)} className={cn("flex size-7 items-center justify-center rounded text-[#1f1f1f] hover:bg-[#f2f2f2]", view === option.value && "bg-[#eeeeee]")}>
-                      <Icon className="size-4" />
-                    </button>
-                  );
-                })}
+        <div>
+          <PageHead
+            title="Library"
+            breadcrumbs={[]}
+            breadcrumbCurrentLabel="Library"
+            secondaryActions={
+              <div className="relative hidden w-[260px] sm:block">
+                <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-[#727272]" />
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search in library"
+                  className="h-7 w-full rounded-md border border-[#d9d9d9] bg-white pl-8 pr-2 text-sm outline-none shadow-[inset_0_1px_0_rgba(31,35,40,0.04)] focus:border-[#8e8e93]"
+                />
               </div>
-              <Button type="button" variant="ghost" size="icon-sm" aria-label="More library actions">
-                <MoreHorizontal className="size-4" />
-              </Button>
-            </div>
-          </div>
-          <div className="mt-4 flex h-10 items-center justify-between">
+            }
+            addControl={
+              <NewItemMenu
+                label="Add"
+                align="right"
+                buttonClassName="h-7 rounded-md border border-[#2c2c2c] bg-[#2c2c2c] px-2 text-xs font-semibold text-[#f3f3f3] shadow-[0_1px_0_rgba(31,35,40,0.04)] hover:bg-[#1f1f1f]"
+                onCreateFolder={handleCreateFolder}
+                onCreatePage={() => createAndOpenPage("New page")}
+                onCreateCanvas={() => createAndOpenPage("New canvas")}
+              />
+            }
+            onOpenMore={() => {}}
+          />
+        </div>
+        <header className="border-b border-[#d8d8d8] px-4">
+          <div className="flex h-10 items-center justify-between">
             <nav className="flex items-center gap-6 text-sm">
               {[
                 { value: "all", label: "All", count: pages.length },
@@ -438,10 +470,42 @@ export function LibraryPage() {
                 <CountPill count={visibleFavoriteItems.length} />
               </button>
             </nav>
-            <button type="button" className="flex items-center gap-1 text-sm font-semibold text-[#1f1f1f]">
-              Recent
-              <ChevronDown className="size-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 items-center rounded-md border border-[#d8d8d8] bg-white p-0.5">
+                {[
+                  { value: "grid", icon: Grid2X2, label: "Grid" },
+                  { value: "list", icon: LayoutList, label: "List" },
+                  { value: "split", icon: Table2, label: "Split" },
+                ].map((option) => {
+                  const Icon = option.icon;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      aria-label={option.label}
+                      title={option.label}
+                      onClick={() => setView(option.value as LibraryView)}
+                      className={cn("flex size-7 items-center justify-center rounded text-[#1f1f1f] hover:bg-[#f2f2f2]", view === option.value && "bg-[#eeeeee]")}
+                    >
+                      <Icon className="size-4" />
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="flex items-center gap-1 rounded-md border border-[#d8d8d8] bg-white px-2">
+                <ChevronDown className="size-4 text-[#727272]" />
+                <select
+                  value={sort}
+                  onChange={(event) => setSort(event.target.value as WorkspaceSortOption)}
+                  className="h-8 bg-transparent text-sm font-semibold text-[#1f1f1f] outline-none"
+                >
+                  <option value="recent">Recent</option>
+                  <option value="title-asc">Title A-Z</option>
+                  <option value="title-desc">Title Z-A</option>
+                  <option value="kind">Type</option>
+                </select>
+              </div>
+            </div>
           </div>
         </header>
 

@@ -15,7 +15,7 @@ type NewItemMenuProps = {
   className?: string;
   buttonClassName?: string;
   label?: string;
-  onCreateFolder: (name: string, folderColor: FolderColor) => void;
+  onCreateFolder: (name: string, folderColor: FolderColor, parentId: string | null) => void;
   onCreatePage: () => void;
   onCreateCanvas: () => void;
 };
@@ -85,8 +85,8 @@ export function NewItemMenu({
       <FolderCreationModal
         isOpen={isFolderModalOpen}
         onClose={() => setIsFolderModalOpen(false)}
-        onCreate={(name, folderColor) => {
-          onCreateFolder(name, folderColor);
+        onCreate={(name, folderColor, parentId) => {
+          onCreateFolder(name, folderColor, parentId);
           setIsFolderModalOpen(false);
         }}
       />

@@ -9,31 +9,50 @@ import {
   type FolderColor,
   folderColorOptions,
 } from "@/lib/folder-utils";
+import type { FolderTarget } from "@/lib/workspace-items";
 import { cn } from "@/lib/utils";
 
 type FolderCreationModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onCreate: (name: string, folderColor: FolderColor) => void;
+  title?: string;
+  submitLabel?: string;
+  initialName?: string;
+  initialColor?: FolderColor;
+  folderTargets?: FolderTarget[];
+  initialParentId?: string | null;
+  onCreate: (name: string, folderColor: FolderColor, parentId: string | null) => void;
 };
 
-export function FolderCreationModal({ isOpen, onClose, onCreate }: FolderCreationModalProps) {
+export function FolderCreationModal({
+  isOpen,
+  onClose,
+  title = "New folder",
+  submitLabel = "Create",
+  initialName = DEFAULT_FOLDER_NAME,
+  initialColor = DEFAULT_FOLDER_COLOR,
+  folderTargets = [],
+  initialParentId = null,
+  onCreate,
+}: FolderCreationModalProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [name, setName] = useState(DEFAULT_FOLDER_NAME);
   const [folderColor, setFolderColor] = useState<FolderColor>(DEFAULT_FOLDER_COLOR);
+  const [parentId, setParentId] = useState<string | null>(initialParentId);
 
   useEffect(() => {
     if (!isOpen) {
       return;
     }
 
-    setName(DEFAULT_FOLDER_NAME);
-    setFolderColor(DEFAULT_FOLDER_COLOR);
+    setName(initialName);
+    setFolderColor(initialColor);
+    setParentId(initialParentId);
     window.setTimeout(() => {
       inputRef.current?.focus();
       inputRef.current?.select();
     }, 0);
-  }, [isOpen]);
+  }, [initialColor, initialName, initialParentId, isOpen]);
 
   if (!isOpen) {
     return null;
@@ -48,11 +67,11 @@ export function FolderCreationModal({ isOpen, onClose, onCreate }: FolderCreatio
         className="w-full max-w-[380px] rounded-lg border border-[#e6e6e6] bg-white p-4 text-[#1a1a1a] shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
         onSubmit={(event) => {
           event.preventDefault();
-          onCreate(name.trim() || DEFAULT_FOLDER_NAME, folderColor);
+          onCreate(name.trim() || DEFAULT_FOLDER_NAME, folderColor, parentId);
         }}
       >
         <h2 id="create-folder-title" className="text-base font-semibold">
-          New folder
+          {title}
         </h2>
 
         <label className="mt-4 block text-xs font-medium text-[#727272]" htmlFor="create-folder-name">
@@ -65,6 +84,26 @@ export function FolderCreationModal({ isOpen, onClose, onCreate }: FolderCreatio
           onChange={(event) => setName(event.target.value)}
           className="mt-1 h-9 w-full rounded-lg border border-[#d8d8d8] bg-white px-3 text-sm outline-none focus:border-[#8e8e93] focus:ring-2 focus:ring-[#8e8e93]/20"
         />
+
+        {folderTargets.length ? (
+          <div className="mt-4">
+            <label className="block text-xs font-medium text-[#727272]" htmlFor="create-folder-parent">
+              Target folder
+            </label>
+            <select
+              id="create-folder-parent"
+              value={parentId ?? ""}
+              onChange={(event) => setParentId(event.target.value || null)}
+              className="mt-1 h-9 w-full rounded-lg border border-[#d8d8d8] bg-white px-3 text-sm outline-none focus:border-[#8e8e93] focus:ring-2 focus:ring-[#8e8e93]/20"
+            >
+              {folderTargets.map((target) => (
+                <option key={target.id ?? "root"} value={target.id ?? ""}>
+                  {`${"  ".repeat(target.depth)}${target.title}`}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null}
 
         <div className="mt-4">
           <div className="text-xs font-medium text-[#727272]">Folder color</div>
@@ -96,7 +135,7 @@ export function FolderCreationModal({ isOpen, onClose, onCreate }: FolderCreatio
             Cancel
           </button>
           <button type="submit" className="h-9 rounded-md bg-[#1e1e1e] px-3 text-sm font-medium text-white hover:bg-[#303030]">
-            Create
+            {submitLabel}
           </button>
         </div>
       </form>

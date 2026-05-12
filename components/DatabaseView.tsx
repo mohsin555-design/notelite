@@ -33,6 +33,7 @@ import type {
 } from "@/lib/notion-types";
 import { cn } from "@/lib/utils";
 import { useNotionStore } from "@/lib/notion-store";
+import { getAnchoredPopoverPosition } from "@/lib/popover-position";
 import { useClickOutside } from "@/lib/use-click-outside";
 
 const propertyTypes: DatabasePropertyType[] = [
@@ -142,6 +143,8 @@ export function DatabaseView({
   const addViewMenuRef = useRef<HTMLDivElement | null>(null);
   const addPropertyMenuRef = useRef<HTMLDivElement | null>(null);
   const propertyMenuRef = useRef<HTMLDivElement | null>(null);
+  const databaseMenuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const addViewButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useClickOutside(databaseMenuRef, () => setIsDatabaseMenuOpen(false), isDatabaseMenuOpen);
   useClickOutside(addViewMenuRef, () => setIsAddViewOpen(false), isAddViewOpen);
@@ -164,6 +167,27 @@ export function DatabaseView({
     if (!database || !openRow) return null;
     return database.rows.find((row) => row.id === openRow.id) ?? openRow;
   }, [database, openRow]);
+
+  const databaseMenuPosition =
+    isDatabaseMenuOpen && typeof window !== "undefined" && databaseMenuButtonRef.current
+      ? getAnchoredPopoverPosition(databaseMenuButtonRef.current.getBoundingClientRect(), {
+          width: 288,
+          height: 240,
+          viewportWidth: window.innerWidth,
+          viewportHeight: window.innerHeight,
+        })
+      : null;
+
+  const addViewMenuPosition =
+    isAddViewOpen && typeof window !== "undefined" && addViewButtonRef.current
+      ? getAnchoredPopoverPosition(addViewButtonRef.current.getBoundingClientRect(), {
+          width: 224,
+          height: 220,
+          align: "left",
+          viewportWidth: window.innerWidth,
+          viewportHeight: window.innerHeight,
+        })
+      : null;
 
   if (!database || !activeView) {
     return <div className="text-sm text-muted-foreground">Database not found.</div>;
@@ -326,16 +350,19 @@ export function DatabaseView({
     }
 
     return (
-      <div className="absolute right-0 top-9 z-40 w-72 rounded-lg border bg-popover p-1 text-sm text-popover-foreground shadow-xl">
+      <div
+        className="fixed z-40 w-72 rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+        style={databaseMenuPosition ?? undefined}
+      >
         <button
           type="button"
           onClick={handleDuplicateDatabase}
-          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+          className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
         >
           <Copy className="size-4" />
           Duplicate database
         </button>
-        <label className="block border-t px-3 py-2 text-xs font-medium text-muted-foreground">
+        <label className="mt-1 block border-t px-2 py-2 text-xs font-medium text-[#727272]">
           Move to
         </label>
         <select
@@ -349,7 +376,7 @@ export function DatabaseView({
             }
             setIsDatabaseMenuOpen(false);
           }}
-          className="mb-1 h-9 w-full rounded-md border bg-background px-2 text-sm"
+          className="mb-1 h-9 w-full rounded-md border border-[#d8d8d8] bg-white px-2 text-sm"
         >
           {pages.filter((page) => page.type === "page").map((page) => (
             <option key={page.id} value={page.id}>
@@ -364,7 +391,7 @@ export function DatabaseView({
               onRemoveInline();
               setIsDatabaseMenuOpen(false);
             }}
-            className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left hover:bg-muted"
+            className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left hover:bg-[#f3f4f6]"
           >
             <X className="size-4" />
             Remove from this page
@@ -373,7 +400,7 @@ export function DatabaseView({
         <button
           type="button"
           onClick={handleDeleteDatabase}
-          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-destructive hover:bg-destructive/10"
+          className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left text-destructive hover:bg-destructive/10"
         >
           <Trash2 className="size-4" />
           Delete database
@@ -588,10 +615,11 @@ export function DatabaseView({
             New
           </Button>
           <div ref={databaseMenuRef} className="relative">
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
+          <Button
+            ref={databaseMenuButtonRef}
+            type="button"
+            variant="ghost"
+            size="icon-sm"
               aria-label="Database actions"
               onClick={() => {
                 setIsAddPropertyOpen(false);
@@ -635,6 +663,7 @@ export function DatabaseView({
         })}
         <div ref={addViewMenuRef} className="relative">
           <Button
+            ref={addViewButtonRef}
             type="button"
             variant="ghost"
             size="sm"
@@ -649,7 +678,10 @@ export function DatabaseView({
             New view
           </Button>
           {isAddViewOpen ? (
-            <div className="absolute left-0 top-9 z-30 w-56 rounded-lg border bg-popover p-1 text-sm text-popover-foreground shadow-xl">
+            <div
+              className="fixed z-30 w-56 rounded-xl border border-[#e5e7eb] bg-white p-2 text-sm text-[#1a1a1a] shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+              style={addViewMenuPosition ?? undefined}
+            >
               {(["table", "list", "board", "calendar", "gallery"] as DatabaseViewType[]).map((type) => {
                 const Icon = viewIcons[type];
                 return (
@@ -660,7 +692,7 @@ export function DatabaseView({
                       addDatabaseView(database!.id, type);
                       setIsAddViewOpen(false);
                     }}
-                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left capitalize hover:bg-muted"
+                    className="flex h-9 w-full items-center gap-2 rounded-md px-2 text-left capitalize hover:bg-[#f3f4f6]"
                   >
                     <Icon className="size-4" />
                     {type}
